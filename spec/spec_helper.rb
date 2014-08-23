@@ -2,7 +2,7 @@ ENV['RACK_ENV'] = 'test'
 
 require File.expand_path('../../config/environment', __FILE__)
 
-require 'rack/test'
+require 'pry'
 require 'factory_girl'
 
 Dir[File.expand_path('../support/**/*.rb', __FILE__)].each { |f| require f }

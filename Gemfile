@@ -4,9 +4,9 @@ gem 'rdiscount'
 gem 'json'
 gem 'rack-cache'
 
-group [:development, :test] do
+group :development, :test do
   gem 'rspec'
-  gem 'factory-girl'
+  gem 'factory_girl'
   gem 'pry'
 end
 

@@ -7,15 +7,19 @@ class Blog < Sinatra::Base
   set :root, File.expand_path('../../', __FILE__)
   set :articles, []
   set :app_file, __FILE__
+  set :articles_glob, Dir["#{root}/articles/*.md"]
+  configure(:test) do
+    set :articles_glob, Dir[File.expand_path('./spec/fixtures/articles/*.md')]
+  end
 
-  Dir.glob "#{root}/articles/*.md" do |f|
+  articles_glob.each do |f|
     article = Article.new_from_file(f)
 
     get "/#{article.slug}" do
       etag article.sha1
       last_modified article.mtime
 
-      erb :post, locals: {article: article}
+      erb :post, locals: { article: article }
     end
 
     articles << article
