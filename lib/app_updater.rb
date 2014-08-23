@@ -18,7 +18,7 @@ class AppUpdater < Sinatra::Base
   end
 
   post '/update' do
-    settings.parse_git
+    # settings.parse_git
 
     app.settings.reset!
     load app.settings.app_file
