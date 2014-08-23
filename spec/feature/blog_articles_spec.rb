@@ -16,7 +16,7 @@ describe 'articles', feature: true do
 
   let(:articles) { [article] }
 
-  # TODO: stub articles_glob in here
+  # TODO: stub articles_glob in here, not in blog
 
   describe 'GET /:article_hash' do
     subject { get '/article' }
@@ -28,7 +28,6 @@ describe 'articles', feature: true do
 
     it 'sets etag' do
       subject
-      binding.pry
       expect(last_response.header['ETag']).to eq 'af349a21af611014814f215bc3b60b81521efe33'
     end
 
