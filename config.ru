@@ -1,7 +1,4 @@
-$LOAD_PATH << 'lib'
-
-require 'rack/cache'
-
+require 'config/environment'
 require 'blog'
 
 use Rack::Cache
