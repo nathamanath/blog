@@ -5,6 +5,7 @@ require 'yaml'
 
 $LOAD_PATH.unshift 'lib'
 
+
 require 'app_updater'
 
 class Blog < Sinatra::Base
