@@ -3,9 +3,6 @@ require 'ostruct'
 require 'time'
 require 'yaml'
 
-$LOAD_PATH.unshift 'lib'
-
-
 require 'app_updater'
 
 class Blog < Sinatra::Base
@@ -37,7 +34,5 @@ class Blog < Sinatra::Base
   get '/' do
     erb :index
   end
-
-  run!
 end
 
