@@ -10,7 +10,6 @@ class AppUpdater < Sinatra::Base
   end
 
   set(:autopull) { production? }
-  parse_git
 
   before do
     cache_control :public, :must_revalidate
@@ -19,6 +18,8 @@ class AppUpdater < Sinatra::Base
   end
 
   post '/update' do
+    settings.parse_git
+
     app.settings.reset!
     load app.settings.app_file
 
