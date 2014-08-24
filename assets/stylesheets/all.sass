@@ -1,3 +1,73 @@
+@import 'bourbon/bourbon'
+@import 'neat/neat'
+
+@import url(http://fonts.googleapis.com/css?family=Raleway)
+
+$color-highlight-1: #4F8CB0 // blue
+$color-highlight-2: #C46922 // green
+$color-highlight-3: #90B854 // orange
+
+$color-background: #171D22 // dark blue
+
+$color-text: lighten($color-background, 75%)
+$color-links-on: $color-highlight-2
+
+$em-base: 16px
+
 body
-  background: red
+  background: $color-background
+  color: $color-text
+  font-family: 'Raleway', sans-serif
+  font-size: $em-base
+
+.container
+  @include outer-container
+
+.header
+  padding: golden-ratio($em-base, 3)
+
+.logo
+  margin: auto
+  display: block
+  background: url(/assets/logo.svg)
+  max-width: em(100)
+  width: 100%
+  background-size: 100% 100%
+
+a
+  color: $color-hilight-2
+  text-decoration: none
+  font-weight: bold
+  @include transition(color .3s .2s)
+  &:hover
+    color: $color-highlight-3
+    @include transition(color .2s)
+
+h1
+  font-size: golden-ratio($em-base, 2)
+  &:nth-of-type(3n)
+    color: $color-hilight-1
+    a
+      color: $color-hilight-1
+      &:hover
+        color: $color-hilight-3
+
+  &:nth-of-type(3n+1)
+    color: $color-hilight-2
+    a
+      color: $color-hilight-2
+      &:hover
+        color: $color-hilight-1
+
+  &:nth-of-type(3n+2)
+    color: $color-hilight-3
+    a
+      color: $color-hilight-3
+      &:hover
+        color: $color-hilight-2
+
+.footer
+  padding: golden-ratio($em-base, 2)
+  text-align: center
+  color: $color-hilight-3
 

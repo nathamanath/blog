@@ -12,6 +12,14 @@ class Blog < Sinatra::Base
     set :articles_glob, Dir[File.expand_path('./spec/fixtures/articles/*.md')]
   end
 
+  def link_to_unless_current(text, location)
+    if request.path_info == location
+      text
+    else
+      "<a href=\"#{location}\">#{text}</a>"
+    end
+  end
+
   articles_glob.each do |f|
     article = Article.new_from_file(f)
 
@@ -19,7 +27,7 @@ class Blog < Sinatra::Base
       etag article.sha1
       last_modified article.mtime
 
-      erb :post, locals: { article: article }
+      erb :article, locals: { article: article }
     end
 
     articles << article

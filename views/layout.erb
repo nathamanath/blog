@@ -8,7 +8,17 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container">
+      <header class="header">
+        <%= link_to_unless_current('<img class="logo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">', '/') %>
+      </header>
+
+      <%= yield %>
+
+      <footer class="footer">
+        Nathan Goddard
+      </footer>
+    </div>
 
     <script type="text/javascript" src="/all.js"></script>
   </body>

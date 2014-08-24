@@ -3,6 +3,7 @@ gem 'sinatra'
 gem 'rdiscount'
 gem 'json'
 gem 'rack-cache'
+gem 'slim'
 
 group :development, :test do
   gem 'rspec'
@@ -13,3 +14,4 @@ group :development, :test do
   gem 'neat'
 end
 
+gem 'macaco'

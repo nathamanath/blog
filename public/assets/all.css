@@ -1,4 +1,69 @@
-body {
-  background: red; }
+/*
+Error: Undefined variable: "$color-hilight-2".
+        on line 38 of assets/stylesheets/all.sass
 
-/*# sourceMappingURL=all.css.map */
+33:   max-width: em(100)
+34:   width: 100%
+35:   background-size: 100% 100%
+36: 
+37: a
+38:   color: $color-hilight-2
+39:   text-decoration: none
+40:   font-weight: bold
+41:   @include transition(color .3s .2s)
+42:   &:hover
+43:     color: $color-highlight-3
+
+Backtrace:
+assets/stylesheets/all.sass:38
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/script/tree/variable.rb:49:in `_perform'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/script/tree/node.rb:50:in `perform'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/tree/visitors/perform.rb:378:in `visit_prop'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/tree/visitors/base.rb:36:in `visit'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/tree/visitors/perform.rb:152:in `block in visit'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/stack.rb:79:in `block in with_base'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/stack.rb:115:in `with_frame'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/stack.rb:79:in `with_base'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/tree/visitors/perform.rb:152:in `visit'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/tree/visitors/perform.rb:414:in `block (2 levels) in visit_rule'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/tree/visitors/perform.rb:414:in `map'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/tree/visitors/perform.rb:414:in `block in visit_rule'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/tree/visitors/perform.rb:173:in `with_environment'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/tree/visitors/perform.rb:412:in `visit_rule'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/tree/visitors/base.rb:36:in `visit'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/tree/visitors/perform.rb:152:in `block in visit'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/stack.rb:79:in `block in with_base'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/stack.rb:115:in `with_frame'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/stack.rb:79:in `with_base'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/tree/visitors/perform.rb:152:in `visit'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/tree/visitors/base.rb:52:in `map'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/tree/visitors/perform.rb:161:in `block in visit_children'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/tree/visitors/perform.rb:173:in `with_environment'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/tree/visitors/perform.rb:160:in `visit_children'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/tree/visitors/perform.rb:180:in `visit_root'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/tree/visitors/base.rb:36:in `visit'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/tree/visitors/perform.rb:151:in `visit'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/tree/visitors/perform.rb:8:in `visit'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/tree/root_node.rb:36:in `css_tree'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/tree/root_node.rb:29:in `render_with_sourcemap'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/engine.rb:368:in `_render_with_sourcemap'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/engine.rb:285:in `render_with_sourcemap'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/plugin/compiler.rb:490:in `update_stylesheet'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/plugin/compiler.rb:209:in `each'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/plugin/compiler.rb:470:in `on_file_changed'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sass-3.4.1/lib/sass/plugin/compiler.rb:329:in `block in watch'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/listen-2.7.5/lib/listen/listener.rb:159:in `call'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/listen-2.7.5/lib/listen/listener.rb:159:in `block in _wait_for_changes'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/listen-2.7.5/lib/listen/listener.rb:148:in `loop'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/listen-2.7.5/lib/listen/listener.rb:148:in `_wait_for_changes'
+/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/listen-2.7.5/lib/listen/listener.rb:41:in `block in start'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Undefined variable: \"$color-hilight-2\".\A         on line 38 of assets/stylesheets/all.sass\A \A 33:   max-width: em(100)\A 34:   width: 100%\A 35:   background-size: 100% 100%\A 36: \A 37: a\A 38:   color: $color-hilight-2\A 39:   text-decoration: none\A 40:   font-weight: bold\A 41:   @include transition(color .3s .2s)\A 42:   &:hover\A 43:     color: $color-highlight-3"; }

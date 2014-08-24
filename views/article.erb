@@ -1,0 +1,16 @@
+<article>
+  <header>
+    <h1><%= link_to_unless_current article.title, article.slug %></h1>
+  </header>
+
+  <section class="article-content">
+    <%= markdown article.content %>
+  </section>
+
+  <footer>
+    created at: <time><%= article.date %></time>
+    <br>
+    updated at: <time><%= article.mtime %></time>
+  </footer>
+</article>
+
