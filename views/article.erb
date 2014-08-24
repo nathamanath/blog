@@ -1,6 +1,6 @@
 <article>
   <header>
-    <h1><%= link_to_unless_current article.title, article.slug %></h1>
+    <h1><%= link_to_unless_current article.title, "/#{article.slug}" %></h1>
   </header>
 
   <section class="article-content">
