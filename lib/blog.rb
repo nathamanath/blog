@@ -33,7 +33,7 @@ class Blog < Sinatra::Base
     articles << article
   end
 
-  articles.sort_by! { |a| a.date }
+  articles.sort_by! { |a| a.created_at }
   articles.reverse!
 
   get '/' do

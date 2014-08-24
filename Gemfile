@@ -14,4 +14,3 @@ group :development, :test do
   gem 'neat'
 end
 
-gem 'macaco'

@@ -8,9 +8,9 @@
   </section>
 
   <footer>
-    created at: <time><%= article.date %></time>
+    created at: <time data-time="<%= article.js_created_at %>"><%= article.created_at %></time>
     <br>
-    updated at: <time><%= article.mtime %></time>
+    updated at: <time data-time="<%= article.js_updated_at %>"><%= article.updated_at %></time>
   </footer>
 </article>
 
