@@ -4,7 +4,7 @@ describe Article do
   let(:article) { build :article }
   subject { article }
 
-  %W[created_at content sha1 updated_at title meta].each do |m|
+  %W[created_at content sha1 updated_at title meta published?].each do |m|
     it { is_expected.to respond_to m }
   end
 
@@ -21,6 +21,20 @@ describe Article do
       subject { article.send(js_method) }
 
       it { is_expected.to eq js_time }
+    end
+  end
+
+  describe '.published?' do
+    subject { article.published? }
+
+    context 'created in future' do
+      let(:article) { build :article, created_at: Time.now + 10 }
+      it {is_expected.to be false }
+    end
+
+    context 'created in past' do
+      let(:article) { build :article, created_at: Time.now - 10 }
+      it { is_expected.to be true }
     end
   end
 

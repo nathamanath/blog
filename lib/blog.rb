@@ -23,14 +23,16 @@ class Blog < Sinatra::Base
   articles_glob.each do |f|
     article = Article.new_from_file(f)
 
-    get "/#{article.slug}" do
-      etag article.sha1
-      last_modified article.mtime
+    if article.published?
+      get "/#{article.slug}" do
+        etag article.sha1
+        last_modified article.updated_at
 
-      erb :article, locals: { article: article }
+        erb :article, locals: { article: article }
+      end
+
+      articles << article
     end
-
-    articles << article
   end
 
   articles.sort_by! { |a| a.created_at }

@@ -7,7 +7,8 @@ describe 'articles', feature: true do
 
     article.title = 'title'
     article.slug = 'slug'
-    article.mtime = Time.now
+    article.updated_at = Time.now
+    article.updated_at = Time.now
     article.sha1 = 'hash'
     article.content = 'content'
 
@@ -17,6 +18,20 @@ describe 'articles', feature: true do
   let(:articles) { [article] }
 
   # TODO: stub articles_glob in here, not in blog
+
+  context 'unpublished' do
+    subject { get '/unpublished' }
+
+    it 'doesent get a page' do
+      subject
+      expect(last_response.status).to be 404
+    end
+
+    it 'is not listed on home page' do
+      get '/'
+      expect(last_response.body).to_not match 'unpublished'
+    end
+  end
 
   describe 'GET /:article_hash' do
     subject { get '/article' }

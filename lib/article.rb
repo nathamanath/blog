@@ -27,6 +27,10 @@ class Article
     @js_updated_at ||= date_to_js(updated_at)
   end
 
+  def published?
+    Time.now > created_at
+  end
+
   %W[updated_at created_at].each do |m|
     name = "js_#{m}"
     define_method(name) { eval("@#{name} ||= #{m}.to_i * 1000") }
