@@ -23,6 +23,7 @@ class Blog < Sinatra::Base
   articles_glob.each do |f|
     article = Article.new_from_file(f)
 
+    # FIX: This wont work with no downtime deploy.
     if article.published?
       get "/#{article.slug}" do
         etag article.sha1

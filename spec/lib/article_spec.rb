@@ -4,7 +4,7 @@ describe Article do
   let(:article) { build :article }
   subject { article }
 
-  %W[created_at content sha1 updated_at title meta published?].each do |m|
+  %W[created_at content sha1 updated_at title meta published? preview tldr].each do |m|
     it { is_expected.to respond_to m }
   end
 
@@ -38,6 +38,20 @@ describe Article do
     end
   end
 
+  describe '.preview' do
+    subject { article.preview }
+
+    context 'with tldr' do
+      let(:article) { build :article, tldr: 'hi there' }
+      it{ is_expected.to eq article.tldr }
+    end
+
+    context 'without tldr' do
+      let(:article) {build :article, tldr: nil, content: 'bla'}
+      it{ is_expected.to eq article.content[0..100] + '...'}
+    end
+  end
+
   describe '#new_from_file' do
     let(:file) { File.expand_path('../../fixtures/articles/article.md', __FILE__) }
     subject { Article.new_from_file(file) }
@@ -65,6 +79,8 @@ describe Article do
     it 'assigns meta' do
       expect(subject.meta).to be_an_instance_of Hash
     end
+
+    it 'assigns tldr'
   end
 end
 

@@ -3,7 +3,7 @@ require 'yaml'
 require 'digest/sha1'
 
 class Article
-  attr_accessor :content, :slug, :sha1, :created_at, :updated_at, :title, :meta
+  attr_accessor :content, :slug, :sha1, :created_at, :updated_at, :title, :meta, :tldr
 
   def self.new_from_file(f)
     file = File.read f
@@ -19,6 +19,7 @@ class Article
     article.slug = File.basename(f, '.md')
     article.sha1 = Digest::SHA1.hexdigest file
     article.updated_at = File.mtime(f)
+    article.tldr = article.meta.fetch('tldr', nil)
 
     article
   end
@@ -29,6 +30,10 @@ class Article
 
   def published?
     Time.now > created_at
+  end
+
+  def preview
+    tldr || content[0..100] + '...'
   end
 
   %W[updated_at created_at].each do |m|

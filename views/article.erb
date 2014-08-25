@@ -1,6 +1,6 @@
 <article>
   <header>
-    <h1><%= link_to_unless_current article.title, "/#{article.slug}" %></h1>
+    <h1><%= article.title %></h1>
   </header>
 
   <section class="article-content">
@@ -8,9 +8,9 @@
   </section>
 
   <footer>
-    created at: <time data-time="<%= article.js_created_at %>"><%= article.created_at %></time>
+    created <time data-time="<%= article.js_created_at %>"><%= article.created_at %></time>
     <br>
-    updated at: <time data-time="<%= article.js_updated_at %>"><%= article.updated_at %></time>
+    updated <time data-time="<%= article.js_updated_at %>"><%= article.updated_at %></time>
   </footer>
 </article>
 
