@@ -33,7 +33,7 @@ class Article
   end
 
   def preview
-    tldr || content[0..100] + '...'
+    tldr || content[0..300] + '...'
   end
 
   %W[updated_at created_at].each do |m|

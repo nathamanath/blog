@@ -1,5 +1,5 @@
 title: Hello world...
-tldr: Im nathan, this is my blog
+tldr: Im Nathan, and this is my blog. Its new.
 date: 2014-8-25
 
 Hi I am Nathan Goddard Im 27 yeas old and am a programmer living in Surrey, UK.
@@ -8,7 +8,7 @@ write Ruby on Rails applications. Outside of work I mostly play bass guitar,
 run, brew beer, and hack on my own projects.
 
 I enjoy hacking outside of work, I would not do this for a job if not. And I
-feel that to get / stay good at this you have to do this.
+feel that to get || stay good at this you have to do this.
 
 This blog is going to focus on whatever programming I am currently enjoying.
 

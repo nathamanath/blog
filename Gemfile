@@ -1,9 +1,11 @@
 source 'https://rubygems.org'
+
 gem 'sinatra'
 gem 'rdiscount'
 gem 'json'
 gem 'rack-cache'
 gem 'slim'
+gem 'puma'
 
 group :development, :test do
   gem 'rspec'

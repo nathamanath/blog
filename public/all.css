@@ -25,7 +25,7 @@ body {
 .logo {
   margin: auto;
   display: block;
-  background: url(/assets/logo.svg);
+  background: url(/logo.svg);
   min-width: 6.25em;
   max-width: 12.5em;
   width: 33%;
@@ -40,34 +40,39 @@ a {
   transition: color 0.3s 0.2s; }
   a:hover {
     color: #90B854;
-    -webkit-transition: color 0.2s;
-    -moz-transition: color 0.2s;
-    transition: color 0.2s; }
+    -webkit-transition: color 0.3s;
+    -moz-transition: color 0.3s;
+    transition: color 0.3s; }
 
-h1 {
-  font-size: 41.88678px; }
-  h1:nth-of-type(3n) {
-    color: #4F8CB0; }
-    h1:nth-of-type(3n) a {
-      color: #4F8CB0; }
-      h1:nth-of-type(3n) a:hover {
-        color: #90B854; }
-  h1:nth-of-type(3n+1) {
+h1, h2 {
+  font-size: 41.88678px;
+  color: #C46922; }
+  h1 a, h2 a {
     color: #C46922; }
-    h1:nth-of-type(3n+1) a {
-      color: #C46922; }
-      h1:nth-of-type(3n+1) a:hover {
-        color: #4F8CB0; }
-  h1:nth-of-type(3n+2) {
-    color: #90B854; }
-    h1:nth-of-type(3n+2) a {
+    h1 a:hover, h2 a:hover {
       color: #90B854; }
-      h1:nth-of-type(3n+2) a:hover {
-        color: #C46922; }
+
+article:nth-of-type(3n-1) h2 {
+  color: #90B854; }
+  article:nth-of-type(3n-1) h2 a {
+    color: #90B854; }
+    article:nth-of-type(3n-1) h2 a:hover {
+      color: #4F8CB0; }
+article:nth-of-type(3n) h2 {
+  color: #4F8CB0; }
+  article:nth-of-type(3n) h2 a {
+    color: #4F8CB0; }
+    article:nth-of-type(3n) h2 a:hover {
+      color: #C46922; }
 
 .footer {
   padding: 41.88678px;
   text-align: center;
-  color: #90B854; }
+  color: #C46922; }
+
+.tldr {
+  padding: 25.888px 0; }
+  .tldr h3, .tldr p {
+    display: inline; }
 
 /*# sourceMappingURL=all.css.map */

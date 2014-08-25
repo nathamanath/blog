@@ -3,28 +3,27 @@ date: 2014-8-24
 tldr: 'Time ago in words is a thing to do browser side. Theres is ruby and
 javascript code to achieve this at the bottom.'
 
+OK, so this is my first proper blog article, so please be nice!
+
 So, when putting this blog together I came across the issue of time ago in
-words. When in Rails, active support gives us `time_ago_in_words`. This is
-convenient, and looks great, but now you just made your entire page un-cachable.
+words... again. When in Rails, ActionView::Helpers::DateHelper gives us `time_ago_in_words`.
+This is convenient, and looks great, but using this in a view would make your entire page [un-cachable](https://www.youtube.com/watch?v=07So_lJQyqw)!
 
-This is an issue, now your site is slower and more hungry.
+Whenever possible, to keep things fast I want to avoid re-generating a view, I can
+achieve this here by not generating a new time ago in words string each time someone visits my site.
 
-Whenever possible I want to avoid generating a view, we can achieve this here by
-not generating a new time ago in words string each time someone visits my site.
+So to keep my site fast, and to let everyone know how long ago I did whatever it is
+that I have done, I can do the following...
 
-But I want to say how long ago something was, and cant work it out by my self!
-
-So to keep your site fast, and to let everyone know how long ago you did
-whatever you have done, you can do the following...
-
-* In your view present the date in question,
+* In the view present the date in question as a time stamp,
 * Use javascript to convert this to a time ago in words string.
 
-I want to do as much of the work server side as possible to keep my javascript
-simple.
+## The solution
+
+I want to do as much of the work server side as possible to keep my javascript simple.
 
 A brief play in irb and in the browsers console shows me that the simplest route
-to this is
+to this is as follows:
 
 ```ruby
   # Time to js parsable string
@@ -36,12 +35,10 @@ to this is
 
 ```javascript
   # String to date
-  new Date(time)
+  new Date(time_stamp_string)
 ```
 
-Here is my solution, from this blogs source...
-
-## Starting point
+### Starting point
 
 ```ruby
 
@@ -55,10 +52,13 @@ Here is my solution, from this blogs source...
 
 ```
 
-I test using rspec. I still need .created_at and .updated_at, so I am adding a
-new getter method for each, I will call them js_updated_at, and .js_created_at.
+I am writing a sinatra app (this blog in fact), and am test it using rspec, and factory girl.
+Setting up this environment is another topic for another time.
 
-## 1: a test
+I still need .created_at and .updated_at, so I am adding a new getter method for
+each, I will call them js_updated_at, and .js_created_at.
+
+### 1: a test
 
 ```ruby
   require 'article'
@@ -82,7 +82,7 @@ new getter method for each, I will call them js_updated_at, and .js_created_at.
   end
 ```
 
-## 2: red -> green
+### 2: red -> green
   lib/article.rb
 
   ```ruby
@@ -97,22 +97,22 @@ new getter method for each, I will call them js_updated_at, and .js_created_at.
 
   easy :)
 
-## 3: recfactor and js_updated_at in one
+### 3: recfactor and js_updated_at in one
 
 ok so thats clean, but adding js_updated at could cause some unneeded
 duplication... ill spare you reading what that might look like, and get on to
-the refactoring. A bit of meta programming will deliver us from evil.
+the refactoring. A bit of meta programming will deliver us from evil this time.
 
-first update the test... i want this DRY too!!
+first update the test... I want this to be DRY too!!
 
 ```ruby
   ...
 
-  let(:mock_time) {  }
-  let(:mock_js_time) {  }
+  let(:mock_time) { Time.now }
+  let(:mock_js_time) { mock_time.to_i * 1000 }
 
   %W[updated_at created_at].each do |m|
-    js_method = "js_#{m}" # cause i use it in description
+    js_method = "js_#{m}"
 
     it { is_expected.to respond_to js_method }
 
@@ -127,7 +127,7 @@ first update the test... i want this DRY too!!
   ...
 ```
 
-and to make them green:
+and now to make them pass:
 
 ./lib/article.rb
 ```ruby
@@ -141,23 +141,19 @@ and to make them green:
   ...
 ```
 
-this is evaluated at load time, so will not cause a slowdown at runtime.
+BOOM! This is evaluated at load time, so will not cause a slowdown at runtime.
 
-in the view:
+### 3: the js
+If you are using jquery there is a [plugin for that](http://timeago.yarp.com/])
+but I am not, so after reading through that briefly, heres what I came up with...
 
-```erb
-  <time data-time="<%= article.js_created_at %>"><%= article.created_at %></time>
-```
+[time ago in words js](https://github.com/nathamanath/time-ago-in-words.js)
 
-## 3: the js
-If you are using jquery there is a [http://timeago.yarp.com/](plugin for that)
-but Im not, so after reading through that, heres what I came up with...
+The aim here is to make a re-usable js class with no external dependencies. This
+article is getting long, so I will go through my time ago in words js solution  another time.
 
-The aim here is to make a re-usable js class with no external dependencies.
+So, its rather easy to avoid a silly performance hit here. The js was a bit of a
+faff, but its there ready to use next time now.
 
-https://github.com/nathamanath/time-ago-in-words.js
-
-So, its a little bit of a faff the first time round, but this is all easily re
-usable. So now we can tell people how long ago something was and have cachable
-pages which is great!
+And now we can all tell people how long ago something was and have cachable pages too. Acceptable.
 

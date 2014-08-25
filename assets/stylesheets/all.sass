@@ -29,7 +29,7 @@ body
 .logo
   margin: auto
   display: block
-  background: url(/assets/logo.svg)
+  background: url(/logo.svg)
   min-width: em(100)
   max-width: em(200)
   width: 33%
@@ -42,33 +42,44 @@ a
   @include transition(color .3s .2s)
   &:hover
     color: $color-highlight-3
-    @include transition(color .2s)
+    @include transition(color .3s)
 
 h1
   font-size: golden-ratio($em-base, 2)
-  &:nth-of-type(3n)
-    color: $color-highlight-1
-    a
-      color: $color-highlight-1
-      &:hover
-        color: $color-highlight-3
-
-  &:nth-of-type(3n+1)
+  color: $color-highlight-2
+  a
     color: $color-highlight-2
-    a
-      color: $color-highlight-2
-      &:hover
-        color: $color-highlight-1
-
-  &:nth-of-type(3n+2)
-    color: $color-highlight-3
-    a
+    &:hover
       color: $color-highlight-3
-      &:hover
-        color: $color-highlight-2
+
+h2
+  @extend h1
+
+article
+  &:nth-of-type(3n-1)
+    h2
+      color: $color-highlight-3
+      a
+        color: $color-highlight-3
+        &:hover
+          color: $color-highlight-1
+
+  &:nth-of-type(3n)
+    h2
+      color: $color-highlight-1
+      a
+        color: $color-highlight-1
+        &:hover
+          color: $color-highlight-2
 
 .footer
   padding: golden-ratio($em-base, 2)
   text-align: center
-  color: $color-highlight-3
+  color: $color-highlight-2
+
+.tldr
+  padding: golden-ratio($em-base, 1) 0
+
+  h3, p
+    display: inline
 
