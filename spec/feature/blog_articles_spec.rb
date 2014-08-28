@@ -20,22 +20,8 @@ describe 'articles', feature: true do
   # TODO: stub articles_glob in here, not in blog
 
   describe 'GET /' do
-    it 'sets etag based on published articles'
-    it 'sets updated at based on latest article'
-  end
-
-  context 'unpublished' do
-    subject { get '/unpublished' }
-
-    it 'doesent get a page' do
-      subject
-      expect(last_response.status).to be 404
-    end
-
-    it 'is not listed on home page' do
-      get '/'
-      expect(last_response.body).to_not match 'unpublished'
-    end
+    it 'sets etag based on git'
+    it 'sets updated at based git'
   end
 
   describe 'GET /:article_hash' do

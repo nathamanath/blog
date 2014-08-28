@@ -24,20 +24,6 @@ describe Article do
     end
   end
 
-  describe '.published?' do
-    subject { article.published? }
-
-    context 'created in future' do
-      let(:article) { build :article, created_at: Time.now + 10 }
-      it {is_expected.to be false }
-    end
-
-    context 'created in past' do
-      let(:article) { build :article, created_at: Time.now - 10 }
-      it { is_expected.to be true }
-    end
-  end
-
   describe '.preview' do
     subject { article.preview }
 
