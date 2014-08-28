@@ -8,6 +8,8 @@ class Blog < Sinatra::Base
   set :articles, []
   set :app_file, __FILE__
   set :articles_glob, Dir["#{root}/articles/*.md"]
+
+  # TODO: This shouldnt need to be here.
   configure(:test) do
     set :articles_glob, Dir[File.expand_path('./spec/fixtures/articles/*.md')]
   end
@@ -23,21 +25,17 @@ class Blog < Sinatra::Base
   articles_glob.each do |f|
     article = Article.new_from_file(f)
 
-    # FIX: This wont work with no downtime deploy.
-    if article.published?
-      get "/#{article.slug}" do
-        etag article.sha1
-        last_modified article.updated_at
+    get "/#{article.slug}" do
+      etag article.sha1
+      last_modified article.updated_at
 
-        erb :article, locals: { article: article }
-      end
-
-      articles << article
+      erb :article, locals: { article: article }
     end
+
+    articles << article
   end
 
-  articles.sort_by! { |a| a.created_at }
-  articles.reverse!
+  Article.sort!(articles)
 
   get '/' do
     erb :index

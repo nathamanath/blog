@@ -5,35 +5,38 @@ require 'digest/sha1'
 class Article
   attr_accessor :content, :slug, :sha1, :created_at, :updated_at, :title, :meta, :tldr
 
-  def self.new_from_file(f)
-    file = File.read f
+  class << self
+    def sort!(articles)
+      articles.sort_by! { |a| a.created_at }
+      articles.reverse!
+    end
 
-    meta, content = file.split("\n\n", 2)
+    def new_from_file(f)
+      file = File.read f
 
-    article = Article.new
+      meta, content = file.split("\n\n", 2)
 
-    article.meta = YAML.load(meta)
-    article.created_at = Time.parse(article.meta['date'].to_s)
-    article.title = article.meta['title']
-    article.content = content
-    article.slug = File.basename(f, '.md')
-    article.sha1 = Digest::SHA1.hexdigest file
-    article.updated_at = File.mtime(f)
-    article.tldr = article.meta.fetch('tldr', nil)
+      article = Article.new
 
-    article
+      article.meta = YAML.load(meta)
+      article.created_at = Time.parse(article.meta['date'].to_s)
+      article.title = article.meta['title']
+      article.content = content
+      article.slug = File.basename(f, '.md')
+      article.sha1 = Digest::SHA1.hexdigest file
+      article.updated_at = File.mtime(f)
+      article.tldr = article.meta.fetch('tldr', nil)
+
+      article
+    end
   end
 
   def js_updated_at
     @js_updated_at ||= date_to_js(updated_at)
   end
 
-  def published?
-    Time.now > created_at
-  end
-
   def preview
-    tldr || content[0..300] + '...'
+    @preview ||= tldr || content[0..300] + '...'
   end
 
   %W[updated_at created_at].each do |m|

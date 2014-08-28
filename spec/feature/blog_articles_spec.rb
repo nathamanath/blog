@@ -19,6 +19,11 @@ describe 'articles', feature: true do
 
   # TODO: stub articles_glob in here, not in blog
 
+  describe 'GET /' do
+    it 'sets etag based on published articles'
+    it 'sets updated at based on latest article'
+  end
+
   context 'unpublished' do
     subject { get '/unpublished' }
 
