@@ -18,17 +18,19 @@ RUN gem install bundler
 # Install nginx + setup
 RUN apt-get install -yqq nginx
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-# configure nginx
+ADD ./config/sites-enabled/default /etc/nginx/sites-enabled/default
 
-VOLUME ./ /app
+# TODO: change this to git clone
+ADD . /app
 WORKDIR /app
+RUN mkdir -p /app/tmp/sockets
 
-RUN bundle install -j8 --deployment
+RUN bundle install -j8 --deployment --without development test
 
 # configure puma and start
 
-# start app
-RUN bundle exec rackup config.ru
+# start app as daemon
+RUN bundle exec puma -d -e production -b unix:///app/tmp/sockets/blog.sock
 
 EXPOSE 80
 
