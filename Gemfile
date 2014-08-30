@@ -14,5 +14,8 @@ group :development, :test do
   gem 'sass'
   gem 'bourbon'
   gem 'neat'
+  gem 'jshintrb'
+  gem 'uglifier'
+  gem 'listen'
 end
 

@@ -1,0 +1,19 @@
+doctype html
+
+html
+  head
+    title Nathans blog
+
+    link rel="stylesheet" media="screen" href="/assets/all.min.css"
+
+  body
+    .container
+      header.header
+        == link_to_unless_current('<img class="logo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">', '/')
+
+      == yield
+
+      footer.footer Nathan Goddard
+
+    script type="text/javascript" src="/assets/all.min.js"
+

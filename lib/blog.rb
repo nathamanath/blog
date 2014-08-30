@@ -29,7 +29,7 @@ class Blog < Sinatra::Base
       etag article.sha1
       last_modified article.updated_at
 
-      erb :article, locals: { article: article }
+      slim :article, locals: { article: article }
     end
 
     articles << article
@@ -38,7 +38,7 @@ class Blog < Sinatra::Base
   Article.sort!(articles)
 
   get '/' do
-    erb :index
+    slim :index
   end
 end
 
