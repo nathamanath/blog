@@ -35,7 +35,7 @@ task :css do
 end
 
 task :minify do
-  puts 'Minifying...'
+  puts 'Minifying js...'
 
   js = File.read("#{DIST_DIR}/all.js")
   ugly = Uglifier.compile(js)

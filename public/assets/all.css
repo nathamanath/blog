@@ -25,7 +25,7 @@ body {
 .logo {
   margin: auto;
   display: block;
-  background: url(/logo.svg);
+  background: url(/assets/logo.svg);
   min-width: 6.25em;
   max-width: 12.5em;
   width: 33%;

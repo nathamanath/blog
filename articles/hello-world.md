@@ -3,9 +3,9 @@ tldr: Im Nathan, and this is my blog. Its new.
 date: 2014-8-25
 
 Hi I am Nathan Goddard Im 27 yeas old and am a programmer living in Surrey, UK.
-I currently work at [Monochrome ltd](http://monochrome.co.uk), where I mainly
-write Ruby on Rails applications. Outside of work I mostly play bass guitar,
-run, brew beer, and hack on my own projects.
+I currently work at a near by web development agency, where I mainly write Ruby on
+Rails applications for clients ranging from startups to corporates.
+Outside of work I mostly play bass guitar, run, brew beer, and hack on my own projects.
 
 So why start a blog? Because I enjoy coding, am constantly learning, and I want to keep
 learning fast. So by publishing what I have learned, I will then have to make
