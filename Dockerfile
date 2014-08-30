@@ -20,6 +20,9 @@ ADD . /app
 WORKDIR /app
 RUN mkdir -p /app/tmp/sockets
 
+RUN gem install bundler
+RUN bundle install -j8 --deployment --binstubs --without development test
+
 EXPOSE 80
 
 ENTRYPOINT ./bin/startup.sh

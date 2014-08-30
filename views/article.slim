@@ -11,13 +11,13 @@ article
         h3 tldr...
         p= article.tldr
 
-    | created
+    = "created "
     time data-time=article.js_created_at
       = article.created_at
 
     br
 
-    | updated
+    = "updated "
     time data-time=article.js_updated_at
       = article.updated_at
 
