@@ -1,25 +1,21 @@
 require 'app_updater'
 require 'article'
+require 'helpers'
 
 class Blog < Sinatra::Base
+  include Helpers
+
   use AppUpdater
 
   set :root, File.expand_path('../../', __FILE__)
   set :articles, []
   set :app_file, __FILE__
   set :articles_glob, Dir["#{root}/articles/*.md"]
+  set :title, 'Nathans blog'
 
   # TODO: This shouldnt need to be here.
   configure(:test) do
     set :articles_glob, Dir[File.expand_path('./spec/fixtures/articles/*.md')]
-  end
-
-  def link_to_unless_current(text, location)
-    if request.path_info == location
-      text
-    else
-      "<a href=\"#{location}\">#{text}</a>"
-    end
   end
 
   articles_glob.each do |f|
@@ -28,6 +24,8 @@ class Blog < Sinatra::Base
     get "/#{article.slug}" do
       etag article.sha1
       last_modified article.updated_at
+
+      @title = article.title
 
       slim :article, locals: { article: article }
     end
