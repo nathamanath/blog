@@ -3,23 +3,23 @@ require 'uglifier'
 require 'jshintrb/jshinttask'
 require 'listen'
 
-SOURCE_DIR = './assets'
+SRC_DIR = './assets'
 DIST_DIR = './public/assets'
-JS_DIR = "#{SOURCE_DIR}/javascripts"
-SASS_DIR = "#{SOURCE_DIR}/stylesheets"
+JS_DIR = "#{SRC_DIR}/javascripts"
+SASS_DIR = "#{SRC_DIR}/stylesheets"
 
-task build: [:css, :js, :minify]
+task build: [:css, :js]
 
 task :start do
-  `bundle exec rackup`
+  `bundle exec puma -e development`
 end
 
 task :watch do
-  puts "|  Watching #{SOURCE_DIR} for changes."
+  puts "|  Watching #{SRC_DIR} for changes."
   puts '|  Hit `ctrl + c` to stop'
 
-  listener = Listen.to SOURCE_DIR do
-    puts '|  Something changed...'
+  listener = Listen.to SRC_DIR do
+    puts '| Something changed'
     sh 'rake build'
   end
 

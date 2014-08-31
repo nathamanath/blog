@@ -8,6 +8,18 @@ server {
 
   server_name localhost;
 
+  # Dont even ask ruby for static assets
+  location /assets/ {
+    gzip_static on;
+    gzip_vary on;
+    gzip_disable msie6;
+    gzip_comp_level 6;
+    gzip_types application/x-javascript text/css text/html image/x-icon image/png image/jpeg image/gif;
+    expires 4w;
+    add_header Cache-Control public;
+    root /app/public;
+  }
+
   location / {
     proxy_pass http://localhost;
     proxy_set_header Host $host;

@@ -13,29 +13,39 @@ class Blog < Sinatra::Base
   set :article_files, Dir["#{root}/articles/*.md"]
   set :title, 'Nathans blog'
 
-  #TODO: put this in test
-  configure(:test) do
-    set :article_files, Dir[File.expand_path './spec/fixtures/articles/*.md']
-  end
+  # require 'logger'
+  #
+  # enable :logging
+  #
+  # before do
+  #   log_file = "#{settings.root}/log/#{settings.environment}.log"
+  #   logger ||= Logger.new(log_file, 10, 102400)
+  #   logger.level = Logger::INFO
+  # end
 
-  article_files.each do |f|
-    article = Article.new_from_file(f)
+  def self.article_pages
+    article_files.each do |f|
+      article = Article.new_from_file(f)
 
-    get "/#{article.slug}" do
-      etag article.sha1
-      last_modified article.updated_at
+      get "/#{article.slug}" do
+        etag article.sha1
+        last_modified article.updated_at
 
-      @title = article.title
+        @title = article.title
 
-      slim :article, locals: { article: article }
+        slim :article, locals: { article: article }
+      end
+
+      articles << article
     end
-
-    articles << article
   end
+
+  self.article_pages unless test?
 
   Article.sort!(articles)
 
   get '/' do
+    logger.debug 'hi'
     slim :index
   end
 end
