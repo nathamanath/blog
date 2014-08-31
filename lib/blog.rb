@@ -10,15 +10,15 @@ class Blog < Sinatra::Base
   set :root, File.expand_path('../../', __FILE__)
   set :articles, []
   set :app_file, __FILE__
-  set :articles_glob, Dir["#{root}/articles/*.md"]
+  set :article_files, Dir["#{root}/articles/*.md"]
   set :title, 'Nathans blog'
 
-  # TODO: This shouldnt need to be here.
+  #TODO: put this in test
   configure(:test) do
-    set :articles_glob, Dir[File.expand_path('./spec/fixtures/articles/*.md')]
+    set :article_files, Dir[File.expand_path './spec/fixtures/articles/*.md']
   end
 
-  articles_glob.each do |f|
+  article_files.each do |f|
     article = Article.new_from_file(f)
 
     get "/#{article.slug}" do
