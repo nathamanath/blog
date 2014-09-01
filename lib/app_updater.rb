@@ -13,7 +13,7 @@ class AppUpdater < Sinatra::Base
   parse_git
 
   before do
-    cache_control :public, :must_revalidate
+    cache_control :public, :must_revalidate, expires: 60*30
     etag settings.commit_hash
     last_modified settings.commit_date
   end

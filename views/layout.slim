@@ -4,12 +4,13 @@ html
   head
     title= page_title
 
+    link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Raleway"
     link rel="stylesheet" media="screen" href="/assets/all.min.css"
 
   body
     .container
       header.header
-        == link_to_unless_current('<img class="logo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">', '/')
+        == link_to_unless_current('<img class="logo" alt="Nathans blog" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">', '/')
 
       == yield
 

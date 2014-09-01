@@ -1,8 +1,6 @@
 @import 'bourbon/bourbon'
 @import 'neat/neat'
 
-@import url(http://fonts.googleapis.com/css?family=Raleway)
-
 $color-highlight-1: #4F8CB0 // blue
 $color-highlight-2: #C46922 // green
 $color-highlight-3: #90B854 // orange
@@ -17,14 +15,18 @@ $em-base: 16px
 body
   background: $color-background
   color: $color-text
-  font-family: 'Raleway', sans-serif
   font-size: $em-base
+
+body,
+h1,
+h2,
+  font-family: 'Raleway', sans-serif
 
 .container
   @include outer-container
 
 .header
-  padding: golden-ratio($em-base, 3)
+  padding: em(golden-ratio($em-base, 3))
 
 .logo
   margin: auto
@@ -45,7 +47,7 @@ a
     @include transition(color .3s)
 
 h1
-  font-size: golden-ratio($em-base, 2)
+  font-size: em(golden-ratio($em-base, 2))
   color: $color-highlight-2
   a
     color: $color-highlight-2
@@ -73,12 +75,12 @@ article
           color: $color-highlight-2
 
 .footer
-  padding: golden-ratio($em-base, 2)
+  padding: em(golden-ratio($em-base, 2))
   text-align: center
   color: $color-highlight-2
 
 .tldr
-  padding: golden-ratio($em-base, 1) 0
+  padding: em(golden-ratio($em-base, 1)) 0
 
   h3, p
     display: inline

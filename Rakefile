@@ -29,7 +29,6 @@ end
 
 task :css do
   puts 'Compiling sass...'
-  `sass #{SASS_DIR}/all.sass #{DIST_DIR}/all.css`
   `sass #{SASS_DIR}/all.sass #{DIST_DIR}/all.min.css --style compressed`
   puts 'Done.'
 end
@@ -79,7 +78,7 @@ Jshintrb::JshintTask.new :jshint do |t|
     unused: true,
     maxparams: 4,
     maxdepth: 3,
-    maxstatements: 5,
+    maxstatements: 10,
     maxlen: 80
   }
 end
