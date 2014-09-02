@@ -1,23 +1,20 @@
 article
   header
-    h1= article.title
+    h1 = article.title
 
-  section.article-content
-    == markdown article.content
+  section.article-content == markdown article.content
 
   footer
     - if article.tldr
       section.tldr
-        h3 tldr...
-        p= article.tldr
+        h3 tl;dr...
+        p = article.tldr
 
-    = "created "
-    time data-time=article.js_created_at
-      = article.created_at
+    = "Created "
+    time data-time=article.js_created_at = article.created_at
 
     br
 
-    = "updated "
-    time data-time=article.js_updated_at
-      = article.updated_at
+    = "Updated "
+    time data-time=article.js_updated_at = article.updated_at
 
