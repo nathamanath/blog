@@ -1,3 +1,5 @@
+require 'logger'
+
 class AppLogger < Sinatra::Base
   Logger.class_eval { alias :write :'<<' }
 
@@ -8,10 +10,6 @@ class AppLogger < Sinatra::Base
   logger.level = Logger::DEBUG
 
   before { env["rack.errors"] = log_file }
-
-  configure :development, :test do
-    logger.level = Logger::DEBUG
-  end
 
   configure :production, :staging do
     logger.level = Logger::WARN
