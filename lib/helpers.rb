@@ -8,8 +8,12 @@ module Helpers
   end
 
   def page_title
-    title = settings.title
-    (@title) ? "#{@title} | #{title}" : title
+    (@title) ? "#{@title} | #{base_title}" : base_title
+  end
+
+private
+  def base_title
+    settings.title
   end
 end
 
