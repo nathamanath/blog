@@ -1,14 +1,12 @@
+require 'helpers'
 require 'app_updater'
 require 'article'
-require 'helpers'
-require 'logger'
 
 class Blog < Sinatra::Base
   include Helpers
 
   use AppUpdater
 
-  # TODO: extract to sinatra extension
   root = File.expand_path('../../', __FILE__)
   articles_dir = root
   articles_dir += (test?) ? "/spec/fixtures/articles" : "/articles"
@@ -21,10 +19,12 @@ class Blog < Sinatra::Base
 
   enable :cache
 
+  # OPTIMIZE: Extract loggong to sinatra extension
+  Logger.class_eval { alias :write :'<<' }
+
   log_file = File.new("#{settings.root}/log/#{settings.environment}.log", "a+")
   log_file.sync = true
 
-  Logger.class_eval { alias :write :'<<' }
   logger = Logger.new(log_file, 10, 1024000)
   logger.level = Logger::DEBUG
 
@@ -65,7 +65,7 @@ class Blog < Sinatra::Base
   Article.sort!(articles)
 
   get '/' do
-    slm :index
+    slim :index
   end
 end
 
