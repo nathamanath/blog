@@ -7,10 +7,13 @@ class Blog < Sinatra::Base
 
   use AppUpdater
 
-  set :root, File.expand_path('../../', __FILE__)
+  root = File.expand_path('../../', __FILE__)
+  article_dir = (test?) ? "#{root}/spec/fixtures/articles" : "#{root}/articles"
+
+  set :root, root
   set :articles, []
   set :app_file, __FILE__
-  set :article_files, Dir["#{root}/articles/*.md"]
+  set :article_files, Dir["#{article_dir}/*.md"]
   set :title, 'Nathans blog'
 
   # require 'logger'
@@ -40,12 +43,11 @@ class Blog < Sinatra::Base
     end
   end
 
-  self.article_pages unless test?
+  self.article_pages
 
   Article.sort!(articles)
 
   get '/' do
-    logger.debug 'hi'
     slim :index
   end
 end
