@@ -8,6 +8,7 @@ gem 'slim'
 gem 'puma'
 gem 'dalli'
 gem 'kgio' # Speeds up dalli 20-30%
+gem 'sinatra-asset-pipeline'
 
 group :development, :test do
   gem 'rspec'

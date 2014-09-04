@@ -26,24 +26,20 @@ class Blog < Sinatra::Base
     disable :cache
   end
 
-  def self.article_pages
-    article_files.each do |f|
-      article = Article.new_from_file(f)
+  article_files.each do |f|
+    article = Article.new_from_file(f)
 
-      get "/#{article.slug}" do
-        etag article.sha1
-        last_modified article.updated_at
+    get "/#{article.slug}" do
+      etag article.sha1
+      last_modified article.updated_at
 
-        @title = article.title
+      @title = article.title
 
-        slim :article, locals: { article: article }
-      end
-
-      articles << article
+      slim :article, locals: { article: article }
     end
-  end
 
-  self.article_pages
+    articles << article
+  end
 
   Article.sort!(articles)
 
