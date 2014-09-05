@@ -1,0 +1,381 @@
+127.0.0.1 - - [03/Sep/2014 11:17:22] "GET /hello-world HTTP/1.1" 200 1903 0.0426
+127.0.0.1 - - [03/Sep/2014 11:47:02] "GET /hello-world HTTP/1.1" 304 - 0.0057
+127.0.0.1 - - [03/Sep/2014 11:48:13] "GET /hello-world HTTP/1.1" 200 1903 0.0428
+D, [2014-09-03T11:48:51.124998 #16088] DEBUG -- : test yall
+127.0.0.1 - - [03/Sep/2014 11:48:51] "GET / HTTP/1.1" 200 703 0.0357
+127.0.0.1 - - [03/Sep/2014 11:48:51] "GET /assets/all.min.css HTTP/1.1" 200 1198 0.0012
+127.0.0.1 - - [03/Sep/2014 11:48:51] "GET /assets/logo.svg HTTP/1.1" 200 1227 0.0007
+127.0.0.1 - - [03/Sep/2014 11:48:51] "GET /assets/all.min.js HTTP/1.1" 200 1552 0.0006
+D, [2014-09-03T11:48:51.723679 #16088] DEBUG -- : test yall
+127.0.0.1 - - [03/Sep/2014 11:48:51] "GET / HTTP/1.1" 200 703 0.0115
+127.0.0.1 - - [03/Sep/2014 11:48:51] "GET /assets/all.min.css HTTP/1.1" 200 1198 0.0008
+127.0.0.1 - - [03/Sep/2014 11:48:51] "GET /assets/all.min.js HTTP/1.1" 200 1552 0.0014
+127.0.0.1 - - [03/Sep/2014 11:48:51] "GET /assets/logo.svg HTTP/1.1" 200 1227 0.0009
+127.0.0.1 - - [03/Sep/2014 12:25:05] "GET /hello-world HTTP/1.1" 304 - 0.0050
+127.0.0.1 - - [03/Sep/2014 12:25:06] "GET /hello-world HTTP/1.1" 200 1903 0.0360
+127.0.0.1 - - [03/Sep/2014 12:25:06] "GET /hello-world HTTP/1.1" 304 - 0.0008
+127.0.0.1 - - [03/Sep/2014 12:25:08] "GET /hello-world HTTP/1.1" 200 1903 0.0113
+127.0.0.1 - - [03/Sep/2014 12:25:08] "GET /assets/all.min.css HTTP/1.1" 200 1198 0.0007
+127.0.0.1 - - [03/Sep/2014 12:25:08] "GET /assets/all.min.js HTTP/1.1" 200 1552 0.0010
+127.0.0.1 - - [03/Sep/2014 12:25:08] "GET /assets/logo.svg HTTP/1.1" 200 1227 0.0006
+127.0.0.1 - - [03/Sep/2014 12:25:08] "GET /hello-world HTTP/1.1" 200 1903 0.0107
+127.0.0.1 - - [03/Sep/2014 12:25:08] "GET /assets/all.min.css HTTP/1.1" 200 1198 0.0008
+127.0.0.1 - - [03/Sep/2014 12:25:08] "GET /assets/all.min.js HTTP/1.1" 200 1552 0.0018
+127.0.0.1 - - [03/Sep/2014 12:25:08] "GET /assets/logo.svg HTTP/1.1" 200 1227 0.0008
+NoMethodError - undefined method `slm' for #<Blog:0x007fc9fe0cf560>:
+	/home/nathan/Projects/blog/lib/blog.rb:69:in `block in <class:Blog>'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1603:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1603:in `block in compile!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:966:in `[]'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:966:in `block (3 levels) in route!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:985:in `route_eval'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:966:in `block (2 levels) in route!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1006:in `block in process_route'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1004:in `catch'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1004:in `process_route'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:964:in `block in route!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:963:in `each'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:963:in `route!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1076:in `block in dispatch!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `block in invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `catch'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1073:in `dispatch!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:898:in `block in call!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `block in invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `catch'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:898:in `call!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:886:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/rack_patch.rb:13:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:945:in `forward'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1019:in `route_missing'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:980:in `route!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:976:in `route!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1076:in `block in dispatch!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `block in invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `catch'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1073:in `dispatch!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:898:in `block in call!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `block in invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `catch'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:898:in `call!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:886:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/xss_header.rb:18:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/path_traversal.rb:16:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/json_csrf.rb:18:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/frame_options.rb:31:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/nulllogger.rb:9:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/head.rb:11:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/show_exceptions.rb:21:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:180:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:2014:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/xss_header.rb:18:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/path_traversal.rb:16:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/json_csrf.rb:18:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/frame_options.rb:31:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/nulllogger.rb:9:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/head.rb:11:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/show_exceptions.rb:21:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:180:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:2014:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1478:in `block in call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1788:in `synchronize'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1478:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/lint.rb:49:in `_call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/lint.rb:37:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/showexceptions.rb:24:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/rack_patch.rb:13:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/chunked.rb:43:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/content_length.rb:14:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/server.rb:490:in `handle_request'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/server.rb:361:in `process_client'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/server.rb:254:in `block in run'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/thread_pool.rb:92:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/thread_pool.rb:92:in `block in spawn_thread'
+NoMethodError - undefined method `slm' for #<Blog:0x007fc9fe0cf560>:
+	/home/nathan/Projects/blog/lib/blog.rb:69:in `block in <class:Blog>'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1603:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1603:in `block in compile!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:966:in `[]'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:966:in `block (3 levels) in route!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:985:in `route_eval'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:966:in `block (2 levels) in route!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1006:in `block in process_route'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1004:in `catch'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1004:in `process_route'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:964:in `block in route!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:963:in `each'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:963:in `route!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1076:in `block in dispatch!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `block in invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `catch'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1073:in `dispatch!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:898:in `block in call!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `block in invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `catch'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:898:in `call!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:886:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/rack_patch.rb:13:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:945:in `forward'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1019:in `route_missing'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:980:in `route!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:976:in `route!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1076:in `block in dispatch!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `block in invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `catch'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1073:in `dispatch!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:898:in `block in call!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `block in invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `catch'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:898:in `call!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:886:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/xss_header.rb:18:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/path_traversal.rb:16:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/json_csrf.rb:18:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/frame_options.rb:31:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/nulllogger.rb:9:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/head.rb:11:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/show_exceptions.rb:21:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:180:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:2014:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/xss_header.rb:18:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/path_traversal.rb:16:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/json_csrf.rb:18:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/frame_options.rb:31:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/nulllogger.rb:9:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/head.rb:11:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/show_exceptions.rb:21:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:180:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:2014:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1478:in `block in call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1788:in `synchronize'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1478:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/lint.rb:49:in `_call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/lint.rb:37:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/showexceptions.rb:24:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/rack_patch.rb:13:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/chunked.rb:43:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/content_length.rb:14:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/server.rb:490:in `handle_request'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/server.rb:361:in `process_client'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/server.rb:254:in `block in run'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/thread_pool.rb:92:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/thread_pool.rb:92:in `block in spawn_thread'
+NoMethodError - undefined method `slm' for #<Blog:0x007f728e2a7198>:
+	/home/nathan/Projects/blog/lib/blog.rb:67:in `block in <class:Blog>'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1603:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1603:in `block in compile!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:966:in `[]'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:966:in `block (3 levels) in route!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:985:in `route_eval'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:966:in `block (2 levels) in route!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1006:in `block in process_route'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1004:in `catch'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1004:in `process_route'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:964:in `block in route!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:963:in `each'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:963:in `route!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1076:in `block in dispatch!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `block in invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `catch'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1073:in `dispatch!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:898:in `block in call!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `block in invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `catch'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:898:in `call!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:886:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/rack_patch.rb:13:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:945:in `forward'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1019:in `route_missing'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:980:in `route!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:976:in `route!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1076:in `block in dispatch!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `block in invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `catch'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1073:in `dispatch!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:898:in `block in call!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `block in invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `catch'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:898:in `call!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:886:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/xss_header.rb:18:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/path_traversal.rb:16:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/json_csrf.rb:18:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/frame_options.rb:31:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/nulllogger.rb:9:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/head.rb:11:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/show_exceptions.rb:21:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:180:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:2014:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/xss_header.rb:18:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/path_traversal.rb:16:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/json_csrf.rb:18:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/frame_options.rb:31:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/nulllogger.rb:9:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/head.rb:11:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/show_exceptions.rb:21:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:180:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:2014:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1478:in `block in call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1788:in `synchronize'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1478:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/lint.rb:49:in `_call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/lint.rb:37:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/showexceptions.rb:24:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/rack_patch.rb:13:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/chunked.rb:43:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/content_length.rb:14:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/server.rb:490:in `handle_request'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/server.rb:361:in `process_client'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/server.rb:254:in `block in run'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/thread_pool.rb:92:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/thread_pool.rb:92:in `block in spawn_thread'
+NoMethodError - undefined method `slm' for #<Blog:0x007f728e2a7198>:
+	/home/nathan/Projects/blog/lib/blog.rb:67:in `block in <class:Blog>'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1603:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1603:in `block in compile!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:966:in `[]'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:966:in `block (3 levels) in route!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:985:in `route_eval'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:966:in `block (2 levels) in route!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1006:in `block in process_route'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1004:in `catch'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1004:in `process_route'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:964:in `block in route!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:963:in `each'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:963:in `route!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1076:in `block in dispatch!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `block in invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `catch'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1073:in `dispatch!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:898:in `block in call!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `block in invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `catch'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:898:in `call!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:886:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/rack_patch.rb:13:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:945:in `forward'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1019:in `route_missing'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:980:in `route!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:976:in `route!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1076:in `block in dispatch!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `block in invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `catch'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1073:in `dispatch!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:898:in `block in call!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `block in invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `catch'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1058:in `invoke'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:898:in `call!'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:886:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/xss_header.rb:18:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/path_traversal.rb:16:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/json_csrf.rb:18:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/frame_options.rb:31:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/nulllogger.rb:9:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/head.rb:11:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/show_exceptions.rb:21:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:180:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:2014:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/xss_header.rb:18:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/path_traversal.rb:16:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/json_csrf.rb:18:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-protection-1.5.3/lib/rack/protection/frame_options.rb:31:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/nulllogger.rb:9:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/head.rb:11:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/show_exceptions.rb:21:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:180:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:2014:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1478:in `block in call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1788:in `synchronize'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:1478:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/lint.rb:49:in `_call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/lint.rb:37:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/showexceptions.rb:24:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/rack_patch.rb:13:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/chunked.rb:43:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/rack-1.5.2/lib/rack/content_length.rb:14:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/server.rb:490:in `handle_request'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/server.rb:361:in `process_client'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/server.rb:254:in `block in run'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/thread_pool.rb:92:in `call'
+	/home/nathan/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/puma-2.8.1/lib/puma/thread_pool.rb:92:in `block in spawn_thread'
+127.0.0.1 - - [03/Sep/2014 12:46:40] "GET / HTTP/1.1" 200 703 0.0412
+127.0.0.1 - - [03/Sep/2014 12:46:40] "GET /assets/all.min.css HTTP/1.1" 304 - 0.0006
+127.0.0.1 - - [03/Sep/2014 12:46:40] "GET /assets/all.min.js HTTP/1.1" 304 - 0.0007
+127.0.0.1 - - [03/Sep/2014 12:46:40] "GET /assets/logo.svg HTTP/1.1" 304 - 0.0009
+127.0.0.1 - - [03/Sep/2014 12:46:45] "GET /assets/all.min.css HTTP/1.1" 200 1198 0.0008
+127.0.0.1 - - [03/Sep/2014 12:46:45] "GET /assets/all.min.js HTTP/1.1" 200 1552 0.0027
+127.0.0.1 - - [03/Sep/2014 12:46:45] "GET /assets/logo.svg HTTP/1.1" 200 1227 0.0015
+127.0.0.1 - - [03/Sep/2014 12:47:58] "GET / HTTP/1.1" 200 734 0.0255
+127.0.0.1 - - [03/Sep/2014 12:47:58] "GET /assets/all.min.css HTTP/1.1" 200 1198 0.0007
+127.0.0.1 - - [03/Sep/2014 12:47:58] "GET /assets/all.min.js HTTP/1.1" 200 1552 0.0012
+127.0.0.1 - - [03/Sep/2014 12:47:58] "GET /assets/logo.svg HTTP/1.1" 200 1227 0.0008
+127.0.0.1 - - [03/Sep/2014 12:48:05] "GET /hello-world HTTP/1.1" 200 1903 0.0131
+127.0.0.1 - - [03/Sep/2014 12:48:05] "GET /assets/all.min.css HTTP/1.1" 200 1198 0.0008
+127.0.0.1 - - [03/Sep/2014 12:48:05] "GET /assets/logo.svg HTTP/1.1" 200 1227 0.0009
+127.0.0.1 - - [03/Sep/2014 12:48:05] "GET /assets/all.min.js HTTP/1.1" 200 1552 0.0024
+127.0.0.1 - - [03/Sep/2014 12:55:11] "GET /hello-world HTTP/1.1" 304 - 0.0054
+127.0.0.1 - - [03/Sep/2014 12:55:11] "GET /assets/all.min.css HTTP/1.1" 304 - 0.0021
+127.0.0.1 - - [03/Sep/2014 12:55:11] "GET /assets/all.min.js HTTP/1.1" 304 - 0.0009
+127.0.0.1 - - [03/Sep/2014 12:55:11] "GET /assets/logo.svg HTTP/1.1" 304 - 0.0007
+127.0.0.1 - - [03/Sep/2014 12:55:12] "GET /hello-world HTTP/1.1" 200 1903 0.0365
+127.0.0.1 - - [03/Sep/2014 12:55:12] "GET /assets/all.min.css HTTP/1.1" 200 1198 0.0010
+127.0.0.1 - - [03/Sep/2014 12:55:12] "GET /assets/all.min.js HTTP/1.1" 200 1552 0.0033
+127.0.0.1 - - [03/Sep/2014 12:55:12] "GET /assets/logo.svg HTTP/1.1" 200 1227 0.0015
+127.0.0.1 - - [03/Sep/2014 12:55:12] "GET /hello-world HTTP/1.1" 304 - 0.0017
+127.0.0.1 - - [03/Sep/2014 12:55:13] "GET / HTTP/1.1" 200 734 0.0119
+127.0.0.1 - - [03/Sep/2014 12:55:15] "GET / HTTP/1.1" 200 734 0.0117
+127.0.0.1 - - [03/Sep/2014 12:55:15] "GET /assets/all.min.css HTTP/1.1" 200 1198 0.0008
+127.0.0.1 - - [03/Sep/2014 12:55:15] "GET /assets/logo.svg HTTP/1.1" 200 1227 0.0009
+127.0.0.1 - - [03/Sep/2014 12:55:15] "GET /assets/all.min.js HTTP/1.1" 200 1552 0.0011
+127.0.0.1 - - [03/Sep/2014 12:55:15] "GET / HTTP/1.1" 200 734 0.0112
+127.0.0.1 - - [03/Sep/2014 12:55:15] "GET /assets/all.min.css HTTP/1.1" 200 1198 0.0010
+127.0.0.1 - - [03/Sep/2014 12:55:15] "GET /assets/logo.svg HTTP/1.1" 200 1227 0.0008
+127.0.0.1 - - [03/Sep/2014 12:55:15] "GET /assets/all.min.js HTTP/1.1" 200 1552 0.0028
+127.0.0.1 - - [03/Sep/2014 12:55:15] "GET / HTTP/1.1" 200 734 0.0128
+127.0.0.1 - - [03/Sep/2014 12:55:15] "GET /assets/all.min.css HTTP/1.1" 200 1198 0.0009
+127.0.0.1 - - [03/Sep/2014 12:55:15] "GET /assets/all.min.js HTTP/1.1" 200 1552 0.0011
+127.0.0.1 - - [03/Sep/2014 12:55:15] "GET /assets/logo.svg HTTP/1.1" 200 1227 0.0009
+127.0.0.1 - - [03/Sep/2014 12:55:15] "GET / HTTP/1.1" 200 734 0.0109
+127.0.0.1 - - [03/Sep/2014 12:55:15] "GET /assets/all.min.css HTTP/1.1" 200 1198 0.0010
+127.0.0.1 - - [03/Sep/2014 12:55:15] "GET /assets/all.min.js HTTP/1.1" 200 1552 0.0011
+127.0.0.1 - - [03/Sep/2014 12:55:15] "GET /assets/logo.svg HTTP/1.1" 200 1227 0.0010
+127.0.0.1 - - [03/Sep/2014 12:55:15] "GET / HTTP/1.1" 200 734 0.0146
+127.0.0.1 - - [03/Sep/2014 12:55:15] "GET /assets/all.min.css HTTP/1.1" 200 1198 0.0010
+127.0.0.1 - - [03/Sep/2014 12:55:15] "GET /assets/all.min.js HTTP/1.1" 200 1552 0.0009
+127.0.0.1 - - [03/Sep/2014 12:55:15] "GET /assets/logo.svg HTTP/1.1" 200 1227 0.0009
+127.0.0.1 - - [03/Sep/2014 12:55:16] "GET / HTTP/1.1" 200 734 0.0099
+127.0.0.1 - - [03/Sep/2014 12:55:16] "GET /assets/all.min.css HTTP/1.1" 200 1198 0.0009
+127.0.0.1 - - [03/Sep/2014 12:55:16] "GET /assets/all.min.js HTTP/1.1" 200 1552 0.0025
+127.0.0.1 - - [03/Sep/2014 12:55:16] "GET /assets/logo.svg HTTP/1.1" 200 1227 0.0009
