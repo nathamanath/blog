@@ -27,7 +27,8 @@ RUN gem install bundler
 RUN bundle install -j8 --deployment --binstubs --without development test
 
 ADD . /app
-RUN mkdir -p /app/tmp/sockets
+WORKDIR /app
+RUN mkdir -p tmp/sockets
 
 EXPOSE 80
 
