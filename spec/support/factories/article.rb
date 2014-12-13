@@ -5,6 +5,8 @@ FactoryGirl.define do
     title 'title'
     content 'content'
     sha1 'hash'
+    slug 'title'
+    tldr 'lol'
   end
 end
 

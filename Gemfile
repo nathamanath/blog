@@ -20,5 +20,6 @@ group :development, :test do
   gem 'jshintrb'
   gem 'uglifier'
   gem 'listen'
+  gem 'rack-test'
 end
 
