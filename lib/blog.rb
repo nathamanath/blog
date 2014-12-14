@@ -1,13 +1,13 @@
 require 'helpers'
 require 'app_updater'
-require 'app_logger'
+# require 'app_logger'
 require 'article'
 
 class Blog < Sinatra::Base
   include Helpers
 
   use AppUpdater
-  use AppLogger
+  # use AppLogger
 
   root = File.expand_path('../../', __FILE__)
 
