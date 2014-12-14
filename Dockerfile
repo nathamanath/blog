@@ -8,7 +8,7 @@ RUN apt-get install -yqq git-core && apt-get clean
 RUN git clone https://github.com/sstephenson/ruby-build.git && cd ruby-build && ./install.sh
 RUN apt-get install -yqq libssl-dev
 ENV CONFIGURE_OPTS --disable-install-rdoc
-RUN ruby-build 2.1.3 /usr/local
+RUN ruby-build 2.1.5 /usr/local
 RUN rm -r ruby-build
 
 # Memcached
@@ -29,6 +29,8 @@ RUN bundle install -j8 --deployment --binstubs --without development test
 ADD . /app
 WORKDIR /app
 RUN mkdir -p tmp/sockets
+
+RUN RACK_ENV=production bundle exec rake css
 
 EXPOSE 80
 
