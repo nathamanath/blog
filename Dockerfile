@@ -34,5 +34,5 @@ RUN RACK_ENV=production bundle exec rake css
 
 EXPOSE 80
 
-# ENTRYPOINT ./bin/startup.sh
+ENTRYPOINT ./bin/startup.sh
 
