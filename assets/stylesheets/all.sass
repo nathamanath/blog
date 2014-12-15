@@ -12,6 +12,7 @@ $color-links-on: $color-highlight-2
 
 $em-base: 16px
 
+$medium-breakpoint: new-breakpoint(min-width 480px 12)
 $big-breakpoint: new-breakpoint(min-width 768px 12)
 
 body
@@ -28,15 +29,23 @@ h2,
   @include outer-container
 
 .header
-  padding: em(golden-ratio($em-base, 3))
+  padding: em(golden-ratio($em-base, 2))
+  text-align: center
+  @include media($big-breakpoint)
+    padding: em(golden-ratio($em-base, 3))
 
-.logo
-  margin: auto
-  display: block
-  min-width: em(100)
-  max-width: em(200)
-  width: 33%
-  background-size: 100% 100%
+  a, span
+    display: inline-block
+    min-width: em(100)
+    max-width: em(200)
+    width: 33%
+
+
+  .logo
+    margin: auto
+    display: block
+    width: 100%
+    pointer-events: none
 
 a
   color: $color-highlight-2
@@ -49,8 +58,11 @@ a
 
 h1
   text-align: center
-  font-size: em(golden-ratio($em-base, 2))
+  font-size: em(golden-ratio($em-base, 1))
   color: $color-highlight-2
+
+  @include media($medium-breakpoint)
+    font-size: em(golden-ratio($em-base, 2))
 
   @include media($big-breakpoint)
     text-align: left
