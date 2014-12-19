@@ -18,3 +18,5 @@ html
 
     script type="text/javascript" src="/assets/all.min.js"
 
+    == slim(:analytics, layout: false) if ENV['RACK_ENV'] = 'production'
+
