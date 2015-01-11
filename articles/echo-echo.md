@@ -11,13 +11,14 @@ requests in whatever way I like. [Check it out](http://echo.nathansplace.co.uk)
 I have been finding this app rather useful, so I thought I would share.
 
 By default echo will respond successfully with an empty response body, but by
-setting request params as json or url params you can control response status,
+setting request params as json or url params you can control its response status,
 body and headers. There are examples on the apps home page to get you started.
 
 It is a sinatra based app, and when putting it together, I took the chance to
-try out minitest over rspec which is my usual choice when testing ruby apps.
+try out minitest over rspec which is my usual choice when testing ruby.
 I wanted to use minitest as it is a lighter, and should run faster. It was
-interesting trying another solution to the same problem, and worked great.
+interesting trying another solution to the same problem, it worked great, and
+ran impressively fast.
 I will be using rspec again to test my next ruby project, as it is what I am
 used tom and therefore I can write tests quickly and focus on the project I am
 working on. But will defiantly make a point of trying out minitest again soon.
