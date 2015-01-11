@@ -25,7 +25,7 @@ working on. But will defiantly make a point of trying out minitest again soon.
 The other interesting part was setting up cors headers in sinatra which I have
 not needed to do before. This was pleasingly simple to do, and can be seen [on github](https://github.com/nathamanath/echo/blob/master/app.rb)
 
-The source is on [github](https://nathamanath.github.com/echo), and the app
+The source is on [github](https://github.com/nathamanath/echo), and the app
 itself is hosted here: http://echo.nathansplace.co.uk. It comes with a docker
 file so you can easily run your own version locally :)
 
