@@ -1,4 +1,7 @@
-Recently I have been developing a javascript heavy client application whos
+title: Echo... echo
+date: 2015-01-12 12:00
+
+Recently I have been developing a javascript heavy application whos
 purpose is to present data provided by a REST API which does not yet exist.
 
 To help with this and to enable me to demonstrate the app working, I spent a
@@ -9,7 +12,7 @@ I have been finding this app rather useful, so I thought I would share.
 
 By default echo will respond successfully with an empty response body, but by
 setting request params as json or url params you can control response status,
-body and headers. There are examples on the apps home page yo get you started.
+body and headers. There are examples on the apps home page to get you started.
 
 It is a sinatra based app, and when putting it together, I took the chance to
 try out minitest over rspec which is my usual choice when testing ruby apps.
