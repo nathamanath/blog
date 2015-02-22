@@ -22,12 +22,13 @@ ADD ./config/sites-available/default /etc/nginx/sites-available/default
 # Add just Gemfile and bundle to make this cachable
 ADD Gemfile /app/Gemfile
 ADD Gemfile.lock /app/Gemfile.lock
-WORKDIR /app
-RUN gem install bundler
-RUN bundle install -j8 --deployment --binstubs --without development test
 
 ADD . /app
 WORKDIR /app
+
+RUN gem install bundler
+RUN bundle install -j8 --deployment --binstubs --without development test
+
 RUN mkdir -p tmp/sockets
 
 RUN RACK_ENV=production bundle exec rake css
