@@ -42,12 +42,16 @@ module Helpers
       underline: true,
       highlight: true,
       quote: true,
-      footnotes: true,
-      hard_wrap: false
+      footnotes: true
     }
 
     markdown_to_html = Redcarpet::Markdown.new(coderayified, options)
-    markdown_to_html.render(text)
+
+    # coderayified introduces line breaks.
+    # These are needed to make syntax highlighting work.
+    # Appart from that they are not wanted. So kill them all!
+    markdown_to_html.render(text).gsub '<br>', ''
+
   end
 
 private

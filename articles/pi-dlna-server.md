@@ -1,6 +1,6 @@
 title: Raspberry pi dlna server
 date: 2015-05-02 21:00
-tldr: Making a raspberry pi and a usb hard drive into a DLNA streaming media server.
+tldr: Making a raspberry pi into a DLNA streaming media server.
 
 At home both my lovely fiancée and I play music on our phones, laptop, and hifi.
 We also both also videos on the tv, phones, and laptops. Until recently this meant having
@@ -33,12 +33,15 @@ So I ordered a powered usb hub, and tried again later.
 
 Later...
 
-To get the storage device set up I need to locate it:
+I do not want to manually mount this drive each time i restart the pi.
+The way to sort this out is to edit the file system table. But first I need the
+location, UUID and format type of my hard drive:
 
 ```bash
 lsblk
 ```
-returns:
+
+Which returns:
 
 ```bash
 NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
@@ -49,21 +52,19 @@ mmcblk0     179:0    0   7.4G  0 disk
 └─mmcblk0p2 179:2    0   7.4G  0 part /
 ```
 
-I do not want to manually mount this drive each time i restart the pi.
-The way to sort this out is to edit the file system table. But first I need the
-UUID and format type of my hard drive:
+Then:
 
 ```bash
 sudo blkid /dev/sda1
 ```
 
-returns:
+Which returns:
 
 ```bash
 /dev/sda1: UUID="8115-1508" TYPE="FAT32"
 ```
 
-Now edit file system table:
+Now I can edit file system table:
 
 ```bash
 sudo vi /etc/fstab
@@ -145,6 +146,7 @@ laptop up to the tv when its movie time :)
 
 <figure>
   <img src="/assets/pi-dlna.jpg" alt="DLNA Raspberry pi">
+
   <figcaption>
     And here it is streaming video to my phone and laptop, whilst streaming
 audio to mi HIFI :)
