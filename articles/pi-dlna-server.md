@@ -1,37 +1,46 @@
 title: Raspberry pi dlna server
 date: 2015-04-28 21:00
-tldr: Making a pi and a usb hdd into a DLNA server
+tldr: Making a raspberry pi and a usb hdd into a DLNA media server.
 
 At home both my lovely fiancee and I play music on our phones, laptop, and hifi.
-And also watch videos on the tv, and
-laptops. Until recently this meant having many copies of many files, changing
-cds, or plugging some device into another. This is hassle.
+And also watch videos on the tv, and laptops. Until recently this meant having
+many copies of many files, changing cds, or plugging some device into another.
+This is hassle.
 
 All of these devices as it turns out speak DLNA, And I have a small heap of
 raspberry pis sitting about. So why not turn one into a DLNA media server?
 
-For this I need to set up the following on my raspberry pi:
+For this I would need to set up the following on my raspberry pi:
 
 * A DLNA Server
 * A means of uploading files to the pi,
 * Also quite a bit of storage.
 
-First up the storage. I set up my pi with a fresh install of raspian, plugged in
-a usb hard drive, connected to my network via ethernet, and sshd in Then `lsusb`
-... no hdd, `lsblk`... same. It turns out
-the pi2 hasnt enough juice to power this ssd over usb, and that this is a common
-problem. So I ordered a powered usb hub, and am using an old mains powered spiny
-hard drive until this turns up.
+And then I did! This is how...
 
-To get the hard disk set up I need to locate it:
+First up the storage. I set up my pi with a fresh install of raspian, and then
+checked that everything is up to date:
 
-```zsh
+```bash
+  sudo apt-get update && sudo apt-get upgrade -y
+```
+
+pluged in a usb hard drive, connected to my network via ethernet, and sshd in,
+and then `lsusb` ... no hdd, `lsblk`... same. It turns out the pi hasn't enough
+juice to power this ssd over usb, and that this is a common problem. So I ordered
+a powered usb hub, and tried again later.
+
+Later...
+
+To get the storage device set up I need to locate it:
+
+```bash
   lsblk
 ```
 
 Which returns something like:
 
-```zsh
+```bash
   NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
   sda           8:0    0 465.8G  0 disk
   └─sda1        8:1    0 465.8G  0 part
@@ -40,87 +49,87 @@ Which returns something like:
   └─mmcblk0p2 179:2    0   7.4G  0 part /
 ```
 
+I do not want to manually mount this drive each time i restart the pi.
+The way to sort this out is to edit the file system table. But first I need the
+UUID and format type of my hard drive:
+
+```bash
+  sudo blkid /dev/sda1
 ```
 
-And mount it at `/media/usbhdd`:
+Now edit file system table:
 
-```zsh
-  sudo mkdir -p /media/usbhdd
-  sudo mount /dev/sda1 /media/usbhdd
-```
-
-And make some directories to put media in:
-
-```zsh
-  sudo mkdir /media/usbhdd/Music
-  sudo mkdir /media/usbhdd/Videos
-  sudo mkdir /media/usbhdd/Picturs
-```
-
-This is rather good, just 2 things to do with this now; I do not want to do this
-each time I start up my media server, and `/media/usb` is owned by root. This
-will give me a hard time when I want to upload files later.
-
-The way to sort this out is to edit the file system table. But first I need some
-information about my usb hard drive.
-
-```zsh
-  sudo blkid -p /dev/sda1
-```
-
-this returned
-
-```zsh
-/dev/sda1: LABEL="UNTITLED" UUID="C2BC-09FF" VERSION="FAT32" TYPE="vfat"
-USAGE="filesystem" PART_ENTRY_SCHEME="dos" PART_ENTRY_TYPE="0xb"
-PART_ENTRY_NUMBER="1" PART_ENTRY_OFFSET="2" PART_ENTRY_SIZE="976773166"
-PART_ENTRY_DISK="8:0"
-```
-
-The bits I need are the UUID, and the type. vfat does not support linux
-permissions. I will not just be able to chown `/media/usbhdd`. Permissions also
-have to be set in fstab.
-
-```zsh
+```bash
   sudo vi /etc/fstab
 ```
 
 Add the following row:
 
-```zsh
-  UUID=C2BC-09FF /media/usbhdd vfat auto,rw,user,sync,dev,suid,uid=1000,gid=1000,umask=000 0 0
+```bash
+  UUID=8115-1508 /media/usbhdd vfat defaults,user,exec,uid=1000,gid=100,umask=000 0 0
 ```
 
 You will want to use your disks UUID, and check your user id `id -u`, and group id `id -g`.
 
-Now restart the pi, and your disk should be mounted on boot.
+Now mount it:
+
+```bash
+  mount -a
+```
+
+This will alert you of any errors with your `fstab`. Check `dmesg` if you do get
+any errors. It should work fine so make some directories to put media in later:
+
+```bash
+  sudo mkdir -p /media/usbhdd/{Music,Photos,Videos}
+```
+
+Now restart the pi. The disk should be automatically mounted on boot.
 
 Next I want some media for my pi to serve. This bit is easy, you can sftp into
-the pi. On Ubuntu i will use nautilus as an sftp client `nautilus sftp://pi@<PI IP>`
+the pi. On Ubuntu i will use nautilus as an sftp client
+`nautilus sftp://pi@192.168.0.10`... Now i can drag and drop media files onto
+my pi!
 
 And last but not least, I need to set up a DLNA server. For this I will use
 minidlna
 
-```zsh
+```bash
   sudo apt-get install minidlna
 ```
 
 and configure it to serve files from my hard disk.
 
-```zsh
+```bash
   sudo vi /etc/minidlna.conf
 ```
 
 I want to serve music, photos, and videos from their respective folders on I
-created on my hard disk. To do this I updated the following:
+created on my hdd. To do this I added the following lines:
 
-```zsh
-
+```bash
+  media_dir=A,/media/usbhdd/Music
+  media_dir=P,/media/usbhdd/Photos
+  media_dir=V,/media/usbhdd/Videos
+  friendly_name=Pi
+  inotify=yes
 ```
+
+The comments in the config file explain all of this.
+
+Now start minidlna:
+
+```bash
+  sudo service minidlna start
+```
+
+Minidlna will build its indexed on first boot. You can run `sudo service
+minidlna force-reload` to redo this at any point. You should do this if you
+change minidlna.conf at all.
 
 And set it to start on boot:
 
-```zsh
+```bash
   sudo update-rc.d minidlna defaults
 ```
 
@@ -130,13 +139,15 @@ can listen to any of it when I get home, and there will be no hassle wiring the
 laptop up to the tv when its video time :)
 
 <figure>
-  PHOTO!!
+  <img src="/assets/pi-dlna.jpg" alt="DLNA Raspberry pi">
   <figcaption>
-    My DLNA Server setup
+    My HIFI connecting to my raspberry pi DLNA media server.
   </figcaption>
 </figure>
 
-Next steps:
-* My SSD will allow for faster file uploads when the usb hub gets here.
-* And see if I can work out how to access this remotely.
+Referances:
+
+* https://help.ubuntu.com/community/Fstab
+* https://help.ubuntu.com/community/MountingWindowsPartitions
+* https://everbit.wordpress.com/2013/04/01/minidlna-on-the-raspberry-pi/
 

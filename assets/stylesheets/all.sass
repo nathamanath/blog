@@ -9,7 +9,7 @@ $color-background: #171D22 // dark blue
 
 $color-text: lighten($color-background, 75%)
 $color-links-on: $color-highlight-2
-
+$max-width: 38em
 $em-base: 16px
 
 $medium-breakpoint: new-breakpoint(min-width 480px 12)
@@ -19,6 +19,7 @@ body
   background: $color-background
   color: $color-text
   font-size: $em-base
+  margin: 1em 2em
 
 body,
 h1,
@@ -76,6 +77,11 @@ h2
       color: $color-highlight-3
 
 article
+  br
+    // redcloth needs to put brs in for syntax highlighting
+    // do nothing with them!
+    display: none
+
   &:nth-of-type(3n-1)
     h2
       color: $color-highlight-3
@@ -102,4 +108,11 @@ article
 
   h3, p
     display: inline
+
+.CodeRay
+  margin: 2em 0
+  padding: .5em 1em
+  background: rgba(255, 255, 255, .3)
+  width: 100%
+  overflow: auto
 

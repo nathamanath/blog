@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 ruby '2.2.0'
 
 gem 'sinatra'
-gem 'rdiscount'
 gem 'json'
 gem 'rack-cache'
 gem 'slim'
@@ -14,6 +13,9 @@ gem 'sass'
 gem 'therubyracer'
 gem 'jshintrb'
 gem 'listen'
+
+gem 'redcarpet'
+gem 'coderay'
 
 group :development, :test do
   gem 'rspec'
