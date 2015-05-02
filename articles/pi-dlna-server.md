@@ -1,34 +1,35 @@
 title: Raspberry pi dlna server
 date: 2015-05-02 21:00
-tldr: Making a raspberry pi and a usb hard drive into a DLNA media server.
+tldr: Making a raspberry pi and a usb hard drive into a DLNA streaming media server.
 
-At home both my lovely fiancee and I play music on our phones, laptop, and hifi.
-And also watch videos on the tv, and laptops. Until recently this meant having
+At home both my lovely fiancée and I play music on our phones, laptop, and hifi.
+We also both also videos on the tv, phones, and laptops. Until recently this meant having
 many copies of many files on many devices, changing cds, or plugging some device
 into another. This is hassle.
 
-All of these devices as it turns out speak DLNA, And I have a small heap of
-raspberry pis sitting about. So why not turn one into a DLNA media server?
+All of these devices as it turns out speak DLNA, and I have a small heap of
+raspberry pis sitting about the place. So why not turn one into a streaming
+media server?
 
 For this I would need to set up the following on my raspberry pi:
 
 * A DLNA Server
-* A means of uploading files to the pi,
+* A convenient means of uploading files,
 * Also quite a bit of storage.
 
 And then I did! This is how...
 
-First up the storage. I set up my pi with a fresh install of raspian, and then
-checked that everything is up to date:
+First up, quote a bit of storage! I set up my pi with a fresh install of raspian,
+and then checked that everything is up to date:
 
 ```bash
 sudo apt-get update && sudo apt-get upgrade -y
 ```
 
-pluged in a usb hard drive, connected to my network via ethernet, and sshd in,
-and then `lsusb` ... no hdd, `lsblk`... same. It turns out the pi hasn't enough
-juice to power this ssd over usb, and that this is a common problem. So I ordered
-a powered usb hub, and tried again later.
+Pluged in a usb hard drive, connected to my network via ethernet, and sshd in,
+and then `lsusb` ... no hdd, `lsblk`... same. How annoying! It turns out the pi
+hasn't enough juice to power this ssd over usb, and that this is a common problem.
+So I ordered a powered usb hub, and tried again later.
 
 Later...
 
