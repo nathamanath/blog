@@ -28,7 +28,7 @@ sudo apt-get update && sudo apt-get upgrade -y
 
 Pluged in a usb hard drive, connected to my network via ethernet, and sshd in,
 and then `lsusb` ... no hdd, `lsblk`... same. How annoying! It turns out the pi
-hasn't enough juice to power this ssd over usb, and that this is a common problem.
+hasnt got enough juice to power this ssd over usb, and that this is a common problem.
 So I ordered a powered usb hub, and tried again later.
 
 Later...
@@ -38,8 +38,7 @@ To get the storage device set up I need to locate it:
 ```bash
 lsblk
 ```
-
-Which returns something like:
+returns:
 
 ```bash
 NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
@@ -56,6 +55,12 @@ UUID and format type of my hard drive:
 
 ```bash
 sudo blkid /dev/sda1
+```
+
+returns:
+
+```bash
+/dev/sda1: UUID="8115-1508" TYPE="FAT32"
 ```
 
 Now edit file system table:
@@ -141,17 +146,22 @@ laptop up to the tv when its movie time :)
 <figure>
   <img src="/assets/pi-dlna.jpg" alt="DLNA Raspberry pi">
   <figcaption>
-    My HIFI connecting to my raspberry pi DLNA media server.
+    And here it is streaming video to my phone and laptop, whilst streaming
+audio to mi HIFI :)
   </figcaption>
 </figure>
 
+After a quick test the performance is plenty good enough, appart from a few
+hardware setbacks getting started, this went as well as could be expected, and
+performs better than expected!
+
 #### Next steps:
 
-* Set up a convenient means of downloading media directly to the pi
+* Set up a convenient means of downloading media directly to the pi.
 
 #### Referances:
 
 * https://help.ubuntu.com/community/Fstab
 * https://help.ubuntu.com/community/MountingWindowsPartitions
-* https://everbit.wordpress.com/2013/04/01/minidlna-on-the-raspberry-pi/
+* http://bbrks.me/rpi-minidlna-media-server/
 
