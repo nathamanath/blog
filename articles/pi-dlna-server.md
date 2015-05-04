@@ -2,10 +2,10 @@ title: Raspberry pi dlna server
 date: 2015-05-02 21:00
 tldr: Making a raspberry pi into a DLNA streaming media server.
 
-At home both my lovely fiancée and I play music on our phones, laptop, and hifi.
-We also both also videos on the tv, phones, and laptops. Until recently this meant having
+At home both my lovely fiancée and I play music on our phones, laptops, and our hifi.
+Also we both watch video on the tv, phones, and laptops. Until recently this meant having
 many copies of many files on many devices, changing cds, or plugging some device
-into another. This is hassle.
+into another. This is rubbish.
 
 All of these devices as it turns out speak DLNA, and I have a small heap of
 raspberry pis sitting about the place. So why not turn one into a streaming
@@ -19,7 +19,7 @@ For this I would need to set up the following on my raspberry pi:
 
 And then I did! This is how...
 
-First up, quote a bit of storage! I set up my pi with a fresh install of raspian,
+First up, quote a bit of storage! I set up my pi 2 with a fresh install of raspian,
 and then checked that everything is up to date:
 
 ```bash
@@ -84,7 +84,7 @@ Now mount it:
 mount -a
 ```
 
-This will alert you of any errors with your `fstab`. Check `dmesg` if you do get
+This will alert you of any errors with `/etc/fstab`. Check `dmesg` if you do get
 any errors. It should work fine so make some directories to put media in later:
 
 ```bash
@@ -111,8 +111,8 @@ and configure it to serve files from my hard disk.
 sudo vi /etc/minidlna.conf
 ```
 
-I want to serve music, photos, and videos from their respective folders on I
-created on my hdd. To do this I added the following lines:
+I want to serve music, photos, and videos from their respective folders on
+on my hdd. To do this I added the following lines:
 
 ```bash
 media_dir=A,/media/usbhdd/Music
@@ -153,9 +153,9 @@ audio to mi HIFI :)
   </figcaption>
 </figure>
 
-After a quick test the performance is plenty good enough, appart from a few
-hardware setbacks getting started, this went as well as could be expected, and
-performs better than expected!
+After a quick test the performance is plenty good enough, better than I had
+expected infact! And apart from a few hardware setbacks getting started, this
+was a quick and easy project.
 
 #### Next steps:
 
