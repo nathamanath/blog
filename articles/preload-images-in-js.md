@@ -1,4 +1,4 @@
-title: Preload images in javascript
+title: Pre load images in javascript
 date: 2015-05-04
 
 Pre loading images for your web apps gives the impression of loading faster, and
@@ -52,20 +52,20 @@ Loader.batch = function(paths, callback) {
 };
 ```
 
-With this you can preload individual images,
+With this you can pre load individual images,
 
 ```javascript
 var image = new Loader('path/to/image', function() { ... });
 ```
 
-or batches of images,
+Or batches of images,
 
 ```javascript
 Loader.batch(['paths', 'to', 'many', 'images'], function() { ... });
 ```
 
-and have a callback executed when the image(s) is ready.
+And have a callback executed when the image(s) is ready.
 
-And [here](http://codepen.io/nathamanath/pen/MwwRrr) is a quick codepen showing
+And [here](http://codepen.io/nathamanath/pen/MwwRrr) is a quick pen showing
 it working!
 
