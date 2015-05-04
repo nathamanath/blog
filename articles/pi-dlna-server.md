@@ -26,14 +26,14 @@ and then checked that everything is up to date:
 sudo apt-get update && sudo apt-get upgrade -y
 ```
 
-Pluged in a usb hard drive, connected to my network via ethernet, and sshd in,
+Plugged in a usb hard drive, connected to my network via ethernet, and sshd in,
 and then `lsusb` ... no hdd, `lsblk`... same. How annoying! It turns out the pi
 hasnt got enough juice to power this ssd over usb, and that this is a common problem.
 So I ordered a powered usb hub, and tried again later.
 
 Later...
 
-I do not want to manually mount this drive each time i restart the pi.
+I do not want to manually mount this drive each time I restart the pi.
 The way to sort this out is to edit the file system table. But first I need the
 location, UUID and format type of my hard drive:
 
@@ -64,19 +64,14 @@ Which returns:
 /dev/sda1: UUID="8115-1508" TYPE="FAT32"
 ```
 
-Now I can edit file system table:
-
-```bash
-sudo vi /etc/fstab
-```
-
-Add the following row:
+Now I can add the following row to `/etc/fstab`:
 
 ```bash
 UUID=8115-1508 /media/usbhdd vfat defaults,user,exec,uid=1000,gid=100,umask=000 0 0
 ```
 
-You will want to use your disks UUID, and check your user id `id -u`, and group id `id -g`.
+If you are following along, you will want to use your disks UUID, and check your
+user id `id -u`, and group id `id -g`.
 
 Now mount it:
 
@@ -94,7 +89,7 @@ sudo mkdir -p /media/usbhdd/{Music,Photos,Videos}
 Now restart the pi. The disk should be automatically mounted on boot.
 
 Next I want some media for my pi to serve. This bit is easy, you can sftp into
-the pi. On Ubuntu i will use nautilus as an sftp client
+the pi. On Ubuntu I will use nautilus as an sftp client
 `nautilus sftp://pi@192.168.0.10`... Now i can drag and drop media files onto
 my pi!
 
@@ -105,7 +100,7 @@ minidlna
 sudo apt-get install minidlna
 ```
 
-and configure it to serve files from my hard disk.
+And configure it to serve files from my hard disk.
 
 ```bash
 sudo vi /etc/minidlna.conf
@@ -154,7 +149,7 @@ audio to mi HIFI :)
 </figure>
 
 After a quick test the performance is plenty good enough, better than I had
-expected infact! And apart from a few hardware setbacks getting started, this
+expected in fact! And apart from a few hardware setbacks getting started, this
 was a quick and easy project.
 
 #### Next steps:
