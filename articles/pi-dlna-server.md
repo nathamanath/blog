@@ -13,7 +13,8 @@ media server?
 
 For this I would need to set up the following on my raspberry pi:
 
-* A DLNA Server
+* A static ip address,
+* A DLNA Server,
 * A convenient means of uploading files,
 * Also quite a bit of storage.
 
@@ -103,7 +104,7 @@ my pi!
 
 ## miniDLNA
 
-And last but not least, I need to set up a DLNA server. For this I will use
+The main point of all of this is to set up a DLNA server. For this I will use
 minidlna
 
 ```bash
@@ -145,6 +146,37 @@ And set it to start on boot:
 sudo update-rc.d minidlna defaults
 ```
 
+## Static ip address
+
+And last, but not least... For convenience I want my media server to be at the same ip address
+each time I start it up.
+
+For this I need to know the pi's broadcast, and the mask addresses.
+`ifconfig` gets these for me. I also need the gateway address which I get with
+`route -nee`.
+
+Now I can edit `/etc/network/interfaces`.
+
+The pi is using dhcp by default, to change this to static, I replace this line:
+
+```bash
+iface eth0 inet dhcp
+```
+
+With the following:
+
+```bash
+iface eth0 inet static
+address 192.168.0.201
+netmask 255.255.255.0
+network 192.168.0.0
+broadcast 192.168.0.255
+gateway 192.168.0.1
+```
+
+The ip address in the 200 range is outside of the dhcp range of my router, so
+this address will never by assigned to another device.
+
 And there we go. I now only need enough music on my phone to last the day at
 work, but can listen to any of it when I get home, and there will be no hassle wiring the
 laptop up to the tv when its movie time :)
@@ -172,4 +204,5 @@ was a quick and easy project.
 * http://manpages.ubuntu.com/manpages/oneiric/man8/ntfs-3g.8.html
 * https://help.ubuntu.com/community/Fstab
 * http://bbrks.me/rpi-minidlna-media-server/
+* http://www.suntimebox.com/raspberry-pi-tutorial-course/week-3/day-5/
 
