@@ -1,4 +1,3 @@
-#encoding: utf-8
 title: Raspberry pi dlna server
 date: 2015-05-02 21:00
 tldr: Making a raspberry pi into a streaming media server with minidlna.
