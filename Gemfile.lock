@@ -55,7 +55,7 @@ GEM
     rb-fsevent (0.9.4)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
-    rdiscount (2.1.7.1)
+    redcarpet (3.2.3)
     ref (1.0.5)
     rspec (3.1.0)
       rspec-core (~> 3.1.0)
@@ -98,6 +98,7 @@ PLATFORMS
 
 DEPENDENCIES
   bourbon
+  coderay
   dalli
   factory_girl
   jshintrb
@@ -109,7 +110,7 @@ DEPENDENCIES
   puma
   rack-cache
   rack-test
-  rdiscount
+  redcarpet
   rspec
   sass
   sinatra

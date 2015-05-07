@@ -9,7 +9,7 @@ $color-background: #171D22 // dark blue
 
 $color-text: lighten($color-background, 75%)
 $color-links-on: $color-highlight-2
-
+$max-width: 38em
 $em-base: 16px
 
 $medium-breakpoint: new-breakpoint(min-width 480px 12)
@@ -19,6 +19,8 @@ body
   background: $color-background
   color: $color-text
   font-size: $em-base
+  margin: 1em 2em
+  line-height: 1.75em
 
 body,
 h1,
@@ -102,4 +104,30 @@ article
 
   h3, p
     display: inline
+
+%code
+  background: rgba(255, 255, 255, .3)
+
+// code block
+.CodeRay
+  @extend %code
+  margin: 2em 0
+  padding: 0 1em
+  width: 100%
+  overflow: auto
+
+// inline code
+code
+  @extend %code
+  padding: .25em
+
+figure
+  width: 100%
+  margin: 2em 0
+
+figcaption
+  font-size: 85%
+
+img
+  width: 100%
 
