@@ -26,7 +26,7 @@ module Helpers
 
   def markdown(text)
     coderayified = CodeRayify.new(
-      filter_html: true,
+      # filter_html: true,
       hard_wrap: true
     )
 

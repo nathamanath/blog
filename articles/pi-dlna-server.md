@@ -1,6 +1,6 @@
 title: Raspberry pi dlna server
 date: 2015-05-02 21:00
-tldr: Making a raspberry pi into a DLNA streaming media server.
+tldr: Making a raspberry pi into a streaming media server with minidlna.
 
 At home both my lovely fiancée and I play music on our phones, laptops, and our hifi.
 Also we both watch video on the tv, phones, and laptops. Until recently this meant having
@@ -33,6 +33,8 @@ So I ordered a powered usb hub, and tried again later.
 
 Later...
 
+## Storage...
+
 I do not want to manually mount this drive each time I restart the pi.
 The way to sort this out is to edit the file system table. But first I need the
 location, UUID and format type of my hard drive:
@@ -41,15 +43,13 @@ location, UUID and format type of my hard drive:
 lsblk
 ```
 
-Which returns:
+Which gives me the location:
 
 ```bash
 NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
-sda           8:0    0 465.8G  0 disk
-└─sda1        8:1    0 465.8G  0 part
-mmcblk0     179:0    0   7.4G  0 disk
-├─mmcblk0p1 179:1    0    56M  0 part /boot
-└─mmcblk0p2 179:2    0   7.4G  0 part /
+sda           8:0    0 931.5G  0 disk
+└─sda1        8:1    0 931.5G  0 part
+...
 ```
 
 Then:
@@ -58,20 +58,26 @@ Then:
 sudo blkid /dev/sda1
 ```
 
-Which returns:
+Which returns the UUID, and format type:
 
 ```bash
-/dev/sda1: UUID="8115-1508" TYPE="FAT32"
+/dev/sda1: LABEL="Seagate Expansion Drive" UUID="4A9A1A899A1A7225" TYPE="ntfs"
 ```
+
+In order for the pi to be able to write to a ntfs formatted disk, I could either
+re-format it which would take ages, or install
+[ntfs-3g](https://en.wikipedia.org/wiki/NTFS-3G)... (`sudo apt-get install
+ntfs-3g`).
 
 Now I can add the following row to `/etc/fstab`:
 
 ```bash
-UUID=8115-1508 /media/usbhdd vfat defaults,user,exec,uid=1000,gid=100,umask=000 0 0
+UUID=4A9A1A899A1A7225 /media/usbhdd ntgs-3g defaults,user,exec,uid=1000,gid=100,dmask=000,fmask=111 0 0
 ```
 
 If you are following along, you will want to use your disks UUID, and check your
-user id `id -u`, and group id `id -g`.
+user id `id -u`, and group id `id -g`. There is a link at the bottom explaining
+these settings.
 
 Now mount it:
 
@@ -88,10 +94,14 @@ sudo mkdir -p /media/usbhdd/{Music,Photos,Videos}
 
 Now restart the pi. The disk should be automatically mounted on boot.
 
+## sftp
+
 Next I want some media for my pi to serve. This bit is easy, you can sftp into
 the pi. On Ubuntu I will use nautilus as an sftp client
-`nautilus sftp://pi@192.168.0.10`... Now i can drag and drop media files onto
+`nautilus sftp://pi@192.168.0.10`... Now I can drag and drop media files onto
 my pi!
+
+## miniDLNA
 
 And last but not least, I need to set up a DLNA server. For this I will use
 minidlna
@@ -117,7 +127,7 @@ friendly_name=Pi
 inotify=yes
 ```
 
-The comments in the config file explain all of this.
+The comments in `/etc/minidlna.conf` file explain all of this.
 
 Now start minidlna:
 
@@ -143,8 +153,8 @@ laptop up to the tv when its movie time :)
   <img src="/assets/pi-dlna.jpg" alt="DLNA Raspberry pi">
 
   <figcaption>
-    And here it is streaming video to my phone and laptop, whilst streaming
-audio to mi HIFI :)
+    And here it is streaming 1080p video to my phone and laptop, whilst streaming
+audio to mi HIFI (and also the other phone which i took the photo with) :)
   </figcaption>
 </figure>
 
@@ -152,13 +162,14 @@ After a quick test the performance is plenty good enough, better than I had
 expected in fact! And apart from a few hardware setbacks getting started, this
 was a quick and easy project.
 
-#### Next steps:
+### Next steps:
 
 * Set up a convenient means of downloading media directly to the pi.
+* See how performance can be improved.
 
 #### Referances:
 
+* http://manpages.ubuntu.com/manpages/oneiric/man8/ntfs-3g.8.html
 * https://help.ubuntu.com/community/Fstab
-* https://help.ubuntu.com/community/MountingWindowsPartitions
 * http://bbrks.me/rpi-minidlna-media-server/
 
