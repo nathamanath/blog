@@ -1,8 +1,9 @@
+#encoding: utf-8
 title: Raspberry pi dlna server
 date: 2015-05-02 21:00
 tldr: Making a raspberry pi into a streaming media server with minidlna.
 
-At home both my lovely fiancée and I play music on our phones, laptops, and our hifi.
+At home both my lovely fiancee and I play music on our phones, laptops, and our hifi.
 Also we both watch video on the tv, phones, and laptops. Until recently this meant having
 many copies of many files on many devices, changing cds, or plugging some device
 into another. This is rubbish.
@@ -49,7 +50,7 @@ Which gives me the location:
 ```bash
 NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
 sda           8:0    0 931.5G  0 disk
-└─sda1        8:1    0 931.5G  0 part
+  sda1        8:1    0 931.5G  0 part
 ...
 ```
 
@@ -203,6 +204,5 @@ was a quick and easy project.
 
 * http://manpages.ubuntu.com/manpages/oneiric/man8/ntfs-3g.8.html
 * https://help.ubuntu.com/community/Fstab
-* http://bbrks.me/rpi-minidlna-media-server/
 * http://www.suntimebox.com/raspberry-pi-tutorial-course/week-3/day-5/
 
