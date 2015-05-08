@@ -19,18 +19,23 @@ class AppUpdater < Sinatra::Base
   end
 
   post '/update' do
+    # TODO: verify secret!!
+    # return { response: 'Access Denied.' } unless ENV['TOKEN'] == params['TOEKN']
+
     settings.parse_git
+
+    if settings.autopull?
+      out = { response: `git pull 2>&1` }.to_json
+    else
+      out = { response: :ok }.to_json
+    end
 
     app.settings.reset!
     load app.settings.app_file
 
     content_type :json
 
-    if settings.autopull?
-      { response: `git pull 2>&1` }.to_json
-    else
-      { response: :ok }.to_json
-    end
+    out
   end
 end
 
