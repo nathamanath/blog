@@ -174,7 +174,7 @@ broadcast 192.168.0.255
 gateway 192.168.0.1
 ```
 
-The ip address in the 200 range is outside of the dhcp range of my router, so
+The IP address in the 200 range is outside of the dhcp range of my router, so
 this address will never by assigned to another device.
 
 
