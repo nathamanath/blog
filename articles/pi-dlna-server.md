@@ -177,6 +177,7 @@ gateway 192.168.0.1
 The ip address in the 200 range is outside of the dhcp range of my router, so
 this address will never by assigned to another device.
 
+
 And there we go. I now only need enough music on my phone to last the day at
 work, but can listen to any of it when I get home, and there will be no hassle wiring the
 laptop up to the tv when its movie time :)
@@ -201,6 +202,7 @@ was a quick and easy project.
 
 #### Referances:
 
+* https://wiki.archlinux.org/index.php/ReadyMedia
 * http://manpages.ubuntu.com/manpages/oneiric/man8/ntfs-3g.8.html
 * https://help.ubuntu.com/community/Fstab
 * http://www.suntimebox.com/raspberry-pi-tutorial-course/week-3/day-5/
