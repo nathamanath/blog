@@ -5,13 +5,29 @@ require 'digest/sha1'
 class Article
   attr_accessor :content, :slug, :sha1, :created_at, :updated_at, :title, :meta, :tldr
 
+  @@articles = []
+
   class << self
-    def sort!(articles)
-      articles.sort_by! { |a| a.created_at }
-      articles.reverse!
+    def init(glob)
+      Dir[glob].each do |file|
+        all << Article.new_from_file(file)
+      end
+
+      sort!
     end
 
-    # TODO: Move get article logic to article class
+    def articles=(articles)
+      @@articles = articles
+    end
+
+    def all
+      @@articles
+    end
+
+    def sort!
+      all.sort_by! { |a| a.created_at }
+      all.reverse!
+    end
 
     def new_from_file(f)
       file = File.read f

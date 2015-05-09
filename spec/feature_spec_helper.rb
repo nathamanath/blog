@@ -1,7 +1,8 @@
 require 'spec_helper'
 require 'rack/test'
 
-require File.expand_path('../../lib/blog', __FILE__)
+require File.expand_path('../../app', __FILE__)
+require 'article'
 
 module RackSpecHelpers
   include Rack::Test::Methods

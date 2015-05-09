@@ -1,15 +1,15 @@
 require 'feature_spec_helper'
 
 describe 'articles', feature: true do
-  # Uses fixture articles from /spec/fixtures/articles
-
-  let(:article) { Article.new_from_file(File.expand_path('../../fixtures/articles/article.md', __FILE__)) }
+  let(:article) { build :article, created_at: created_at, updated_at: updated_at }
   let(:time) { Time.now - 1000 }
+  let(:updated_at) { time }
+  let(:created_at) { time }
 
-  before(:each) do
-    article.created_at = time
-    article.updated_at = time
-  end
+  let(:articles) { [article] }
+
+  # Load articles into app
+  before(:each) { Article.articles = articles }
 
   describe 'GET /' do
 

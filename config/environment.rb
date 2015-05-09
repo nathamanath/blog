@@ -7,5 +7,5 @@ require 'rack/cache'
 require 'dalli'
 
 # Internal
-require 'blog'
+require File.expand_path('../../app', __FILE__)
 
