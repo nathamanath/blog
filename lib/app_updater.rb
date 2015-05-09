@@ -33,6 +33,9 @@ class AppUpdater < Sinatra::Base
       out = { response: :ok }.to_json
     end
 
+    # Clear articles before reloading. Avoids dupes.
+    Article.clear!
+
     app.settings.reset!
     load app.settings.app_file
 
