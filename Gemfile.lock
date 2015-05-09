@@ -110,6 +110,7 @@ DEPENDENCIES
   puma
   rack-cache
   rack-test
+  rake
   redcarpet
   rspec
   sass
