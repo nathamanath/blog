@@ -20,16 +20,14 @@ class Blog < Sinatra::Base
   set :article_files, Dir["#{articles_dir}/*.md"]
   set :title, 'Nathans blog'
 
-  enable :cache
-
-  configure :development, :test do
-    disable :cache
-  end
+  enable :cache if production?
 
   article_files.each do |f|
     article = Article.new_from_file(f)
 
     get article.path do
+      halt(404) unless article.published?
+
       etag article.sha1
       last_modified article.updated_at
 

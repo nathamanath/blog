@@ -4,6 +4,12 @@ describe 'articles', feature: true do
   # Uses fixture articles from /spec/fixtures/articles
 
   let(:article) { Article.new_from_file(File.expand_path('../../fixtures/articles/article.md', __FILE__)) }
+  let(:time) { Time.now - 1000 }
+
+  before(:each) do
+    article.created_at = time
+    article.updated_at = time
+  end
 
   describe 'GET /' do
 
@@ -33,25 +39,39 @@ describe 'articles', feature: true do
   describe 'GET /:article_hash' do
     subject { get article.path }
 
-    it 'is successful' do
-      subject
-      expect(last_response.status).to be 200
+    context 'published' do
+      let(:time) { Time.now - 60 }
+
+      it 'is successful' do
+        subject
+        expect(last_response.status).to be 200
+      end
+
+      it 'sets etag' do
+        subject
+        expect(last_response.header['ETag']).to_not be ''
+      end
+
+      it 'sets last_changed' do
+        subject
+        expect(last_response.header['Last-Modified']).to_not be ''
+      end
+
+      it 'renders article' do
+        subject
+        expect(last_response.body).to match article.content.strip!
+      end
     end
 
-    it 'sets etag' do
-      subject
-      expect(last_response.header['ETag']).to eq '"af349a21af611014814f215bc3b60b81521efe33"'
+    context 'not published' do
+      let(:time) { Time.now + 60 }
+
+      it 'is not found' do
+        subject
+        expect(last_response.status).to be 404
+      end
     end
 
-    it 'sets last_changed' do
-      subject
-      expect(last_response.header['Last-Modified']).to eq "Sat, 23 Aug 2014 21:02:57 GMT"
-    end
-
-    it 'renders article' do
-      subject
-      expect(last_response.body).to match article.content.strip!
-    end
   end
 end
 

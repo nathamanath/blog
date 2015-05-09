@@ -11,6 +11,8 @@ class Article
       articles.reverse!
     end
 
+    # TODO: Move get article logic to article class
+
     def new_from_file(f)
       file = File.read f
 
@@ -47,6 +49,11 @@ class Article
     "/#{year}/#{slug}"
   end
 
+  def published?
+    created_at < Time.now
+  end
+
+  # js_created_at / js_updated_at
   %W[updated_at created_at].each do |m|
     name = "js_#{m}"
     define_method(name) { eval("@#{name} ||= #{m}.to_i * 1000") }
