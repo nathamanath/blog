@@ -1,4 +1,11 @@
 language: ruby
 rvm:
   - 2.2.0
+notifications:
+  webhooks:
+    urls:
+      - http://blog.nathansplace.co.uk/update
+    on_failure: never
+    on_start: never
+    on_success: always
 
