@@ -1,15 +1,15 @@
 require 'article'
 
 describe Article do
-  let(:article) { build :article }
+  let(:time) { Time.parse('2014-08-24 12:58:33 +0100') }
+  let(:js_time) { 1408881513000 }
+
+  let(:article) { build :article, created_at: time }
   subject { article }
 
   %W[created_at content sha1 updated_at title meta preview tldr].each do |m|
     it { is_expected.to respond_to m }
   end
-
-  let(:time) { Time.parse('2014-08-24 12:58:33 +0100') }
-  let(:js_time) { 1408881513000 }
 
   %W[created_at updated_at].each do |m|
     js_method = "js_#{m}"
@@ -21,6 +21,27 @@ describe Article do
       subject { article.send(js_method) }
 
       it { is_expected.to eq js_time }
+    end
+  end
+
+  describe '.year' do
+    let(:time) { Time.parse('2015-06-09') }
+    subject { article.year }
+
+    it { is_expected.to eq 2015 }
+  end
+
+  describe '#published?' do
+    subject { article.published? }
+
+    context 'is pre dated' do
+      let(:time) { Time.now - 1 * 60 }
+      it { is_expected.to be true }
+    end
+
+    context 'is post dated' do
+      let(:time) { Time.now + 1 * 60 }
+      it { is_expected.to be false }
     end
   end
 

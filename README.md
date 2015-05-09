@@ -1,10 +1,15 @@
 # Blog
 
-Blog app based on demo in 'Sinatra up and running' book.
+Blog app originally based on demo in 'Sinatra up and running' book.
+
+LIST WHAT IT DOES!!
 
 ## TODO:
-* Get updater working on docker
-* next / prev links
-* paginate articles on home
+
+* updater requires key
+* filter by year ... `/2014`
+* next / prev links. keep articles in Article
+* paginate articles
 * related articles
 * tags
+

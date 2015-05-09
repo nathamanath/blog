@@ -5,10 +5,28 @@ require 'digest/sha1'
 class Article
   attr_accessor :content, :slug, :sha1, :created_at, :updated_at, :title, :meta, :tldr
 
+  @@articles = []
+
   class << self
-    def sort!(articles)
-      articles.sort_by! { |a| a.created_at }
-      articles.reverse!
+    def init(glob)
+      Dir[glob].each do |file|
+        all << Article.new_from_file(file)
+      end
+
+      sort!
+    end
+
+    def articles=(articles)
+      @@articles = articles
+    end
+
+    def all
+      @@articles
+    end
+
+    def sort!
+      all.sort_by! { |a| a.created_at }
+      all.reverse!
     end
 
     def new_from_file(f)
@@ -39,6 +57,19 @@ class Article
     @preview ||= tldr || content[0..300] + '...'
   end
 
+  def year
+    created_at.year
+  end
+
+  def path
+    "/#{year}/#{slug}"
+  end
+
+  def published?
+    created_at < Time.now
+  end
+
+  # js_created_at / js_updated_at
   %W[updated_at created_at].each do |m|
     name = "js_#{m}"
     define_method(name) { eval("@#{name} ||= #{m}.to_i * 1000") }
