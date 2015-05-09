@@ -9,7 +9,11 @@ describe 'articles', feature: true do
   let(:articles) { [article] }
 
   # Load articles into app
-  before(:each) { Article.articles = articles }
+  before(:each) do
+    Article.articles = articles
+    app.settings.reset!
+    load app.settings.app_file
+  end
 
   describe 'GET /' do
 
@@ -59,7 +63,7 @@ describe 'articles', feature: true do
 
       it 'renders article' do
         subject
-        expect(last_response.body).to match article.content.strip!
+        expect(last_response.body).to match article.content.strip
       end
     end
 

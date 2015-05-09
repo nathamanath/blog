@@ -19,8 +19,7 @@ class AppUpdater < Sinatra::Base
   end
 
   post '/update' do
-    # TODO: verify secret!!
-    # return { response: 'Access Denied.' } unless ENV['TOKEN'] == params['TOEKN']
+    halt(401) unless ENV['SECRET'] == params['config']['secret']
 
     settings.parse_git
 

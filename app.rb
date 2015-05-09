@@ -7,6 +7,7 @@ class Blog < Sinatra::Base
 
   use AppUpdater
 
+  set :app_file, __FILE__
   set :articles_dir, "#{root}/articles"
   set :title, 'Nathans blog'
   set :cache, production?
