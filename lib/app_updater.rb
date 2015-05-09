@@ -1,6 +1,7 @@
 require 'sinatra/base'
 require 'json'
 require 'time'
+require 'openssl'
 
 class AppUpdater < Sinatra::Base
   def self.parse_git
@@ -19,7 +20,10 @@ class AppUpdater < Sinatra::Base
   end
 
   post '/update' do
-    halt(401) unless ENV['SECRET'] == params['config']['secret']
+    # request.body.rewind
+    # body = request.body.read
+    #
+    # validate_request body
 
     settings.parse_git
 
@@ -36,5 +40,10 @@ class AppUpdater < Sinatra::Base
 
     out
   end
+
+  # def validate_request(body)
+  #   signature = 'sha1=' + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), ENV['SECRET'], body)
+  #   return halt 401, "Signatures didn't match!" unless Rack::Utils.secure_compare(signature, request.env['HTTP_X_HUB_SIGNATURE'])
+  # end
 end
 
