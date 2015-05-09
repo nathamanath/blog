@@ -1,0 +1,31 @@
+%code
+  background: rgba(255, 255, 255, .3)
+
+// code block
+.CodeRay
+  @extend %code
+  margin: 2em 0
+  padding: 0 1em
+  width: 100%
+  overflow: auto
+
+  .comment
+    opacity: 0.7
+
+  .keyword
+    color: $color-highlight-1
+
+  .function
+    color: $color-highlight-2
+
+  .local-variable
+    color: $color-highlight-3
+
+  .integer
+    color: $color-highlight-3
+
+// inline code
+code
+  @extend %code
+  padding: .25em .3em
+

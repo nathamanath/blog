@@ -2,6 +2,7 @@ require 'helpers'
 require 'app_updater'
 # require 'app_logger'
 require 'article'
+# require 'pry'
 
 class Blog < Sinatra::Base
   include Helpers
@@ -20,13 +21,19 @@ class Blog < Sinatra::Base
   set :article_files, Dir["#{articles_dir}/*.md"]
   set :title, 'Nathans blog'
 
-  enable :cache if production?
+  enable :cache
+
+  configure :development, :test do
+    disable :cache
+  end
 
   article_files.each do |f|
     article = Article.new_from_file(f)
 
     get article.path do
-      halt(404) unless article.published?
+
+      # let me see unpublished in development!!
+      halt(404) unless article.published? || settings.development?
 
       etag article.sha1
       last_modified article.updated_at
