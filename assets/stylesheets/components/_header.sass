@@ -1,0 +1,20 @@
+.header
+  margin-top: 3em
+  padding: em(golden-ratio($em-base, 2))
+  text-align: center
+  @include media($big-breakpoint)
+    padding: em(golden-ratio($em-base, 3))
+
+  a, span
+    display: inline-block
+    min-width: em(100)
+    max-width: em(200)
+    width: 33%
+
+
+  .logo
+    margin: auto
+    display: block
+    width: 100%
+    pointer-events: none
+
