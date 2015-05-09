@@ -3,12 +3,21 @@ require 'uglifier'
 require 'jshintrb/jshinttask'
 require 'listen'
 
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new
+
 SRC_DIR = './assets'
 DIST_DIR = './public/assets'
 JS_DIR = "#{SRC_DIR}/javascripts"
 SASS_DIR = "#{SRC_DIR}/stylesheets"
 
+task default: :spec
+
 task build: [:css, :js]
+
+# task :test do
+#   `RACK_ENV=test bundle exec rspec spec`
+# end
 
 task :start do
   `bundle exec puma -e development`
