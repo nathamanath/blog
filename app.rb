@@ -12,6 +12,8 @@ class Blog < Sinatra::Base
   set :title, 'Nathans blog'
   set :cache, production?
 
+  Article.clear!
+
   # Page per article
   Article.init("#{settings.articles_dir}/*.md").each do |article|
     get article.path do

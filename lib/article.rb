@@ -16,6 +16,10 @@ class Article
       sort!
     end
 
+    def clear!
+      self.articles = []
+    end
+
     def articles=(articles)
       @@articles = articles
     end
