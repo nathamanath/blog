@@ -39,6 +39,14 @@ class Article
     @preview ||= tldr || content[0..300] + '...'
   end
 
+  def year
+    created_at.year
+  end
+
+  def path
+    "/#{year}/#{slug}"
+  end
+
   %W[updated_at created_at].each do |m|
     name = "js_#{m}"
     define_method(name) { eval("@#{name} ||= #{m}.to_i * 1000") }

@@ -24,6 +24,13 @@ describe Article do
     end
   end
 
+  describe '.year' do
+    let(:time) { Time.parse('2015-06-09') }
+    subject { article.year }
+
+    it { is_expected.to eq 2015 }
+  end
+
   describe '.preview' do
     subject { article.preview }
 

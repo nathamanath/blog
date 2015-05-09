@@ -29,7 +29,7 @@ class Blog < Sinatra::Base
   article_files.each do |f|
     article = Article.new_from_file(f)
 
-    get "/#{article.slug}" do
+    get article.path do
       etag article.sha1
       last_modified article.updated_at
 

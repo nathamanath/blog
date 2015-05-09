@@ -31,7 +31,7 @@ describe 'articles', feature: true do
   end
 
   describe 'GET /:article_hash' do
-    subject { get '/article' }
+    subject { get article.path }
 
     it 'is successful' do
       subject
