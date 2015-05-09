@@ -1,9 +1,8 @@
 title: Pre load images in javascript
 date: 2015-05-04
 
-Pre loading images for your web apps gives the impression of loading faster, and
-a smoother user experience. Here is a simple but effective solution to the
-problem:
+Pre loading images for your web applications gives the impression of loading faster, and
+a smoother user experience. Here is a simple but effective solution to the problem:
 
 ```javascript
 /**
@@ -64,7 +63,7 @@ Or batches of images,
 Loader.batch(['paths', 'to', 'many', 'images'], function() { ... });
 ```
 
-And have a callback executed when the image(s) is ready.
+And have a callback executed when the image(s) is / are ready.
 
 And [here](http://codepen.io/nathamanath/pen/MwwRrr) is a quick pen showing
 it working!
