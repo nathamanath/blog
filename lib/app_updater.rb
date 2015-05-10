@@ -24,7 +24,7 @@ class AppUpdater < Sinatra::Base
   end
 
   post '/update' do
-    halt(401) unless valid_request?
+    halt(401) unless valid_request? && settings.production?
 
     settings.parse_git
 

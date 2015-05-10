@@ -18,9 +18,6 @@ describe 'AppUpdater', feature: true do
   end
 
   context 'valid secret' do
-    let(:http_auth) { nil }
-    let(:travis_slug) { ENV['TRAVIS_TOKEN'] }
-
     before(:each) { Article.articles = [build(:article, content: 'old')] }
 
     it 'is successful' do

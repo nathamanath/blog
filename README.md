@@ -9,8 +9,6 @@ LIST WHAT IT DOES!!
 
 ## TODO:
 
-* updater requires key: http://docs.travis-ci.com/user/notifications/#sts=Webhook notification
-
 * paginate articles
 * related articles
 * tags
