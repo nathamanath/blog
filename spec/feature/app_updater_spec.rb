@@ -2,10 +2,10 @@ require 'feature_spec_helper'
 
 describe 'AppUpdater', feature: true do
 
-  before(:all) { ENV['SECRET'] = 'right' }
+  let(:http_auth) { 'wrong' }
+  let(:travis_slug) { 'wrong' }
 
-  let(:secret) { nil }
-  subject { post '/update', config: { secret: secret } }
+  subject { post '/update', {}, { HTTP_AUTHORIZATION: http_auth, HTTP_TRAVIS_REPO_SLUG: travis_slug } }
 
   context 'invalid secret' do
     let(:secret) { 'wrong' }
@@ -18,7 +18,8 @@ describe 'AppUpdater', feature: true do
   end
 
   context 'valid secret' do
-    let(:secret) { 'right' }
+    let(:http_auth) { nil }
+    let(:travis_slug) { ENV['TRAVIS_TOKEN'] }
 
     before(:each) { Article.articles = [build(:article, content: 'old')] }
 
