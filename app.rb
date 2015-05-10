@@ -30,7 +30,20 @@ class Blog < Sinatra::Base
     end
   end
 
+  # Page per year
+  years = Article.all.map { |article| article.year }
+
+  years.uniq.each do |year|
+    get "/#{year}" do
+      # articles for year
+      @heading = "Articles from #{year}:"
+      @articles = Article.all.select { |article| article.year == year }
+      slim :index
+    end
+  end
+
   get '/' do
+    @articles = Article.all
     slim :index
   end
 end

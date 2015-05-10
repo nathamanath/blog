@@ -2,6 +2,7 @@ require 'sinatra/base'
 require 'json'
 require 'time'
 require 'openssl'
+require 'pry'
 
 class AppUpdater < Sinatra::Base
   def self.parse_git
@@ -24,6 +25,8 @@ class AppUpdater < Sinatra::Base
     # body = request.body.read
     #
     # validate_request body
+
+    binding.pry
 
     settings.parse_git
 

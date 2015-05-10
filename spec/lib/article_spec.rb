@@ -45,6 +45,38 @@ describe Article do
     end
   end
 
+  describe '#prev' do
+    subject { article.prev }
+
+    context 'not last' do
+      let(:nxt) { build :article, sha1: 'next' }
+      before { Article.articles = [article, nxt] }
+
+      it { is_expected.to be nxt }
+    end
+
+    context 'last' do
+      before { Article.articles = [article] }
+      it { is_expected.to be false }
+    end
+  end
+
+  describe '#next' do
+    subject { article.next }
+
+    context 'not first' do
+      let(:prev) { build :article, sha1: 'prev' }
+      before { Article.articles = [prev, article] }
+
+      it { is_expected.to be prev }
+    end
+
+    context 'first' do
+      before { Article.articles = [article] }
+      it { is_expected.to be false }
+    end
+  end
+
   describe '.preview' do
     subject { article.preview }
 

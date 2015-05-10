@@ -69,6 +69,24 @@ class Article
     "/#{year}/#{slug}"
   end
 
+  def prev
+    # find self in Article.all. return the next one or false
+    Article.all.each_with_index do |article, index|
+      if article.sha1 == self.sha1
+        break Article.all[index + 1] || false
+      end
+    end
+  end
+
+  def next
+    Article.all.each_with_index do |article, index|
+      if article.sha1 == self.sha1
+        i = index - 1
+        break (i >= 0) ? Article.all[i] : false
+      end
+    end
+  end
+
   def published?
     created_at < Time.now
   end

@@ -18,3 +18,12 @@ article
     = "Updated "
     time data-time=article.js_updated_at = article.updated_at
 
+  ul
+    -if article.next
+      li
+        a href=article.next.path = "Next: #{article.next.title}"
+
+    -if article.prev
+      li
+        a href=article.prev.path "Prev: #{article.prev.title}"
+
