@@ -28,6 +28,10 @@ class Article
       @@articles
     end
 
+    def published
+      all.select { |article| article.published? }
+    end
+
     def sort!
       all.sort_by! { |a| a.created_at }
       all.reverse!
@@ -67,6 +71,24 @@ class Article
 
   def path
     "/#{year}/#{slug}"
+  end
+
+  def prev
+    # find self in Article.all. return the next one or false
+    Article.published.each_with_index do |article, index|
+      if article.sha1 == self.sha1
+        break Article.all[index + 1] || false
+      end
+    end
+  end
+
+  def next
+    Article.published.each_with_index do |article, index|
+      if article.sha1 == self.sha1
+        i = index - 1
+        break (i >= 0) ? Article.all[i] : false
+      end
+    end
   end
 
   def published?

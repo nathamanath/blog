@@ -13,6 +13,7 @@ gem 'sass'
 gem 'therubyracer'
 gem 'jshintrb'
 gem 'listen'
+gem 'dotenv'
 
 gem 'redcarpet'
 gem 'coderay'

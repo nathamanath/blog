@@ -1,7 +1,9 @@
 require 'sinatra/base'
 require 'json'
 require 'time'
-require 'openssl'
+require 'digest/sha2'
+
+require 'pry'
 
 class AppUpdater < Sinatra::Base
   def self.parse_git
@@ -10,7 +12,9 @@ class AppUpdater < Sinatra::Base
     set :commit_date, Time.parse(date)
   end
 
+  set(:token) { ENV['TRAVIS_TOKEN'] }
   set(:autopull) { production? }
+
   parse_git
 
   before do
@@ -20,10 +24,7 @@ class AppUpdater < Sinatra::Base
   end
 
   post '/update' do
-    # request.body.rewind
-    # body = request.body.read
-    #
-    # validate_request body
+    halt(401) unless valid_request? && settings.production?
 
     settings.parse_git
 
@@ -44,9 +45,19 @@ class AppUpdater < Sinatra::Base
     out
   end
 
-  # def validate_request(body)
-  #   signature = 'sha1=' + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), ENV['SECRET'], body)
-  #   return halt 401, "Signatures didn't match!" unless Rack::Utils.secure_compare(signature, request.env['HTTP_X_HUB_SIGNATURE'])
-  # end
+  private
+
+  def valid_request?
+    digest = Digest::SHA2.new.update "#{repo_slug}#{settings.token}"
+    digest.to_s == authorization
+  end
+
+  def authorization
+    env['HTTP_AUTHORIZATION']
+  end
+
+  def repo_slug
+    env['HTTP_TRAVIS_REPO_SLUG']
+  end
 end
 

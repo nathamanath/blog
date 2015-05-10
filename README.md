@@ -9,9 +9,6 @@ LIST WHAT IT DOES!!
 
 ## TODO:
 
-* updater requires key
-* filter by year ... `/2014`
-* next / prev links. keep articles in Article
 * paginate articles
 * related articles
 * tags

@@ -24,7 +24,7 @@ describe Article do
     end
   end
 
-  describe '.year' do
+  describe '#year' do
     let(:time) { Time.parse('2015-06-09') }
     subject { article.year }
 
@@ -45,7 +45,39 @@ describe Article do
     end
   end
 
-  describe '.preview' do
+  describe '#prev' do
+    subject { article.prev }
+
+    context 'not last' do
+      let(:nxt) { build :article, sha1: 'next' }
+      before { Article.articles = [article, nxt] }
+
+      it { is_expected.to be nxt }
+    end
+
+    context 'last' do
+      before { Article.articles = [article] }
+      it { is_expected.to be false }
+    end
+  end
+
+  describe '#next' do
+    subject { article.next }
+
+    context 'not first' do
+      let(:prev) { build :article, sha1: 'prev' }
+      before { Article.articles = [prev, article] }
+
+      it { is_expected.to be prev }
+    end
+
+    context 'first' do
+      before { Article.articles = [article] }
+      it { is_expected.to be false }
+    end
+  end
+
+  describe '#preview' do
     subject { article.preview }
 
     context 'with tldr' do
@@ -59,11 +91,15 @@ describe Article do
     end
   end
 
-  describe '#sort!' do
+  describe '.published'
+
+  describe '.all'
+
+  describe '.sort!' do
     it 'sorts articles by created_at DESC'
   end
 
-  describe '#new_from_file' do
+  describe '.new_from_file' do
     let(:file) { File.expand_path('../../fixtures/articles/article.md', __FILE__) }
     subject { Article.new_from_file(file) }
 
