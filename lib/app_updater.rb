@@ -24,7 +24,7 @@ class AppUpdater < Sinatra::Base
   end
 
   post '/update' do
-    halt(401) unless valid_request? && settings.production?
+    halt(401) unless valid_request?
 
     settings.parse_git
 
@@ -49,7 +49,7 @@ class AppUpdater < Sinatra::Base
 
   def valid_request?
     digest = Digest::SHA2.new.update "#{repo_slug}#{settings.token}"
-    digest.to_s == authorization
+    digest.to_s == authorization || !settings.production?
   end
 
   def authorization
