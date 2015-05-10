@@ -28,6 +28,10 @@ class Article
       @@articles
     end
 
+    def published
+      all.select { |article| article.published? }
+    end
+
     def sort!
       all.sort_by! { |a| a.created_at }
       all.reverse!
@@ -71,7 +75,7 @@ class Article
 
   def prev
     # find self in Article.all. return the next one or false
-    Article.all.each_with_index do |article, index|
+    Article.published.each_with_index do |article, index|
       if article.sha1 == self.sha1
         break Article.all[index + 1] || false
       end
@@ -79,7 +83,7 @@ class Article
   end
 
   def next
-    Article.all.each_with_index do |article, index|
+    Article.published.each_with_index do |article, index|
       if article.sha1 == self.sha1
         i = index - 1
         break (i >= 0) ? Article.all[i] : false

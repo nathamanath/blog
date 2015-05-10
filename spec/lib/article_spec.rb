@@ -24,7 +24,7 @@ describe Article do
     end
   end
 
-  describe '.year' do
+  describe '#year' do
     let(:time) { Time.parse('2015-06-09') }
     subject { article.year }
 
@@ -77,7 +77,7 @@ describe Article do
     end
   end
 
-  describe '.preview' do
+  describe '#preview' do
     subject { article.preview }
 
     context 'with tldr' do
@@ -91,11 +91,15 @@ describe Article do
     end
   end
 
-  describe '#sort!' do
+  describe '.published'
+
+  describe '.all'
+
+  describe '.sort!' do
     it 'sorts articles by created_at DESC'
   end
 
-  describe '#new_from_file' do
+  describe '.new_from_file' do
     let(:file) { File.expand_path('../../fixtures/articles/article.md', __FILE__) }
     subject { Article.new_from_file(file) }
 
