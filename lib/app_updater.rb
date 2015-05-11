@@ -3,8 +3,6 @@ require 'json'
 require 'time'
 require 'digest/sha2'
 
-require 'pry'
-
 class AppUpdater < Sinatra::Base
   def self.parse_git
     sha1, date = `git log HEAD~1..HEAD --pretty=format:%h^%ci`.strip.split('^')
@@ -49,7 +47,7 @@ class AppUpdater < Sinatra::Base
 
   def valid_request?
     digest = Digest::SHA2.new.update "#{repo_slug}#{settings.token}"
-    digest.to_s == authorization || !settings.production?
+    digest.to_s == authorization
   end
 
   def authorization

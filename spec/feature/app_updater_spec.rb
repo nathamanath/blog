@@ -5,20 +5,23 @@ describe 'AppUpdater', feature: true do
   let(:http_auth) { 'wrong' }
   let(:travis_slug) { 'wrong' }
 
-  subject { post '/update', {}, { HTTP_AUTHORIZATION: http_auth, HTTP_TRAVIS_REPO_SLUG: travis_slug } }
+  subject { post('/update', {}, { 'HTTP_AUTHORIZATION' => http_auth, 'HTTP_TRAVIS_REPO_SLUG' => travis_slug } ) }
 
   context 'invalid secret' do
-    let(:secret) { 'wrong' }
-
     it 'is restricted' do
-      pending
       subject
       expect(last_response.status).to be 401
     end
   end
 
   context 'valid secret' do
-    before(:each) { Article.articles = [build(:article, content: 'old')] }
+    before(:each) do
+      ENV['TRAVIS_TOKEN'] = 'token'
+      Article.articles = [build(:article, content: 'old')]
+    end
+
+    let(:http_auth) { '6019d51eeab27d2e9d3d0f6b144ddb5ebe7c1e97593813cb203e453a9048953f' }
+    let(:travis_slug) { 'nathamanath/blog' }
 
     it 'is successful' do
       subject
