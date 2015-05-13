@@ -31,7 +31,7 @@ RUN bundle install -j8 --deployment --binstubs --without development test
 
 RUN mkdir -p tmp/sockets
 
-RUN RACK_ENV=production bundle exec rake css
+RUN RACK_ENV=production bundle exec rake assets:precompile
 
 EXPOSE 80
 

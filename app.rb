@@ -1,16 +1,22 @@
 require 'helpers'
 require 'app_updater'
 require 'article'
+require 'sinatra/asset_pipeline'
 
 class Blog < Sinatra::Base
   include Helpers
 
   use AppUpdater
 
+  set :assets_js_compressor, :uglifier
+  set :assets_css_compressor, :sass
+
   set :app_file, __FILE__
   set :articles_dir, "#{root}/articles"
   set :title, 'Nathans blog'
   set :cache, production?
+
+  register Sinatra::AssetPipeline
 
   Article.clear!
 
