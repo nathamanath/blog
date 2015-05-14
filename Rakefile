@@ -1,68 +1,15 @@
-require 'sass'
-require 'uglifier'
 require 'jshintrb/jshinttask'
-require 'listen'
+require 'rspec/core/rake_task'
+require 'sinatra/asset_pipeline/task'
 
-unless ENV['RACK_ENV'] == 'production'
-  require 'rspec/core/rake_task'
-  RSpec::Core::RakeTask.new
-  task default: :spec
-end
+require './config/environment'
 
-SRC_DIR = './assets'
-DIST_DIR = './public/assets'
-JS_DIR = "#{SRC_DIR}/javascripts"
-SASS_DIR = "#{SRC_DIR}/stylesheets"
+RSpec::Core::RakeTask.new
 
-
-task build: [:css, :js]
-
-task :start do
-  `bundle exec puma -e development`
-end
-
-task :watch do
-  puts "|  Watching #{SRC_DIR} for changes."
-  puts '|  Hit `ctrl + c` to stop'
-
-  listener = Listen.to SRC_DIR do
-    puts '| Something changed'
-    sh 'rake build'
-  end
-
-  listener.start
-  sleep
-end
-
-task :css do
-  puts 'Compiling sass...'
-  `sass #{SASS_DIR}/all.sass #{DIST_DIR}/all.min.css --style compressed`
-  puts 'Done.'
-end
-
-task :minify do
-  puts 'Minifying js...'
-
-  js = File.read("#{DIST_DIR}/all.js")
-  ugly = Uglifier.compile(js)
-
-  File.open("#{DIST_DIR}/all.min.js", 'w') do |file|
-    file.puts ugly
-  end
-
-  puts 'Done.'
-end
-
-task :js do
-  # TODO: Collation??
-  puts 'Collating js...'
-  `cp #{JS_DIR}/all.js #{DIST_DIR}/all.js`
-  `rake minify`
-  puts 'Done.'
-end
+Sinatra::AssetPipeline::Task.define! Blog
 
 Jshintrb::JshintTask.new :jshint do |t|
-  t.pattern = "#{DIST_DIR}/all.js"
+  t.pattern = "./assets/javascrips/**/*.js"
   t.options = {
     bitwise: true,
     browser: true,
@@ -78,7 +25,6 @@ Jshintrb::JshintTask.new :jshint do |t|
     nonew: true,
     quotmark: true,
     regexp: true,
-    undef: true,
     strict: true,
     trailing: true,
     undef: true,
@@ -88,5 +34,11 @@ Jshintrb::JshintTask.new :jshint do |t|
     maxstatements: 10,
     maxlen: 80
   }
+end
+
+task default: :spec
+
+task :start do
+  `bundle exec puma -e development`
 end
 
