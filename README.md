@@ -9,6 +9,8 @@ LIST WHAT IT DOES!!
 
 ## TODO:
 
+* erb in articles
+
 * paginate articles
 * related articles
 * tags

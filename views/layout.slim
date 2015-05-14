@@ -5,18 +5,18 @@ html
     title = page_title
 
     link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Raleway"
-    link rel="stylesheet" media="screen" href="/assets/all.min.css"
-    link rel="icon" type="image/png" href="/assets/favicon.png"
+    link rel="stylesheet" media="screen" href=stylesheet_path('app')
+    link rel="icon" type="image/png" href=image_path('favicon.png')
   body
     .container
       header.header
-        == link_to_unless_current('<img class="logo" alt="Nathans blog" src="/assets/logo.svg">', '/')
+        == link_to_unless_current("<img class=\"logo\" alt=\"Nathans blog\" src=\"#{image_path('logo.svg')}\">", '/')
 
       main == yield
 
       footer.footer Nathan Goddard
 
-    script type="text/javascript" src="/assets/all.min.js"
+    script type="text/javascript" src=javascript_path('app')
 
     == slim(:analytics, layout: false) if ENV['RACK_ENV'] = 'production'
 
