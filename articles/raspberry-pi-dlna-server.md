@@ -183,7 +183,7 @@ work, but can listen to any of it when I get home, and there will be no hassle w
 laptop up to the tv when its movie time :)
 
 <figure>
-  <img src="<%= image_path('pi-dlna.jpg') %>" alt="DLNA Raspberry pi">
+  <img src="/articles/pi-dlna.jpg" alt="DLNA Raspberry pi">
 
   <figcaption>
     And here it is streaming 1080p video to my phone and laptop, whilst streaming
