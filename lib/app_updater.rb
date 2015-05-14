@@ -3,8 +3,6 @@ require 'json'
 require 'time'
 require 'digest/sha2'
 
-require 'pry'
-
 class AppUpdater < Sinatra::Base
   def self.parse_git
     sha1, date = `git log HEAD~1..HEAD --pretty=format:%h^%ci`.strip.split('^')
@@ -24,7 +22,7 @@ class AppUpdater < Sinatra::Base
   end
 
   post '/update' do
-    halt(401) unless valid_request? && settings.production?
+    halt(401) unless valid_request?
 
     settings.parse_git
 
@@ -33,6 +31,9 @@ class AppUpdater < Sinatra::Base
     else
       out = { response: :ok }.to_json
     end
+
+    # Clear articles before reloading. Avoids dupes.
+    Article.clear!
 
     app.settings.reset!
     load app.settings.app_file
