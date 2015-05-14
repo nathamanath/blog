@@ -2,7 +2,7 @@ title: Pre load images in javascript
 date: 2015-05-09 18:20
 tldr: A handy js class for pre-loading images.
 
-Pre loading images for your web applications gives the impression of loading faster, and
+Pre-loading images for your web applications gives the impression of loading faster, and
 helps provide a smoother user experience. Here is a simple but effective solution to the problem:
 
 ```javascript

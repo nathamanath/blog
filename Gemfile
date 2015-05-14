@@ -15,7 +15,6 @@ gem 'jshintrb'
 gem 'listen'
 gem 'dotenv'
 gem 'sinatra-asset-pipeline'
-
 gem 'redcarpet'
 gem 'coderay'
 

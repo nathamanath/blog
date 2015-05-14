@@ -2,7 +2,6 @@ require 'helpers'
 require 'app_updater'
 require 'article'
 require 'sinatra/asset_pipeline'
-require 'sprockets/sass'
 
 class Blog < Sinatra::Base
   include Helpers
