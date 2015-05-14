@@ -10,7 +10,7 @@ RSpec::Core::RakeTask.new
 Sinatra::AssetPipeline::Task.define! Blog
 
 Jshintrb::JshintTask.new :jshint do |t|
-  t.pattern = "./assets/javascrips/**/*.js"
+  t.pattern = "./assets/javascrips/*.js"
   t.options = :jshintrc
 end
 
