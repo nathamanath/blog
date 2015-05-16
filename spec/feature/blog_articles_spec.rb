@@ -10,7 +10,17 @@ describe 'articles', feature: true do
 
   # Load articles into app
   before(:each) do
-    Article.articles = articles
+
+    # TODO: LEarn how to get `articles` to scope below
+    # Article.class_exec do
+    #   define_method :init do |glob|
+    #     Article.articles = articles
+    #     articles
+    #   end
+    # end
+
+    allow(Article).to receive(:init) { articles }
+
     app.settings.reset!
     load app.settings.app_file
   end
