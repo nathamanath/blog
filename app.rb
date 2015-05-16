@@ -18,8 +18,6 @@ class Blog < Sinatra::Base
 
   register Sinatra::AssetPipeline
 
-  Article.clear!
-
   # Page per article
   Article.init("#{settings.articles_dir}/*.md").each do |article|
     get article.path do
