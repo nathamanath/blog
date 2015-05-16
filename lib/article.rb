@@ -9,6 +9,8 @@ class Article
 
   class << self
     def init(glob)
+      clear!
+
       Dir[glob].each do |file|
         all << Article.new_from_file(file)
       end
