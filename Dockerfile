@@ -18,22 +18,33 @@ RUN apt-get install -yqq memcached
 RUN apt-get install -yqq nginx
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 ADD ./config/sites-available/default /etc/nginx/sites-available/default
+EXPOSE 80
 
-# Add just Gemfile and bundle to make this cachable
-ADD Gemfile /app/Gemfile
-ADD Gemfile.lock /app/Gemfile.lock
+# SSH
+RUN apt-get install -yqq openssh-server
+RUN mkdir /var/run/sshd
+
+# TODO: maybe this could be smarter?
+ADD id_rsa.pub /root/.ssh/id_rsa.pub
+RUN cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
+
+ADD id_rsa_blog_deploy.pub /root/.ssh/id_rsa_blog_deploy.pub
+ADD id_rsa_blog_deploy /root/.ssh/id_rsa_blog_deploy
+
+RUN  echo "    IdentityFile ~/.ssh/id_rsa_blog_deploy" >> /etc/ssh/ssh_config
+
+# SSH login fix. Otherwise user is kicked off after login
+RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+
+ENV NOTVISIBLE "in users profile"
+RUN echo "export VISIBLE=now" >> /etc/profile
+RUN echo "export SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >> /etc/profile
+
+EXPOSE 22
+
+CMD ["/usr/sbin/sshd", "-D"]
+
 
 ADD . /app
 WORKDIR /app
-
-RUN gem install bundler
-RUN bundle install -j8 --deployment --binstubs --without development test
-
-RUN mkdir -p tmp/sockets
-
-RUN RACK_ENV=production bundle exec rake assets:precompile
-
-EXPOSE 80
-
-ENTRYPOINT ./bin/startup.sh
 
