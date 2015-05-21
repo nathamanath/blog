@@ -10,6 +10,7 @@ RUN apt-get install -yqq libssl-dev
 ENV CONFIGURE_OPTS --disable-install-rdoc
 RUN ruby-build 2.2.0 /usr/local
 RUN rm -r ruby-build
+RUN gem install bundler
 
 # Memcached
 RUN apt-get install -yqq memcached
@@ -17,20 +18,24 @@ RUN apt-get install -yqq memcached
 # Nginx
 RUN apt-get install -yqq nginx
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-ADD ./config/sites-available/default /etc/nginx/sites-available/default
-EXPOSE 80
+ADD ./config/docker/sites-available/default /etc/nginx/sites-available/default
+# Make a new user... not root
+# RUN useradd -p d3veloper -ms /bin/bash docker
+# RUN usermod -a -G sudo docker
 
 # SSH
-RUN apt-get install -yqq openssh-server
+RUN sudo apt-get install -yqq openssh-server
 RUN mkdir /var/run/sshd
 
 # TODO: maybe this could be smarter?
-ADD id_rsa.pub /root/.ssh/id_rsa.pub
+ADD config/docker/id_rsa.pub /root/.ssh/id_rsa.pub
 RUN cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
 
-ADD id_rsa_blog_deploy.pub /root/.ssh/id_rsa_blog_deploy.pub
-ADD id_rsa_blog_deploy /root/.ssh/id_rsa_blog_deploy
+RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
 
+# deploy key
+ADD config/docker/id_rsa_blog_deploy /root/.ssh/id_rsa_blog_deploy
 RUN  echo "    IdentityFile ~/.ssh/id_rsa_blog_deploy" >> /etc/ssh/ssh_config
 
 # SSH login fix. Otherwise user is kicked off after login
@@ -42,9 +47,10 @@ RUN echo "export SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >> /etc/profile
 
 EXPOSE 22
 
-CMD ["/usr/sbin/sshd", "-D"]
-
-
-ADD . /app
+RUN mkdir /app
 WORKDIR /app
+
+RUN ssh-keyscan -t rsa,dsa github.com >> ~/.ssh/known_hosts
+
+CMD ["/usr/sbin/sshd", "-D"]
 

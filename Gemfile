@@ -17,10 +17,10 @@ gem 'dotenv'
 gem 'sinatra-asset-pipeline'
 gem 'redcarpet'
 gem 'coderay'
+gem 'mina'
 
 group :development, :test do
   gem 'rake'
-  gem 'rspec'
   gem 'factory_girl'
   gem 'pry'
   gem 'bourbon'
