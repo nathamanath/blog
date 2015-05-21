@@ -19,36 +19,32 @@ RUN apt-get install -yqq memcached
 RUN apt-get install -yqq nginx
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 ADD ./config/docker/sites-available/default /etc/nginx/sites-available/default
+EXPOSE 80
 
 # SSH
 RUN sudo apt-get install -yqq openssh-server
 RUN mkdir /var/run/sshd
-
-# TODO: maybe this could be smarter?
-ADD config/docker/id_rsa.pub /root/.ssh/id_rsa.pub
-RUN cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
-
-RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-RUN echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
-
-# deploy key
-ADD config/docker/id_rsa_blog_deploy /root/.ssh/id_rsa_blog_deploy
-RUN  echo "    IdentityFile ~/.ssh/id_rsa_blog_deploy" >> /etc/ssh/ssh_config
-
 # SSH login fix. Otherwise user is kicked off after login
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
-
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 RUN echo "export SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >> /etc/profile
-
+RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
 EXPOSE 22
 
-RUN mkdir /app
-WORKDIR /app
+# SSH key for login
+ADD config/docker/id_rsa.pub /root/.ssh/id_rsa.pub
+RUN cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
 
+# Deploy key for app
+ADD config/docker/id_rsa_blog_deploy /root/.ssh/id_rsa_blog_deploy
+RUN  echo "    IdentityFile ~/.ssh/id_rsa_blog_deploy" >> /etc/ssh/ssh_config
+
+# Add github to known hosts so we can connect later with no fuss
 RUN ssh-keyscan -t rsa,dsa github.com >> ~/.ssh/known_hosts
 
-CMD ["/usr/sbin/sshd", "-D"]
-ENTRYPOINT bin/startup.sh
+RUN mkdir /app
+
+ENTRYPOINT ./bin/startup.sh
 
