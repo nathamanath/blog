@@ -1,5 +1,4 @@
 require 'helpers'
-require 'app_updater'
 require 'article'
 require 'sinatra/asset_pipeline'
 
