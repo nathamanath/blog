@@ -19,9 +19,6 @@ RUN apt-get install -yqq memcached
 RUN apt-get install -yqq nginx
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 ADD ./config/docker/sites-available/default /etc/nginx/sites-available/default
-# Make a new user... not root
-# RUN useradd -p d3veloper -ms /bin/bash docker
-# RUN usermod -a -G sudo docker
 
 # SSH
 RUN sudo apt-get install -yqq openssh-server
@@ -53,4 +50,5 @@ WORKDIR /app
 RUN ssh-keyscan -t rsa,dsa github.com >> ~/.ssh/known_hosts
 
 CMD ["/usr/sbin/sshd", "-D"]
+ENTRYPOINT bin/startup.sh
 
