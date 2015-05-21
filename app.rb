@@ -6,7 +6,7 @@ require 'sinatra/asset_pipeline'
 class Blog < Sinatra::Base
   include Helpers
 
-  use AppUpdater
+  # use AppUpdater
 
   set :assets_js_compressor, :uglifier
   set :assets_css_compressor, :sass
