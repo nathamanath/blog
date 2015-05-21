@@ -1,5 +1,5 @@
 require 'jshintrb/jshinttask'
-# require 'rspec/core/rake_task'
+require 'rspec/core/rake_task'
 require 'sinatra/asset_pipeline/task'
 
 # For asset pipeline task

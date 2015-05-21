@@ -18,9 +18,10 @@ gem 'sinatra-asset-pipeline'
 gem 'redcarpet'
 gem 'coderay'
 gem 'mina'
+gem 'rake'
+gem 'rspec'
 
 group :development, :test do
-  gem 'rake'
   gem 'factory_girl'
   gem 'pry'
   gem 'bourbon'
