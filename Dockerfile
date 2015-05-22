@@ -4,9 +4,8 @@ MAINTAINER NathanG
 RUN apt-get update -yqq && apt-get upgrade -yqq
 
 # Ruby
-RUN apt-get install -yqq git-core libffi-dev && apt-get clean
+RUN apt-get install -yqq git-core libffi-dev libssl-dev && apt-get clean
 RUN git clone https://github.com/sstephenson/ruby-build.git && cd ruby-build && ./install.sh
-RUN apt-get install -yqq libssl-dev
 ENV CONFIGURE_OPTS --disable-install-rdoc
 RUN ruby-build 2.2.0 /usr/local
 RUN rm -r ruby-build
