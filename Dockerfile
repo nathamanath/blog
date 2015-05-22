@@ -45,6 +45,8 @@ RUN  echo "    IdentityFile ~/.ssh/id_rsa_blog_deploy" >> /etc/ssh/ssh_config
 RUN ssh-keyscan -t rsa,dsa github.com >> ~/.ssh/known_hosts
 
 RUN mkdir /app
+WORKDIR /app
 
+ADD bin /app/bin
 ENTRYPOINT ./bin/startup.sh
 

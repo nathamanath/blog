@@ -10,7 +10,7 @@ require 'mina/git'
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
-set :domain, '172.17.0.227'
+set :domain, '172.17.1.65'
 set :deploy_to, '/app/'
 set :repository, 'git@github.com:nathamanath/blog.git'
 set :branch, 'develop'
@@ -69,7 +69,7 @@ task :deploy => :environment do
 
     to :launch do
       queue "mkdir -p #{deploy_to}/#{current_path}/tmp/"
-      queue "mkdir -p #{deploy_to}/#{current_path}/tmp/sockets"
+      queue "mkdir -p /app/tmp/sockets"
       queue 'bundle exec puma -d -e production -b unix:///app/tmp/sockets/blog.sock'
       # queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
     end
