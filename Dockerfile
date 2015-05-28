@@ -11,9 +11,6 @@ RUN ruby-build 2.2.2 /usr/local
 RUN rm -r ruby-build
 RUN gem install bundler
 
-# mysql
-RUN apt-get install -yqq libmysqlclient-dev
-
 # Nginx
 RUN apt-get install -yqq nginx
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
@@ -33,22 +30,33 @@ RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/ss
 RUN echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
 EXPOSE 22
 
-# SSH key for login
-ADD config/docker/id_rsa.pub /root/.ssh/id_rsa.pub
-RUN cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
+# git
+RUN apt-get install -yqq git-core
+RUN useradd --group sudo -ms /bin/bash git
+USER git
+WORKDIR /home/git
+RUN mkdir .ssh && chmod 700 .ssh
+RUN touch .ssh/authorized_keys && chmod 600 .ssh/authorized_keys
+RUN mkdir blog.git
+RUN git init --bare blog.git
+ADD config/docker/git/hooks/post-receive blog.git/hooks/post-receive
 
-# Deploy key for app
-ADD config/docker/id_rsa_deploy /root/.ssh/id_rsa_deploy
-RUN  echo "    IdentityFile ~/.ssh/id_rsa_deploy" >> /etc/ssh/ssh_config
+# SSH key for git user login
+ADD config/docker/id_rsa.pub .ssh/id_rsa.pub
+RUN cat .ssh/id_rsa.pub >> .ssh/authorized_keys
 
-# Add bitbucket to known hosts so we can connect later with no fuss
-ADD ./config/docker/known_hosts /root/.ssh/known_hosts
+# Setup app
+USER root
 
-RUN mkdir -p /app/shared/config
-RUN mkdir -p /app/tmp/sockets
-ADD ./config/database.yml /app/shared/config/database.yml
+RUN mkdir /app
 WORKDIR /app
 
-ADD bin /app/bin
-ENTRYPOINT ./bin/startup.sh
+RUN mkdir -p shared/vendor/bundle
+RUN mkdir -p shared/tmp/sockets
+ADD . current
+
+RUN chown -R git /app
+RUN chown -R git /home/git
+
+ENTRYPOINT /app/current/config/docker/bin/startup.sh
 

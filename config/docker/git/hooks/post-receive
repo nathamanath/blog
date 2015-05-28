@@ -1,0 +1,30 @@
+#!/bin/bash
+
+read refname
+
+BRANCH=$(echo "$refname" | awk -F '/' '{print $NF}')
+APP_DIR=/app
+TARGET=$APP_DIR/current
+SHARED=$APP_DIR/shared
+
+if [ "$BRANCH" == "master" ]
+then
+  echo "Deploying app!"
+
+  echo "Checking out files..."
+
+  # force checkout latest deploy
+  git --work-tree=${TARGET} checkout --force
+
+  echo "Symlinking shared paths..."
+
+  ln -nsf $SHARED/vendor $TARGET/vendor
+  ln -nsf $SHARED/tmp $TARGET/tmp
+
+  echo 'Re-starting app...'
+  cd $TARGET
+  bin/startup.sh
+
+  echo "Done!"
+fi
+
