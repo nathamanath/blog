@@ -1,18 +1,18 @@
-FROM dockerfile/ubuntu
+FROM ubuntu
 MAINTAINER NathanG
 
 RUN apt-get update -yqq && apt-get upgrade -yqq
 
 # Ruby
-RUN apt-get install -yqq git-core libffi-dev libssl-dev && apt-get clean
+RUN apt-get install -yqq git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev && apt-get clean
 RUN git clone https://github.com/sstephenson/ruby-build.git && cd ruby-build && ./install.sh
 ENV CONFIGURE_OPTS --disable-install-rdoc
-RUN ruby-build 2.2.0 /usr/local
+RUN ruby-build 2.2.2 /usr/local
 RUN rm -r ruby-build
 RUN gem install bundler
 
-# Memcached
-RUN apt-get install -yqq memcached
+# mysql
+RUN apt-get install -yqq libmysqlclient-dev
 
 # Nginx
 RUN apt-get install -yqq nginx
@@ -21,6 +21,7 @@ ADD ./config/docker/sites-available/default /etc/nginx/sites-available/default
 EXPOSE 80
 
 # SSH
+RUN mkdir ~/.ssh
 RUN sudo apt-get install -yqq openssh-server
 RUN mkdir /var/run/sshd
 # SSH login fix. Otherwise user is kicked off after login
@@ -37,13 +38,15 @@ ADD config/docker/id_rsa.pub /root/.ssh/id_rsa.pub
 RUN cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
 
 # Deploy key for app
-ADD config/docker/id_rsa_blog_deploy /root/.ssh/id_rsa_blog_deploy
-RUN  echo "    IdentityFile ~/.ssh/id_rsa_blog_deploy" >> /etc/ssh/ssh_config
+ADD config/docker/id_rsa_deploy /root/.ssh/id_rsa_deploy
+RUN  echo "    IdentityFile ~/.ssh/id_rsa_deploy" >> /etc/ssh/ssh_config
 
-# Add github to known hosts so we can connect later with no fuss
-RUN ssh-keyscan -t rsa,dsa github.com >> ~/.ssh/known_hosts
+# Add bitbucket to known hosts so we can connect later with no fuss
+ADD ./config/docker/known_hosts /root/.ssh/known_hosts
 
-RUN mkdir /app
+RUN mkdir -p /app/shared/config
+RUN mkdir -p /app/tmp/sockets
+ADD ./config/database.yml /app/shared/config/database.yml
 WORKDIR /app
 
 ADD bin /app/bin
