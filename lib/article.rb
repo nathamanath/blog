@@ -59,12 +59,12 @@ class Article
     end
   end
 
-  def js_updated_at
-    @js_updated_at ||= date_to_js(updated_at)
-  end
+  # def js_updated_at
+  #   @js_updated_at ||= date_to_js(updated_at)
+  # end
 
   def preview
-    @preview ||= tldr || content[0..300] + '...'
+    @preview ||= tldr || content[0..200] + '...'
   end
 
   def year
