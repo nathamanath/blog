@@ -10,7 +10,7 @@ describe 'articles', feature: true do
 
   # Load articles into app
   before(:each) do
-    allow(Article).to receive(:init) { articles }
+    allow(Article).to receive(:all) { articles }
 
     app.settings.reset!
     load app.settings.app_file
@@ -44,7 +44,7 @@ describe 'articles', feature: true do
     subject { get article.path }
 
     context 'published' do
-      let(:time) { Time.now - 60 }
+      let(:time) { Time.now - 1000 }
 
       it 'is successful' do
         subject
@@ -58,7 +58,6 @@ describe 'articles', feature: true do
 
       it 'sets last_changed' do
         subject
-        binding.pry
         expect(last_response.header['Last-Modified']).to_not be ''
       end
 
