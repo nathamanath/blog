@@ -21,8 +21,8 @@ EXPOSE 80
 RUN apt-get install -yqq memcached
 
 # Setup app
-ADD . /app
-WORKDIR /app
+ADD . /app/current
+WORKDIR /app/current
 
 ENTRYPOINT bin/startup.sh
 
