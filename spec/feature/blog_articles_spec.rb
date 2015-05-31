@@ -10,15 +10,6 @@ describe 'articles', feature: true do
 
   # Load articles into app
   before(:each) do
-
-    # TODO: LEarn how to get `articles` to scope below
-    # Article.class_exec do
-    #   define_method :init do |glob|
-    #     Article.articles = articles
-    #     articles
-    #   end
-    # end
-
     allow(Article).to receive(:init) { articles }
 
     app.settings.reset!
@@ -26,7 +17,6 @@ describe 'articles', feature: true do
   end
 
   describe 'GET /' do
-
     subject { get '/' }
 
     it 'is success' do
@@ -34,12 +24,12 @@ describe 'articles', feature: true do
       expect(last_response.status).to be 200
     end
 
-    it 'sets etag based on sha' do
+    it 'sets etag' do
       subject
       expect(last_response.header['ETag']).to_not be nil
     end
 
-    it 'sets updated at based git' do
+    it 'sets updated at' do
       subject
       expect(last_response.header['Last-Modified']).to_not be nil
     end
@@ -50,7 +40,7 @@ describe 'articles', feature: true do
     end
   end
 
-  describe 'GET /:article_hash' do
+  describe 'GET /:article_path' do
     subject { get article.path }
 
     context 'published' do
@@ -68,6 +58,7 @@ describe 'articles', feature: true do
 
       it 'sets last_changed' do
         subject
+        binding.pry
         expect(last_response.header['Last-Modified']).to_not be ''
       end
 

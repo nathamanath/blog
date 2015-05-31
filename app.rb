@@ -5,8 +5,6 @@ require 'sinatra/asset_pipeline'
 class Blog < Sinatra::Base
   include Helpers
 
-  # use AppUpdater
-
   set :assets_js_compressor, :uglifier
   set :assets_css_compressor, :sass
 
@@ -47,6 +45,12 @@ class Blog < Sinatra::Base
 
   get '/' do
     @articles = Article.all
+
+    last_article = @articles.first
+
+    etag last_article.sha1
+    last_modified last_article.updated_at
+
     slim :index
   end
 end
