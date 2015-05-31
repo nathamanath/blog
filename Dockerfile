@@ -28,3 +28,4 @@ RUN mkdir -p tmp/sockets
 
 ENTRYPOINT bin/startup.sh
 
+
