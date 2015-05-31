@@ -4,6 +4,7 @@ read refname
 
 BRANCH=$(echo "$refname" | awk -F '/' '{print $NF}')
 APP_DIR=/home/nathan/Projects/blog_test
+
 TARGET=$APP_DIR/current
 SHARED=$APP_DIR/shared
 
