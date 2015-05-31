@@ -24,7 +24,6 @@ RUN apt-get install -yqq memcached
 ADD . /app
 WORKDIR /app
 
-# TODO: vendoe gems
 RUN bundle install -j 8 --deployment --without development test
 
 RUN mkdir -p tmp/sockets
