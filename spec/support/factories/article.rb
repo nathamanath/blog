@@ -4,9 +4,10 @@ FactoryGirl.define do
     updated_at Time.now
     title 'title'
     content 'content'
-    sha1 'hash'
     slug 'title'
     tldr 'lol'
+
+    sequence(:sha1) {|n| "hash_#{n}" }
   end
 end
 
