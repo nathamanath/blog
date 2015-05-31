@@ -3,28 +3,44 @@
 read refname
 
 BRANCH=$(echo "$refname" | awk -F '/' '{print $NF}')
-APP_DIR=/app
+APP_DIR=/home/nathan/Projects/blog_test
 TARGET=$APP_DIR/current
 SHARED=$APP_DIR/shared
 
 if [ "$BRANCH" == "master" ]
 then
-  echo "Deploying app!"
+  echo "|--> Deploying app!"
 
-  echo "Checking out files..."
+  echo "|--> Checking out files..."
 
   # force checkout latest deploy
   git --work-tree=${TARGET} checkout --force
 
-  echo "Symlinking shared paths..."
+  echo "|--> Symlinking shared paths..."
 
   ln -nsf $SHARED/vendor $TARGET/vendor
   ln -nsf $SHARED/tmp $TARGET/tmp
 
-  echo 'Re-starting app...'
-  cd $TARGET
-  bin/startup.sh
+  echo "|--> Bundle install..."
+  bundle install --deployment --without development test -j 6 --path $SHARED/vendor/bundle
 
-  echo "Done!"
+  echo "|--> Building new docker image..."
+  OLD_CONTAINER_NAME=$(docker ps | grep ubuntu/blog:latest -m 1 | awk '{print $NF}')
+  OLD_IP=$(docker ps | grep ubuntu/blog:latest -m 1 | awk '{print $NF}' | xargs docker inspect --format '{{ .NetworkSettings.IPAddress }}')
+
+  docker build -t ubuntu/blog .
+
+  echo "|--> Starting docker container..."
+  docker run -d -t ubuntu/blog
+
+  echo "|--> Updating virtual host config..."
+  NEW_IP=$(docker ps | grep ubuntu/blog:latest -m 1 | awk '{print $NF}' | xargs docker inspect --format '{{ .NetworkSettings.IPAddress }}')
+  sed -i "s/$OLD_IP/$NEW_IP/" /etc/nginx/sites-available/test
+  service nginx restart
+
+  echo "|--> Cleaning up old container..."
+  docker kill $OLD_CONTAINER_NAME
+
+  echo "|--> Done!"
 fi
 
