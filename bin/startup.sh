@@ -1,8 +1,7 @@
 #!/bin/bash
 
-# Start / restart app
-
 bundle exec rake assets:precompile
+bundle exec puma -b unix:///app/tmp/sockets/puma.sock
 
-bundle exec puma
+/usr/sbin/nginx
 

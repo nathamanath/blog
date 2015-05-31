@@ -1,5 +1,5 @@
 upstream localhost {
-  server unix:///app/shared/tmp/sockets/puma.sock;
+  server unix:///app/tmp/sockets/puma.sock;
 }
 
 server {
@@ -17,7 +17,7 @@ server {
     gzip_types application/x-javascript text/css text/html image/x-icon image/png image/jpeg image/gif;
     expires 4w;
     add_header Cache-Control public;
-    root /app/current/public;
+    root /app/public;
   }
 
   location / {
