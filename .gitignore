@@ -3,4 +3,5 @@
 .env
 /public/assets
 /config/docker/id_rsa*
+/vendor
 
