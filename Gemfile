@@ -27,4 +27,3 @@ group :development, :test do
   gem 'rack-test'
 end
 
-
