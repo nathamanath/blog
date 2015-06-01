@@ -6,7 +6,7 @@ ADD ./config/docker/sites-available/default /etc/nginx/sites-available/default
 ADD . /app
 WORKDIR /app
 
-RUN bundle install -j 8 --path vendor/bundle --binstubs --without development test
+RUN bundle install -j 8 --deployment --without development test
 
 RUN mkdir -p tmp/sockets
 
