@@ -1,11 +1,11 @@
 title: Programmatically fire events in javascript
-date: 2015-04-17 11:00
+date: 2015-06-20 14:00
 
-I have been working on a js replacement for the native range input
-as I need a consistent cross browser interface for this. It works by generating
-an HTML facade, which can be easily styled in many browsers, and as the user
-interacts with it, events are programmatically fired on the actual input
-element.
+I have been working on a js replacement / polyfill for the native range input
+as I need a consistent cross browser interface for this, and to be able to use
+it in old ie. It works by generating an HTML facade, which can be easily styled
+in many browsers, and as the user interacts with it, events are programmatically
+fired on the actual input element.
 
 One of the main problems to solve in this project was how can you fire events
 programmatically in javascript in ie and browsers, without forcing a dependency
