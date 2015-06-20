@@ -45,6 +45,7 @@ After quite a bit of reading, I put this together:
       } else {
         // ie < 9
         // BUGFIX: Infinite loop on keypress in ie8
+        // will update when i fix this
         method = function(eventName, eventType) {
           var _event = document.createEventObject(window.event);
           _event.cancelBubble = true;
