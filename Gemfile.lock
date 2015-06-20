@@ -116,3 +116,6 @@ DEPENDENCIES
   slim
   therubyracer
   uglifier
+
+BUNDLED WITH
+   1.10.1
