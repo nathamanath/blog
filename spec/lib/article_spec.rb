@@ -26,11 +26,35 @@ describe Article do
 
   describe '#id' do
     subject { article.id }
-    let(:prev) { build :article, sha1: 'prev' }
+    let(:prev) { build :article }
     before { Article.articles = [prev, article] }
 
     it { is_expected.to eq 1 }
   end
+
+  describe '#theme_class' do
+    subject { article.theme_class }
+    before { Article.articles = [article] }
+
+    it { is_expected.to eq 'theme-one' }
+  end
+
+  describe 'out_of_four' do
+    let(:one) { build :article }
+    let(:two) { build :article }
+    let(:three) { build :article }
+    let(:four) { build :article }
+
+    before { Article.articles = [one, two, three, four] }
+
+    it 'has number out of 4' do
+      expect(one.out_of_four).to eq 0
+      expect(two.out_of_four).to eq 1
+      expect(three.out_of_four).to eq 2
+      expect(four.out_of_four).to eq 3
+    end
+  end
+
 
   describe '#year' do
     let(:time) { Time.parse('2015-06-09') }

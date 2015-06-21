@@ -5,6 +5,13 @@ require 'digest/sha1'
 class Article
   attr_accessor :content, :slug, :sha1, :created_at, :updated_at, :title, :meta, :tldr
 
+  THEMES = [
+    'one',
+    'two',
+    'three',
+    'four'
+  ]
+
   @@articles = []
 
   class << self
@@ -103,6 +110,15 @@ class Article
   # to use in article
   def id
     Article.all.index self
+  end
+
+  # returns 1..4
+  def out_of_four
+    4 - (4 - (id % 4))
+  end
+
+  def theme_class
+    "theme-#{THEMES[out_of_four]}"
   end
 
 end
