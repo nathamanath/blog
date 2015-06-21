@@ -7,14 +7,14 @@ it in old ie. It works by generating an HTML facade, which can be easily styled
 in many browsers, and as the user interacts with it, events are programmatically
 fired on the actual input element.
 
-One of the main problems to solve in this project was how can you fire events
-programmatically in javascript in ie and browsers, without forcing a dependency
+One of the main problems to solve in this project was; how can you fire js
+events programmatically in ie and browsers, without forcing a dependency
 on any third party libraries?
 
-After quite a bit of reading, I put this together:
+After quite a bit of reading, I put this together (slightly modified to make
+it more re-usable):
 
 ```javascript
-
   /**
    * Manages custom events
    *
@@ -47,7 +47,10 @@ After quite a bit of reading, I put this together:
         // BUGFIX: Infinite loop on keypress in ie8
         // will update when i fix this
         method = function(eventName, eventType) {
-          var _event = document.createEventObject(window.event);
+          var _event = document.createEventObject(
+            window.event
+          );
+
           _event.cancelBubble = true;
           _event.eventType = eventName;
           return _event;
@@ -86,7 +89,44 @@ After quite a bit of reading, I put this together:
         method = function(el, eventName, eventType, code) {
           var onEventName = ['on', eventName].join('');
 
-          if(eventName !== 'input') {
+          // Event names recognised by old ie
+          // (without the 'on').
+          // any event not in this list must be
+          // handled differently in ie < 9
+          var ieEvents = [
+            'load',
+            'unload',
+            'blur',
+            'change',
+            'focus',
+            'reset',
+            'select',
+            'submit',
+            'abort',
+            'keydown',
+            'keypress',
+            'keyup',
+            'click',
+            'dblclick',
+            'mousedown',
+            'mousemove',
+            'mouseout',
+            'mouseover',
+            'mouseup'
+          ];
+
+          // no indexOf in old ie
+          var isIeEvent = function(event) {
+            for(var i = 0, l = ieEvents.length; i < l; i++) {
+              if(ieEvents[i] === event) {
+                return true;
+              }
+            }
+
+            return false;
+          };
+
+          if(isIeEvent(eventName)) {
             // Existing ie < 9 event name
             var _event = self.create(eventName);
 
@@ -94,7 +134,6 @@ After quite a bit of reading, I put this together:
 
             el.fireEvent(onEventName, _event);
           } else if(el[onEventName]) {
-            // TODO: nicer input event handling for ie8
             el[onEventName]();
           }
         };
@@ -108,6 +147,16 @@ After quite a bit of reading, I put this together:
 
 `Event.fire` allows you to fire an event of any name on any element in ie >= 8,
 and modern browsers. How convenient :)
+
+Non standard ie < 9 events (events not listed in `ieEvents` above) must be bound
+like so in order to work in ie <= 8.
+
+```javascript
+  el.onstrangeevent = function() { ... };
+```
+
+I would handle this by adding a method above for adding event listeners to
+elements.
 
 Usage example:
 
