@@ -24,6 +24,14 @@ describe Article do
     end
   end
 
+  describe '#id' do
+    subject { article.id }
+    let(:prev) { build :article, sha1: 'prev' }
+    before { Article.articles = [prev, article] }
+
+    it { is_expected.to eq 1 }
+  end
+
   describe '#year' do
     let(:time) { Time.parse('2015-06-09') }
     subject { article.year }

@@ -59,10 +59,6 @@ class Article
     end
   end
 
-  # def js_updated_at
-  #   @js_updated_at ||= date_to_js(updated_at)
-  # end
-
   def preview
     @preview ||= tldr || content[0..200] + '...'
   end
@@ -102,5 +98,12 @@ class Article
     name = "js_#{m}"
     define_method(name) { eval("@#{name} ||= #{m}.to_i * 1000") }
   end
+
+  # article 'id' is article position in articles. Used to work out which colour
+  # to use in article
+  def id
+    Article.all.index self
+  end
+
 end
 
