@@ -1,6 +1,6 @@
-article
+article class="#{article.theme_class}"
   header
-    h1 class="#{article.theme_class}" = article.title
+    h1= article.title
 
   section.article-content == markdown article.content
 
