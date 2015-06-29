@@ -112,7 +112,7 @@ class Article
     Article.all.index self
   end
 
-  # returns 1..4
+  # returns 0..3
   def out_of_four
     4 - (4 - (id % 4))
   end
