@@ -36,6 +36,7 @@ class Blog < Sinatra::Base
 
   years.uniq.each do |year|
     get "/#{year}" do
+      # TODO: etag and last modified
       # articles for year
       @heading = "Articles from #{year}:"
       @articles = Article.all.select { |article| article.year == year }
@@ -46,6 +47,7 @@ class Blog < Sinatra::Base
   get '/' do
     @articles = Article.all
 
+    # TODO: Use last updated, not last created
     last_article = @articles.first
 
     etag last_article.sha1
