@@ -3,6 +3,7 @@ require 'article'
 require 'sinatra/asset_pipeline'
 
 class Blog < Sinatra::Base
+
   include Helpers
 
   set :assets_js_compressor, :uglifier
