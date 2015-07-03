@@ -37,6 +37,10 @@ class Article
       @@articles
     end
 
+    def for_year(year)
+      self.all.select { |article| article.year == year }
+    end
+
     def published
       all.select { |article| article.published? }
     end

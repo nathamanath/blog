@@ -12,7 +12,8 @@ You can see it running here: [blog.nathansplace.co.uk](http://blog.nathansplace.
 ## TODO:
 
 * erb in articles
-* paginate articles
+* paginate articles... maybe a spot of infinite scrolling?
 * related articles
 * tags
+* article names unique per year
 

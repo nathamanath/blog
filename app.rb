@@ -37,10 +37,15 @@ class Blog < Sinatra::Base
 
   years.uniq.each do |year|
     get "/#{year}" do
-      # TODO: etag and last modified
       # articles for year
       @heading = "Articles from #{year}:"
-      @articles = Article.all.select { |article| article.year == year }
+      @articles = Article.for_year year
+
+      last_article = @articles.first
+
+      etag last_article.last.sha1
+      last_modified last_article.updated_at
+
       slim :index
     end
   end
@@ -52,7 +57,7 @@ class Blog < Sinatra::Base
     last_article = @articles.first
 
     etag last_article.sha1
-    last_modified last_article.updated_at
+    # last_modified last_article.updated_at
 
     slim :index
   end
