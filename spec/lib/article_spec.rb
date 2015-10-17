@@ -114,12 +114,12 @@ describe Article do
 
     context 'with tldr' do
       let(:article) { build :article, tldr: 'hi there' }
-      it{ is_expected.to eq article.tldr }
+      it { is_expected.to eq article.tldr }
     end
 
     context 'without tldr' do
       let(:article) {build :article, tldr: nil, content: 'bla'}
-      it{ is_expected.to eq article.content[0..100] + '...'}
+      it { is_expected.to eq article.content[0..100] + '...'}
     end
   end
 
@@ -129,6 +129,19 @@ describe Article do
 
   describe '.sort!' do
     it 'sorts articles by created_at DESC'
+  end
+
+  describe '.last_modified' do
+    let(:newer) { build :article, updated_at: Time.parse('2015-06-09') }
+    let(:older) { build :article, updated_at: Time.parse('2010-06-09') }
+
+    before { Article.articles = [older, newer] }
+
+    subject { Article.last_modified }
+
+    it 'returns article with most recent updated_at' do
+      expect(subject).to be newer
+    end
   end
 
   describe '.new_from_file' do
