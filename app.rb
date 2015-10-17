@@ -54,10 +54,10 @@ class Blog < Sinatra::Base
     @articles = Article.all
 
     # TODO: Use last updated, not last created
-    last_article = @articles.first
+    last_article = Article.last_modified
 
-    etag last_article.sha1
-    # last_modified last_article.updated_at
+    etag Digest::SHA1.hexdigest "home_#{last_article.sha1}"
+    last_modified last_article.updated_at
 
     slim :index
   end

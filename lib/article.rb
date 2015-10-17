@@ -45,6 +45,10 @@ class Article
       all.select { |article| article.published? }
     end
 
+    def last_modified
+      all.sort { |a, b| b.updated_at <=> a.updated_at }.first
+    end
+
     def sort!
       all.sort_by! { |a| a.created_at }
       all.reverse!
