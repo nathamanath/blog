@@ -128,7 +128,17 @@ describe Article do
   describe '.all'
 
   describe '.sort!' do
-    it 'sorts articles by created_at DESC'
+    let(:newer) { build :article, created_at: Time.parse('2015-06-09') }
+    let(:older) { build :article, created_at: Time.parse('2010-06-09') }
+    let(:oldest) { build :article, created_at: Time.parse('2000-06-09') }
+
+    before { Article.articles = [older, newer, oldest] }
+
+    subject { Article.sort! }
+
+    it 'sorts articles by created_at DESC' do
+      expect(subject).to eq [newer, older, oldest]
+    end
   end
 
   describe '.last_modified' do
