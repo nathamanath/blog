@@ -130,4 +130,3 @@ class Article
   end
 
 end
-
