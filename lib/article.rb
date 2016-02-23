@@ -37,8 +37,16 @@ class Article
       @@articles
     end
 
+    def for_year(year)
+      self.all.select { |article| article.year == year }
+    end
+
     def published
       all.select { |article| article.published? }
+    end
+
+    def last_modified
+      all.sort { |a, b| b.updated_at <=> a.updated_at }.first
     end
 
     def sort!
@@ -122,4 +130,3 @@ class Article
   end
 
 end
-

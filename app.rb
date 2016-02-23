@@ -3,6 +3,7 @@ require 'article'
 require 'sinatra/asset_pipeline'
 
 class Blog < Sinatra::Base
+
   include Helpers
 
   set :assets_js_compressor, :uglifier
@@ -36,10 +37,15 @@ class Blog < Sinatra::Base
 
   years.uniq.each do |year|
     get "/#{year}" do
-      # TODO: etag and last modified
       # articles for year
       @heading = "Articles from #{year}:"
-      @articles = Article.all.select { |article| article.year == year }
+      @articles = Article.for_year year
+
+      last_article = @articles.first
+
+      etag last_article.last.sha1
+      last_modified last_article.updated_at
+
       slim :index
     end
   end
@@ -48,9 +54,9 @@ class Blog < Sinatra::Base
     @articles = Article.all
 
     # TODO: Use last updated, not last created
-    last_article = @articles.first
+    last_article = Article.last_modified
 
-    etag last_article.sha1
+    etag Digest::SHA1.hexdigest "home_#{last_article.sha1}"
     last_modified last_article.updated_at
 
     slim :index
