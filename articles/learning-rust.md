@@ -125,8 +125,5 @@ any excuse to try out some concurrency in Rust, and took this one. I have one th
 working out the file type, whilst a second base64's the image file. When they are
 both finished the result of these operations is used to construct my data URI.
 
-Pattern matching like this is new to me
-Ownership of variables
-
 I have a long way to go here, and am looking forward to finding a bigger project
 to learn more Rust.
