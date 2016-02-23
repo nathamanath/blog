@@ -2,22 +2,19 @@ title: Learning Rust
 date: 2015-12-14 20:00
 tldr: My first program in Rust
 
-I have been looking for a statically typed, compiled language to learn. Mainly for
-learning, but also to have something to turn to when the scripting languages I
-am used to fall short. With its focus on speed and concurrency, Rust looks like
-a good choice.
-
-I first looked at Rust a while back (pre v1), learning a language that was changing
+I first looked at Rust a while back (pre version 1), learning a language that was changing
 faster than I could pick it up didn't sound fun to me so I left it alone. Rust is
 now on version 1.5. I re-visited it this week for some learning fun.
 
 Having read the first few chapters of the [online book](https://doc.rust-lang.org/stable/book/)
 I made a command line tool. It takes one argument, a path to an image file, and
-returns a data uri of the image provided like so;
+returns a data URI of the image provided like so;
 
-`64yo ./1.gif | xclip -sel clip`
+`64yo ./1.gif | xclip -sel clip` (or pbcopy on osx).
 
-I left in my notes for future reference.
+This will be very useful when putting websites together.
+
+Here is my code; I left in my notes for future reference.
 
 ```rust
 extern crate rustc_serialize;
@@ -69,7 +66,7 @@ fn encode_image(path: &str) {
 
   // Now for some concurrency. Because learning.
 
-  // get file type of image from hex signiture
+  // get file type of image from hex signature
   let handle1 = {
     let buffer = buffer.clone();
 
@@ -81,7 +78,7 @@ fn encode_image(path: &str) {
 
       // compare slice to each key on left.
       // if matches key, return value on right.
-      // _ is anything not named above
+      // _ is anything not specified above
       // exhaustiveness checking... it is possible that slice could not match any
       // so _ branch is required
       match slice {
@@ -118,12 +115,18 @@ fn encode_image(path: &str) {
   }
 
 }
-
 ```
 
+This compiled with rustc 1.5.0.
+
 I could not find a nicer way of working out the image file type, but I'm sure that
-there must be one. I will update this when I find it. However this made for a
-minor excuse for me to try out some concurrency in Rust.
+there must be one. I will update this when I find it. However I was looking for
+any excuse to try out some concurrency in Rust, and took this one. I have one thread
+working out the file type, whilst a second base64's the image file. When they are
+both finished the result of these operations is used to construct my data URI.
+
+Pattern matching like this is new to me
+Ownership of variables
 
 I have a long way to go here, and am looking forward to finding a bigger project
 to learn more Rust.
