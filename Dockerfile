@@ -25,7 +25,6 @@ ADD ./config/docker/sites-available/default /etc/nginx/sites-available/default
 RUN mkdir -p /tmp/sockets
 
 WORKDIR /app
-RUN gem install bundler
 
 EXPOSE 80
 
