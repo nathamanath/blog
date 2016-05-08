@@ -1,14 +1,15 @@
 title: Automatically sign in to BT wifi hotspots
 date: 2016-05-07 22:00
-tldr: Auto connect to BT openzone WIFI hotspots on Ubuntu or OSX.
+tldr: Auto login to BT openzone WIFI hotspots on Ubuntu or OSX.
 tags: ubuntu, osx, bt openzone, bash
 
 So we moved house, we brought broadband from BT, and they are taking efflong to
-install it for us :( But our neighbour has BT too, so wee can use their openzone wifi hotspot.
+install it for us :( But our neighbour has BT too, so wee can use their openzone
+wifi hotspot.
 
 The issue with this (apart from the customer service) is that you have
-to login each time you connect. This is a minor inconvenience to me so I had a
-quick look into automating the process.
+to login via a web page each time you connect. This is a minor inconvenience to
+me so I had a go at automating the process.
 
 First I take a look at the post request the browser makes when I login and
 copy as curl. Nothing special here, here is the important bit:
@@ -17,7 +18,7 @@ copy as curl. Nothing special here, here is the important bit:
 
 Great! Thats much better already. But I think we can do more.
 
-A quick internet search told me that on Ubuntu, if I put a bash script in
+A quick internet told me that on Ubuntu, if I put a bash script in
 `/etc/network/if-up.d/` then it will be run each time I join a network!
 
 And with a bit of fiddling on the command line, I find that I can get the
@@ -47,22 +48,20 @@ fi
 
 Is saved as `/etc/network/if-up.d/bt`.
 
-_`BT_USERNAME` and `BT_PASSWORD` are set as environment variables, and of course
-the file must be executable._
+*`BT_USERNAME` and `BT_PASSWORD` are set as environment variables, and the file
+must be executable.*
 
 This is all it takes. My script is run each time I join a network. It checks
 for the correct SSID, and if it matches that of a BT hotspot it logs me in.
 
-This works on Ubuntu 16. Now to sort this out on the mac aswell.
+This works on Ubuntu 16. Now to sort this out on the mac as well.
 
 ### And OSX?!!?
 
-It's bit more of a faff to make a OSX do the same thing. I need to
-change the shell script to make it work on a mac. And convincing OSX to run this
-script for me at the right time requires more research.
+It turned out to be a bit more of a faff to make a OSX do the same thing.
 
-OSX does not have iwconfig, so I need to find another way to get the current
-SSID. This will be done with `airport`
+Firstly OSX does not have `iwconfig`, so I need to find another way to get the
+current network's SSID. This will be done with `airport` cli.
 
 Here Is the revised script:
 
@@ -79,10 +78,10 @@ fi
 
 ```
 
-Save it as `/Users/Shared/bin/bt` and make it executable.
+Save it as `/Users/Shared/bin/bt`.
 
-The path to airport is accurate on OSX Yosemite. It may or may not differ on
-other versions.
+*`BT_USERNAME` and `BT_PASSWORD` are set as environment variables, and the file
+must be executable. The path to `airport` is accurate on OSX >= 10.5.*
 
 Now, in order to have OSX run this script for us on changing network status, I
 need a the following file, `networkchange.plist`:
@@ -135,10 +134,10 @@ And there we go then. Whenever either of the laptops join a BT wifi hotspot for
 me, I will be automatically logged in.
 
 I learned how to run shell scripts when joining and leaving a network on both
-Ubuntu and OSX, which Im sure will be useful to me again.
+Ubuntu and OSX, which I am sure will be useful to me again some other time.
 
 Next steps with this are to apply the same to other public wifi hotspots
-(like o2) which also require this annoying sign in step each time.
+(like O2) which also require this annoying sign in step each time.
 
 YAY! Thats one more first world problem solved :)
 
@@ -146,4 +145,4 @@ YAY! Thats one more first world problem solved :)
 
 * https://wiki.ubuntu.com/OnNetworkConnectionRunScript
 * http://apple.stackexchange.com/questions/32354/how-do-you-run-a-script-after-a-network-interface-comes-up
-
+* http://kb.mit.edu/confluence/pages/viewpage.action?pageId=4272001
