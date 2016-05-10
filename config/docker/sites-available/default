@@ -1,5 +1,5 @@
 upstream localhost {
-  server unix:///app/tmp/sockets/puma.sock;
+  server unix:///tmp/sockets/app.sock;
 }
 
 server {
