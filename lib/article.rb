@@ -37,6 +37,10 @@ class Article
       @@articles
     end
 
+    def count
+      self.all.count
+    end
+
     def for_year(year)
       self.all.select { |article| article.year == year }
     end
@@ -122,7 +126,8 @@ class Article
 
   # returns 0..3
   def out_of_four
-    4 - (4 - (id % 4))
+    themes = THEMES.count
+    id - ((id / themes) * themes)
   end
 
   def theme_class
