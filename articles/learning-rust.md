@@ -121,7 +121,7 @@ This compiled with rustc 1.5.0.
 
 I could not find a nicer way of working out the image file type, but I'm sure that
 there must be one. I will update this when I find it. However I was looking for
-any excuse to try out some concurrency in Rust, and took this one. I have one thread
+any excuse to try out some concurrency in Rust, and took this as one. I have one thread
 working out the file type, whilst a second base64's the image file. When they are
 both finished the result of these operations is used to construct my data URI.
 
