@@ -126,7 +126,8 @@ class Article
 
   # returns 0..3
   def out_of_four
-    Article.count - id - ((10 - id) / THEMES.count)
+    themes = THEMES.count
+    id - ((id / themes) * themes)
   end
 
   def theme_class
