@@ -11,9 +11,9 @@ You can see it running here: [blog.nathansplace.co.uk](http://blog.nathansplace.
 
 ## TODO:
 
-* erb in articles
-* paginate articles... maybe a spot of infinite scrolling?
+* updated at does not survive deploy
+* paginate articles with infinite scrolling
 * related articles
 * tags
+* json + rss
 * article names unique per year
-

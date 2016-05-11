@@ -122,8 +122,7 @@ need the following plist file:
 
 (thanks stack exchange)
 
-This should be saved as `/Library/LaunchAgents/networkchange.plist` and must be
-owned by `root`.
+This should be saved as `/Library/LaunchAgents/networkchange.plist`.
 
 `networkchange.plist` says that `/Users/Shared/bin/bt` should be run each time
 there is a change to any of the 3 files listed under `WatchPaths`.
