@@ -1,5 +1,5 @@
 %code
-  background: rgba(255, 255, 255, .3)
+  background: rgba(255, 255, 255, .2)
 
 // code block
 .CodeRay
@@ -8,6 +8,14 @@
   padding: 0 1em
   width: 100%
   overflow: auto
+
+  @media screen and ('min-width: 800px')
+    width: 120%
+    margin-left: -10%
+
+  @media screen and ('min-width: 1200px')
+    width: 130%
+    margin-left: -15%
 
   .comment
     opacity: 0.6
