@@ -10,7 +10,7 @@ html
 
     == slim(:analytics, layout: false) if ENV['RACK_ENV'] == 'production'
 
-  body
+  body class="#{@page_class}"
     .container
       header.header
         == link_to_unless_current("<img class=\"logo\" alt=\"Nathans blog\" src=\"#{image_path('logo.svg')}\">", '/')
