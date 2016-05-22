@@ -15,6 +15,7 @@ gem 'jshintrb'
 gem 'sinatra-asset-pipeline'
 gem 'redcarpet'
 gem 'coderay'
+gem 'coderay_bash'
 gem 'rake'
 
 group :development, :test do

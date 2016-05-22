@@ -1,5 +1,6 @@
 require 'redcarpet'
 require 'coderay'
+require 'coderay_bash'
 
 module Helpers
   def link_to_unless_current(text, location)
