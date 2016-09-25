@@ -1,20 +1,49 @@
 require 'helpers'
 require 'article'
-require 'sinatra/asset_pipeline'
+require 'sprockets'
+require 'sprockets-helpers'
 
 class Blog < Sinatra::Base
 
   include Helpers
 
-  set :assets_js_compressor, :uglifier
-  set :assets_css_compressor, :sass
+
+  set :sprockets, Sprockets::Environment.new(root)
+  set :assets_prefix, '/assets'
+  set :digest_assets, false
+
+  configure do
+    # Setup Sprockets
+    sprockets.append_path File.join(root, 'assets', 'stylesheets')
+    sprockets.append_path File.join(root, 'assets', 'javascripts')
+    sprockets.append_path File.join(root, 'assets', 'images')
+
+    sprockets.js_compressor  = :uglify
+    sprockets.css_compressor = :scss
+
+    # Configure Sprockets::Helpers (if necessary)
+    Sprockets::Helpers.configure do |config|
+      config.environment = sprockets
+      config.prefix      = assets_prefix
+      config.digest      = digest_assets
+      config.public_path = public_folder
+
+      # Force to debug mode in development mode
+      # Debug mode automatically sets
+      # expand = true, digest = false, manifest = false
+      config.debug       = true if development?
+    end
+  end
 
   set :app_file, __FILE__
   set :articles_dir, "#{root}/articles"
   set :title, 'Nathans blog'
   set :cache, production?
 
-  register Sinatra::AssetPipeline
+  get "/assets/*" do
+    env["PATH_INFO"].sub!("/assets", "")
+    settings.sprockets.call(env)
+  end
 
   # Page per article
   Article.init("#{settings.articles_dir}/*.md").each do |article|

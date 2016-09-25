@@ -1,7 +1,12 @@
 require 'redcarpet'
 require 'coderay'
+require 'sprockets'
+require 'sprockets-helpers'
 
 module Helpers
+
+  include Sprockets::Helpers
+
   def link_to_unless_current(text, location)
     if request.path_info == location
       "<span>#{text}</span>"
