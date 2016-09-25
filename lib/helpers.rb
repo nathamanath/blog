@@ -2,6 +2,8 @@ require 'redcarpet'
 require 'coderay'
 require 'sprockets'
 require 'sprockets-helpers'
+require 'coderay_bash'
+
 
 module Helpers
 

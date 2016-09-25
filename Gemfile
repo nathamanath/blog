@@ -15,6 +15,7 @@ gem 'jshintrb'
 gem 'sprockets'
 gem 'redcarpet'
 gem 'coderay'
+gem 'coderay_bash'
 gem 'rake'
 
 gem 'sprockets-helpers'

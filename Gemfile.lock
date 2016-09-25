@@ -10,6 +10,8 @@ GEM
       sass (~> 3.4)
       thor (~> 0.19)
     coderay (1.1.1)
+    coderay_bash (1.0.7)
+      coderay (>= 1.0)
     concurrent-ruby (1.0.2)
     dalli (2.7.6)
     diff-lcs (1.2.5)
@@ -90,6 +92,7 @@ PLATFORMS
 DEPENDENCIES
   bourbon
   coderay
+  coderay_bash
   dalli
   factory_girl
   jshintrb
