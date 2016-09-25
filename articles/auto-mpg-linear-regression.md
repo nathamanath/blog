@@ -1,5 +1,6 @@
 title: Linear regression for MPG
 date: 2016-09-25 12:00
+tldr: Implementing linear regression and gradient descent in python to predict MPG of cars in auto_mpg dataset.
 
 I have been working through my second MOOC, [Machine Learning, by Stanford University](https://www.coursera.org/learn/machine-learning/home).
 It is fascinating, and I would recommend it to anyone who has a bit of maths and
@@ -10,8 +11,9 @@ make predictions on the [auto-mpg dataset](https://archive.ics.uci.edu/ml/machin
 
 Specifically I plan to pre-process the dataset in a reproducible manner, and then
 to implement linear regression and gradient descent to accurately predict MPG for
-my test set :)
+cars from this dataset :)
 
+For anyone who is interested, my finished code is here: https://github.com/nathamanath/auto_mpg_linear_regression
 
 ## Preparing the data
 
@@ -60,15 +62,22 @@ it as a column on my dataset.
 ```
 
 This could obviously be done in another language and the information could be stored
-in a database... but I want to practice my bash scripting, and for this exercise, files
-wont cause me any issues.
-
+in a database... but I want to practice my bash scripting, and for this exercise, file
+storage wont cause me any issues.
 
 ## Visualising data
 
 `gnuplot pairwise_comparison.plot` makes this 2d comparison of all features:
 
-![preview of mpg correlations](./pairwise_comparison.png)
+<figure>
+  <a href="/assets/auto_mpg_linear_regression/pairwise_comparison.png">
+    <img src="/assets/auto_mpg_linear_regression/pairwise_comparison.png" title="Pairwise comparison">
+  </a>
+
+  <figcaption>
+    All features plotted against each other.
+  </figcaption>
+</figure>
 
 By visually comparing features with mpg we can see that:
 
@@ -77,14 +86,10 @@ By visually comparing features with mpg we can see that:
 * Newer cars have slightly better MPG.
 * Each brand has a band of MPGs.
 
-Because of this, some of these features are basically repeats of others and
-can be removed.
-
-
 ## Feature selection
 
-As we can see, horsepower has a strong correlations with displacement and
-cylinders. Which makes sense, bigger engine = more horse power. Also we see that
+As we can see, horsepower has a nearly linear correlation with displacement.
+Which makes sense, bigger engine = more horse power. Also we see that
 more displacement and more cylinders make more horse power. Because of
 this, I am cutting it out. This also avoids the issue of some missing values for
 horsepower in the dataset.
@@ -117,7 +122,6 @@ on previously unseen data.
 
 My full pre-processing script is in `./prep_data.sh`.
 
-
 ## Linear regression for MPG
 
 Now that I have my data prepared, I can actually work on some predictions!!
@@ -134,10 +138,15 @@ gradient descent for 100,000 iterations. This gave the following results:
 
 Test cost: 7.80
 
+<figure>
+  <a href="/assets/auto_mpg_linear_regression/mpg_linear.png">
+    <img src="/assets/auto_mpg_linear_regression/mpg_linear.png" title="Linear model">
+  </a>
 
-
-# linear predictions chart
-
+  <figcaption>
+    Predictions based on my un-regularised linear model.
+  </figcaption>
+</figure>
 
 
 So, now that I have a benchmark to work with I will try to decrease my generalisation
@@ -164,15 +173,35 @@ I was a little surprised to find that the optimal degree of polynomial was 1, wi
 no regularisation. I save the resulting values of theta, lambda, and p in a file
 ready to make real predictions. This is all happens in `train_mpg.py`
 
-# plot p and l
-
-I then used these parameters to make predictions on my test set giving an improved
-test error of 6.23. Success!
-
-# plot predictions
+<figure>
+  <a href="/assets/auto_mpg_linear_regression/p_and_l.png">
+    <img src="/assets/auto_mpg_linear_regression/p_and_l.png" title="Regularisation and degree of polynomial">
+  </a>
 
 
-### How could this be improved?
+  <figcaption>
+    Validation error as regularisation is increased for a range of degrees of polynomial features.
+  </figcaption>
+</figure>
+
+I then used these parameters to make predictions on my testset. Interestingly,
+while most predictions are improved, some get slightly worse. But my test error
+has decreased to 6.23. Success!
+
+<figure>
+  <a href="/assets/auto_mpg_linear_regression/poly_predictions.png">
+    <img src="/assets/auto_mpg_linear_regression/poly_predictions.png" title="Polynomial model">
+  </a>
+
+  <figcaption>
+    Predictions based on my tuned polynomial model.
+  </figcaption>
+</figure>
+
+If you would like to see car names with these numbers, run `predict_mpg.py`. It
+outputs car name, predicted mpg, actual mpg, and absolute error as csv.
+
+## How could this be improved?
 
 Collecting more features on each car and having more examples in the dataset would
 most likely help in improving accuracy. Type of car (sports, SUV etc), type of
@@ -187,8 +216,7 @@ And of course, I could have used an already existing linear regression library.
 This would most probably run faster, and be more accurate. But the point here
 was to learn.
 
-
-## CONCLUSION
+## Conclusion
 
 I successfully implemented linear regression, and then I made it work better. In doing so I
 improved my understanding of linear regression and gradient descent, gained
@@ -199,28 +227,27 @@ understanding of this too.
 Also almost all of my predictions were < 5mpg out. Given the small dataset with
 few features this is very pleasing to me.
 
-I tried out my solution on many mixes of the dataset (re-run `prep_data.sh`) and
+When trying out my solution on many mixes of the dataset (re-run `prep_data.sh`) and
 found that my work extracting brands pays off on some combinations of the dataset,
 but not others. Also depending on this my test error can vary significantly.
 This makes sense I suppose as some brands have very few cars. However if I had
 more car examples for all brands, with more features, then I am sure that this
 would be more useful.
 
-I noticed one major outlier in the dataset. The [volkswagen rabbit custom diesel](http://www.caranddriver.com/reviews/1977-volkswagen-rabbit-diesel-test-review)
+There was one major outlier in my results. The [volkswagen rabbit custom diesel](http://www.caranddriver.com/reviews/1977-volkswagen-rabbit-diesel-test-review)
 gets its MPG gets predicted at about 31, but it is actually 43.1. One major clue as to
 why this might be is in its name. I do not have fuel type in my dataset. Looking
 at the names only 7 are marked as diesel. So I could try extracting this as a
 feature but I think so many diesels will have been missed that it wont work.
 Also the linked article goes on about its great mpg. So, according to that it should
-have a high mpg compared to the cars, which of course would mean my model will
+have a high mpg compared to the other cars, which of course would mean my model will
 get this one too low.
 
-
-** If you are playing along at home, you will need python 2.7, matplotlib, numpy
-and gnuplot. I ran all of this on Ubuntu 16.4 **
-
+*If you are playing along at home, you will need python 2.7, matplotlib, numpy
+and gnuplot. I ran all of this on Ubuntu 16.4*
 
 ### References
 
 * https://www.coursera.org/learn/machine-learning
+* https://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/
 * [Philip Goddard](http://philipmgoddard.com)
