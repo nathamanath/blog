@@ -6,21 +6,19 @@ I have been working through my second MOOC, [Machine Learning, by Stanford Unive
 It is fascinating, and I would recommend it to anyone who has a bit of maths and
 programming knowledge.
 
-In order to test out my new skills, I am trying out some of the techniques taught to
-make predictions on the [auto-mpg dataset](https://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/).
+In order to test out my new skills, I am trying out some of the machine learning
+techniques taught to make predictions on the [auto-mpg dataset](https://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/).
 
 Specifically I plan to pre-process the dataset in a reproducible manner, and then
-to implement linear regression and gradient descent to accurately predict MPG for
-cars from this dataset :)
-
-For anyone who is interested, my finished code is here: https://github.com/nathamanath/auto_mpg_linear_regression
+to implement multivariate linear regression and batch gradient descent to accurately
+predict MPG for cars :)
 
 ## Preparing the data
 
 Before I can start on the linear regression, the dataset needs a bit of a tidy
 up.
 
-I want a quick, repeatable way to pre-process my dataset, this way i can
+I want a quick, repeatable way to pre-process my dataset, this way I can
 test my code on many mixes of the data, and theoretically new data can be easily
 added later on. A bash script, making good use of stream editors like `awk` and
 `sed` will do the job nicely.
@@ -67,7 +65,8 @@ storage wont cause me any issues.
 
 ## Visualising data
 
-`gnuplot pairwise_comparison.plot` makes this 2d comparison of all features:
+Running [pairwise_comparison.plot](https://github.com/nathamanath/auto_mpg_linear_regression/blob/master/pairwise_comparison.plot)
+through gnuplot makes this 2d comparison of all features:
 
 <figure>
   <a href="/assets/auto_mpg_linear_regression/pairwise_comparison.png">
@@ -75,7 +74,7 @@ storage wont cause me any issues.
   </a>
 
   <figcaption>
-    All features plotted against each other.
+    All pairs of features plotted against each other.
   </figcaption>
 </figure>
 
@@ -87,6 +86,10 @@ By visually comparing features with mpg we can see that:
 * Each brand has a band of MPGs.
 
 ## Feature selection
+
+Some of these features appear to be highly correlated, so are effectively giving
+the same information more than once. By cutting out the less useful version, I
+keep my model as simple as possible which could help to avoid over fitting.
 
 As we can see, horsepower has a nearly linear correlation with displacement.
 Which makes sense, bigger engine = more horse power. Also we see that
@@ -107,8 +110,7 @@ brand will allow my program to learn each brands relation to MPG properly.
 
 This leaves me with the following features in my dataset:
 
-* Car id
-* mpg
+* MPG
 * cylinders
 * air displacement
 * weight
@@ -120,7 +122,7 @@ for linear regression to be trained on, 20% goes in the cross validation for tun
 algorithm parameters, and 20% for the test set to see how well my algorithm works
 on previously unseen data.
 
-My full pre-processing script is in `./prep_data.sh`.
+My full pre-processing script is in [prep_data.sh](https://github.com/nathamanath/auto_mpg_linear_regression/blob/master/prep_data.sh).
 
 ## Linear regression for MPG
 
@@ -134,13 +136,14 @@ will work, and gave me a benchmark to improve on.
 
 This involved normalisation and scaling of continuous features (whats the
 point in normalising binary columns?!), and adding a y intercept column. Next running
-gradient descent for 100,000 iterations. This gave the following results:
+gradient descent for 100,000 iterations (why not? Its a small dataset). This
+gave the following results:
 
-Test cost: 7.80
+Mean squared error on testset: 4.82.
 
 <figure>
-  <a href="/assets/auto_mpg_linear_regression/mpg_linear.png">
-    <img src="/assets/auto_mpg_linear_regression/mpg_linear.png" title="Linear model">
+  <a href="/assets/auto_mpg_linear_regression/linear_predictions.png">
+    <img src="/assets/auto_mpg_linear_regression/linear_predictions.png" title="Linear model">
   </a>
 
   <figcaption>
@@ -157,7 +160,7 @@ just add noise when run through this process `(BMW * weight)^2` makes no sense,
 and the same value would already be generated as a result of `weight^2`.
 
 I will find the optimal degree of polynomial, and value of my regularisation
-parameter by running gradient descent for 10000 iterations for each combination
+parameter by running gradient descent for 10,000 iterations for each combination
 of a range of values for each. The combination with the lowest error on my cross
 validation set is the one which I will keep and train over many more iterations.
 
@@ -174,32 +177,32 @@ no regularisation. I save the resulting values of theta, lambda, and p in a file
 ready to make real predictions. This is all happens in `train_mpg.py`
 
 <figure>
-  <a href="/assets/auto_mpg_linear_regression/p_and_l.png">
-    <img src="/assets/auto_mpg_linear_regression/p_and_l.png" title="Regularisation and degree of polynomial">
+  <a href="/assets/auto_mpg_linear_regression/poly_lambda_cost.png">
+    <img src="/assets/auto_mpg_linear_regression/poly_lambda_cost.png" title="Regularisation and degree of polynomial">
   </a>
 
-
   <figcaption>
-    Validation error as regularisation is increased for a range of degrees of polynomial features.
+    Validation error as regularisation is increased for a range of degrees of
+    polynomial features.
   </figcaption>
 </figure>
 
 I then used these parameters to make predictions on my testset. Interestingly,
-while most predictions are improved, some get slightly worse. But my test error
-has decreased to 6.23. Success!
+while most predictions are improved, some get slightly worse. But the mean squared
+error on my test set is now reduced to 3.70. Success!
 
 <figure>
-  <a href="/assets/auto_mpg_linear_regression/poly_predictions.png">
-    <img src="/assets/auto_mpg_linear_regression/poly_predictions.png" title="Polynomial model">
+  <a href="/assets/auto_mpg_linear_regression/quadratic_predictions.png">
+    <img src="/assets/auto_mpg_linear_regression/quadratic_predictions.png" title="Polynomial model">
   </a>
 
   <figcaption>
-    Predictions based on my tuned polynomial model.
+    Predictions based on my polynomial model.
   </figcaption>
 </figure>
 
 If you would like to see car names with these numbers, run `predict_mpg.py`. It
-outputs car name, predicted mpg, actual mpg, and absolute error as csv.
+outputs name, predicted mpg, actual mpg, and absolute error per car as csv.
 
 ## How could this be improved?
 
@@ -208,9 +211,16 @@ most likely help in improving accuracy. Type of car (sports, SUV etc), type of
 transmission (manual / auto) and also fuel type (Diesel / petrol). Would be
 helpful in predicting MPG.
 
+I was also surprised to see that regularisation didn't help in this case. I think
+that this is due to having such a small dataset with so few features. Next time
+that I am in this situation I could try k-fold cross validation in order to make
+the most of the few training examples that I have.
+
 I could also try a more intelligent means of feature selection, like using
-Pearson correlation instead of manual selection. This would most likely prove to
-be more effective.
+[Pearson correlation](https://en.wikipedia.org/wiki/Pearson_product-moment_correlation_coefficient)
+to determine weather features are highly correlated or not before removing any, instead
+of manual selection. This would most likely prove to be more effective, and
+would be more justifiable even if it gave the same result.
 
 And of course, I could have used an already existing linear regression library.
 This would most probably run faster, and be more accurate. But the point here
@@ -218,30 +228,24 @@ was to learn.
 
 ## Conclusion
 
-I successfully implemented linear regression, and then I made it work better. In doing so I
-improved my understanding of linear regression and gradient descent, gained
-experience with numpy, practiced with gnuplot and bash scripting. This is exactly
-what I hoped to achieve. I hope that this will help someone else to gain a better
-understanding of this too.
+I successfully implemented multivariate linear regression, and then I made it
+work better. In doing so I improved my understanding of linear regression and
+gradient descent, gained experience with numpy, practiced with gnuplot and bash
+scripting. This is exactly what I hoped to achieve. I hope that this will help
+someone else to gain a better understanding of this too.
 
 Also almost all of my predictions were < 5mpg out. Given the small dataset with
 few features this is very pleasing to me.
 
-When trying out my solution on many mixes of the dataset (re-run `prep_data.sh`) and
+When trying out my solution on many mixes of the dataset (re-run `./prep_data.sh`) and
 found that my work extracting brands pays off on some combinations of the dataset,
-but not others. Also depending on this my test error can vary significantly.
-This makes sense I suppose as some brands have very few cars. However if I had
-more car examples for all brands, with more features, then I am sure that this
-would be more useful.
+but not others. Also depending on this my test cost can vary significantly.
+This makes sense I suppose as some brands have very few cars, and with only 60
+examples in my test and cross validation sets, this could easily make a big difference.
+However if I had more car examples for all brands, with more features, then I am
+sure that this would prove to be useful every time.
 
-There was one major outlier in my results. The [volkswagen rabbit custom diesel](http://www.caranddriver.com/reviews/1977-volkswagen-rabbit-diesel-test-review)
-gets its MPG gets predicted at about 31, but it is actually 43.1. One major clue as to
-why this might be is in its name. I do not have fuel type in my dataset. Looking
-at the names only 7 are marked as diesel. So I could try extracting this as a
-feature but I think so many diesels will have been missed that it wont work.
-Also the linked article goes on about its great mpg. So, according to that it should
-have a high mpg compared to the other cars, which of course would mean my model will
-get this one too low.
+*For anyone who is interested, my finished code is here: https://github.com/nathamanath/auto_mpg_linear_regression*
 
 *If you are playing along at home, you will need python 2.7, matplotlib, numpy
 and gnuplot. I ran all of this on Ubuntu 16.4*
