@@ -149,4 +149,3 @@ YAY! Thats one more first world problem solved :)
 * https://wiki.ubuntu.com/OnNetworkConnectionRunScript
 * http://apple.stackexchange.com/questions/32354/how-do-you-run-a-script-after-a-network-interface-comes-up
 * http://kb.mit.edu/confluence/pages/viewpage.action?pageId=4272001
-

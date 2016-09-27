@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.0'
+ruby '2.3.1'
 
 gem 'sinatra'
 gem 'json'
@@ -12,10 +12,13 @@ gem 'uglifier'
 gem 'sass'
 gem 'therubyracer'
 gem 'jshintrb'
-gem 'sinatra-asset-pipeline'
+gem 'sprockets'
 gem 'redcarpet'
 gem 'coderay'
+gem 'coderay_bash'
 gem 'rake'
+
+gem 'sprockets-helpers'
 
 group :development, :test do
   # gem 'dotenv'
