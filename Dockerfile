@@ -29,4 +29,4 @@ WORKDIR /app
 
 EXPOSE 80
 
-ENTRYPOINT bin/startup.sh
+ENTRYPOINT config/docker/startup.sh
