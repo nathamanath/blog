@@ -4,7 +4,8 @@ RUN apt-get update -yqq && apt-get upgrade -yqq
 
 # Ruby
 RUN apt-get -yqq update
-RUN apt-get -yqq install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev curl git-core libffi-dev && apt-get clean
+RUN apt-get -yqq install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev
+RUN apt-get clean
 
 RUN git clone https://github.com/sstephenson/ruby-build.git && cd ruby-build && ./install.sh
 
