@@ -11,6 +11,8 @@ class Blog < Sinatra::Base
   set :sprockets, Sprockets::Environment.new(root)
   set :assets_prefix, '/assets'
   set :digest_assets, false
+  set :assets_path, -> { File.join(public_folder, "assets") }
+  set :assets_precompile, %w(app.js app.css *.png *.jpg *.svg *.eot *.ttf *.woff)
 
   configure do
     # Setup Sprockets
@@ -32,6 +34,11 @@ class Blog < Sinatra::Base
       # Debug mode automatically sets
       # expand = true, digest = false, manifest = false
       config.debug       = true if development?
+
+      if production?
+        config.digest      = true
+        config.manifest    = Sprockets::Manifest.new(assets, File.join(app.assets_path, "manifesto.json"))
+      end
     end
   end
 

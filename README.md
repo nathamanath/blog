@@ -17,3 +17,4 @@ You can see it running here: [blog.nathansplace.co.uk](http://blog.nathansplace.
 * tags
 * json + rss
 * article names unique per year
+* extract sprockets setup to module
