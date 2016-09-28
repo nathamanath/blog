@@ -213,8 +213,8 @@ helpful in predicting MPG.
 
 I was also surprised to see that regularisation didn't help in this case. I think
 that this is due to having such a small dataset with so few features. Next time
-that I am in this situation I could try k-fold cross validation in order to make
-the most of the few training examples that I have.
+that I am in this situation I could try [k-fold cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)#k-fold_cross-validation)
+in order to make the most of the few training examples that I have.
 
 I could also try a more intelligent means of feature selection, like using
 [Pearson correlation](https://en.wikipedia.org/wiki/Pearson_product-moment_correlation_coefficient)
