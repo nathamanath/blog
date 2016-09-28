@@ -7,7 +7,6 @@ class Blog < Sinatra::Base
 
   include Helpers
 
-
   set :sprockets, Sprockets::Environment.new(root)
   set :assets_prefix, '/assets'
   set :digest_assets, false
