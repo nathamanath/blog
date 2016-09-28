@@ -4,7 +4,7 @@ article
   header
     h1= article.title
 
-  section.article-content == markdown article.content
+  section.article-content == markdown ERB.new(article.content).result(binding)
 
   footer
     - if article.tldr

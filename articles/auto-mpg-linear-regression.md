@@ -69,8 +69,8 @@ Running [pairwise_comparison.plot](https://github.com/nathamanath/auto_mpg_linea
 through gnuplot makes this 2d comparison of all features:
 
 <figure>
-  <a href="/assets/auto_mpg_linear_regression/pairwise_comparison.png">
-    <img src="/assets/auto_mpg_linear_regression/pairwise_comparison.png" title="Pairwise comparison">
+  <a href="<%= image_path('auto_mpg_linear_regression/pairwise_comparison.png') %>">
+    <img src="<%= image_path('auto_mpg_linear_regression/pairwise_comparison.png') %>" title="Pairwise comparison">
   </a>
 
   <figcaption>
@@ -142,8 +142,8 @@ gave the following results:
 Mean squared error on testset: 4.82.
 
 <figure>
-  <a href="/assets/auto_mpg_linear_regression/linear_predictions.png">
-    <img src="/assets/auto_mpg_linear_regression/linear_predictions.png" title="Linear model">
+  <a href="<%= image_path('auto_mpg_linear_regression/linear_predictions.png') %>">
+    <img src="<%= image_path('auto_mpg_linear_regression/linear_predictions.png') %>" title="Linear model">
   </a>
 
   <figcaption>
@@ -177,8 +177,8 @@ no regularisation. I save the resulting values of theta, lambda, and p in a file
 ready to make real predictions. This is all happens in `train_mpg.py`
 
 <figure>
-  <a href="/assets/auto_mpg_linear_regression/poly_lambda_cost.png">
-    <img src="/assets/auto_mpg_linear_regression/poly_lambda_cost.png" title="Regularisation and degree of polynomial">
+  <a href="<%= image_path('auto_mpg_linear_regression/poly_lambda_cost.png') %>">
+    <img src="<%= image_path('auto_mpg_linear_regression/poly_lambda_cost.png') %>" title="Regularisation and degree of polynomial">
   </a>
 
   <figcaption>
@@ -192,8 +192,8 @@ while most predictions are improved, some get slightly worse. But the mean squar
 error on my test set is now reduced to 3.70. Success!
 
 <figure>
-  <a href="/assets/auto_mpg_linear_regression/quadratic_predictions.png">
-    <img src="/assets/auto_mpg_linear_regression/quadratic_predictions.png" title="Polynomial model">
+  <a href="<%= image_path('auto_mpg_linear_regression/quadratic_predictions.png') %>">
+    <img src="<%= image_path('auto_mpg_linear_regression/quadratic_predictions.png') %>" title="Polynomial model">
   </a>
 
   <figcaption>

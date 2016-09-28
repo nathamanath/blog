@@ -1,6 +1,7 @@
 require 'time'
 require 'yaml'
 require 'digest/sha1'
+require 'erb'
 
 class Article
   attr_accessor :content, :slug, :sha1, :created_at, :updated_at, :title, :meta, :tldr
