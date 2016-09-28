@@ -37,7 +37,7 @@ class Blog < Sinatra::Base
 
       if production?
         config.digest      = true
-        config.manifest    = Sprockets::Manifest.new(assets, File.join(app.assets_path, "manifesto.json"))
+        config.manifest    = Sprockets::Manifest.new(sprockets, File.join(assets_path, "manifesto.json"))
       end
     end
   end
