@@ -90,7 +90,7 @@ class Article
     "/#{year}/#{slug}"
   end
 
-  def prev
+  def prev_article
     # find self in Article.all. return the next one or false
     Article.published.each_with_index do |article, index|
       if article.sha1 == self.sha1
@@ -99,7 +99,7 @@ class Article
     end
   end
 
-  def next
+  def next_article
     Article.published.each_with_index do |article, index|
       if article.sha1 == self.sha1
         i = index - 1
@@ -132,6 +132,19 @@ class Article
 
   def theme_class
     "theme-#{THEMES[out_of_four]}"
+  end
+
+  def to_json
+    {
+      title: title,
+      tldr: tldr,
+      creared_at: js_created_at,
+      updated_at: js_updated_at,
+      content: content,
+      theme_class: theme_class,
+      next_url: next_article.path,
+      prev_url: prev_article.path
+    }.to_json
   end
 
 end
