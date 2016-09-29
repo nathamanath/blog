@@ -1,93 +1,50 @@
-require 'helpers'
+require 'json'
+
 require 'article'
-require 'sprockets'
-require 'sprockets-helpers'
 
-class Blog < Sinatra::Base
-
-  include Helpers
-
-  set :sprockets, Sprockets::Environment.new(root)
-  set :assets_prefix, '/assets'
-  set :digest_assets, false
-
-  configure do
-    # Setup Sprockets
-    sprockets.append_path File.join(root, 'assets', 'stylesheets')
-    sprockets.append_path File.join(root, 'assets', 'javascripts')
-    sprockets.append_path File.join(root, 'assets', 'images')
-
-    sprockets.js_compressor  = :uglify
-    sprockets.css_compressor = :scss
-
-    # Configure Sprockets::Helpers (if necessary)
-    Sprockets::Helpers.configure do |config|
-      config.environment = sprockets
-      config.prefix      = assets_prefix
-      config.digest      = digest_assets
-      config.public_path = public_folder
-
-      # Force to debug mode in development mode
-      # Debug mode automatically sets
-      # expand = true, digest = false, manifest = false
-      config.debug       = true if development?
-    end
-  end
+class App < Sinatra::Base
 
   set :app_file, __FILE__
   set :articles_dir, "#{root}/articles"
-  set :title, 'Nathans blog'
   set :cache, production?
 
-  get "/assets/*" do
-    env["PATH_INFO"].sub!("/assets", "")
-    settings.sprockets.call(env)
+  before do
+    content_type 'application/json'
   end
 
   # Page per article
   Article.init("#{settings.articles_dir}/*.md").each do |article|
-    get article.path do
+    get "#{article.path}.json" do
 
       # let me see unpublished in development!!
       halt(404) unless article.published? || settings.development?
 
-      etag article.sha1
-      last_modified article.updated_at
+      if settings.production?
+        etag article.sha1
+        last_modified article.updated_at
+      end
 
-      @title = article.title
-
-      slim :article, locals: { article: article }
+      article.to_json
     end
   end
 
-  # Page per year
-  years = Article.all.map { |article| article.year }
+  # TODO: pagination
+  get '/index.json' do
+    articles = Article.all
 
-  years.uniq.each do |year|
-    get "/#{year}" do
-      # articles for year
-      @heading = "Articles from #{year}:"
-      @articles = Article.for_year year
-
-      last_article = @articles.first
-
-      etag last_article.last.sha1
-      last_modified last_article.updated_at
-
-      slim :index
-    end
-  end
-
-  get '/' do
-    @articles = Article.all
-
-    # TODO: Use last updated, not last created
     last_article = Article.last_modified
 
-    etag Digest::SHA1.hexdigest "home_#{last_article.sha1}"
-    last_modified last_article.updated_at
+    if settings.production?
+      etag Digest::SHA1.hexdigest "home_#{last_article.sha1}"
+      last_modified last_article.updated_at
+    end
 
-    slim :index
+    previews = articles.map do |article|
+      article.preview_json
+    end
+
+    previews.to_json
   end
+
 end
 

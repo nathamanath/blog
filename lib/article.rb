@@ -1,8 +1,12 @@
 require 'time'
 require 'yaml'
 require 'digest/sha1'
+require 'json'
+
+require 'markdowner'
 
 class Article
+
   attr_accessor :content, :slug, :sha1, :created_at, :updated_at, :title, :meta, :tldr
 
   THEMES = [
@@ -15,6 +19,9 @@ class Article
   @@articles = []
 
   class << self
+    def image_path(*)
+    end
+
     def init(glob)
       clear!
 
@@ -68,7 +75,7 @@ class Article
       article.meta = YAML.load(meta)
       article.created_at = Time.parse(article.meta['date'].to_s)
       article.title = article.meta['title']
-      article.content = content
+      article.content = Markdowner.render(ERB.new(content).result(binding))
       article.slug = File.basename(f, '.md')
       article.sha1 = Digest::SHA1.hexdigest file
       article.updated_at = File.mtime(f)
@@ -79,18 +86,18 @@ class Article
   end
 
   def preview
-    @preview ||= tldr || content[0..200] + '...'
+    @preview ||= tldr || content_preview + '...'
   end
 
   def year
-    created_at.year
+    @year ||= created_at.year
   end
 
   def path
-    "/#{year}/#{slug}"
+    @path ||= "/#{year}/#{slug}"
   end
 
-  def prev
+  def prev_article
     # find self in Article.all. return the next one or false
     Article.published.each_with_index do |article, index|
       if article.sha1 == self.sha1
@@ -99,7 +106,7 @@ class Article
     end
   end
 
-  def next
+  def next_article
     Article.published.each_with_index do |article, index|
       if article.sha1 == self.sha1
         i = index - 1
@@ -118,8 +125,47 @@ class Article
     define_method(name) { eval("@#{name} ||= #{m}.to_i * 1000") }
   end
 
-  # article 'id' is article position in articles. Used to work out which colour
-  # to use in article
+  def theme_class
+    "theme-#{THEMES[out_of_four]}"
+  end
+
+  def to_json
+    {
+      title: title,
+      tldr: tldr,
+      creared_at: js_created_at,
+      updated_at: js_updated_at,
+      content: content,
+      theme_class: theme_class,
+      next: {
+        path: next_article_path,
+        title: next_article_title
+      },
+      prev:{
+        path: prev_article_path,
+        title: prev_article_title
+      }
+    }.to_json
+  end
+
+  def preview_json
+    {
+      title: article.title,
+      created_at: article.created_at,
+      preview: article.preview,
+      path: article.path
+    }.to_json
+  end
+
+  private
+
+  # Strip html from frirst 500 chars only as whole article takes ages
+  def content_preview
+    content[0..500].gsub(/(<[^>]*>)|\n|\t/s) {" "}[0..200]
+  end
+
+  # article 'id' is article position in articles. Used to work out which theme
+  # to assign to article
   def id
     Article.all.index self
   end
@@ -130,8 +176,20 @@ class Article
     id - ((id / themes) * themes)
   end
 
-  def theme_class
-    "theme-#{THEMES[out_of_four]}"
+  def next_article_path
+    next_article.path if next_article
+  end
+
+  def prev_article_path
+    prev_article.path if prev_article
+  end
+
+  def next_article_title
+    next_article.title if next_article
+  end
+
+  def prev_article_title
+    prev_article.title if prev_article
   end
 
 end
