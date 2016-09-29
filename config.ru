@@ -6,7 +6,7 @@ cache_options = {
   verbose: true
 }
 
-use Rack::Cache, cache_options if Blog.settings.cache?
+use Rack::Cache, cache_options if App.settings.cache?
 
-run Blog
+run App
 

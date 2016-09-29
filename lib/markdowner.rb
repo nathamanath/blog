@@ -1,37 +1,12 @@
 require 'redcarpet'
 require 'coderay'
-require 'sprockets'
-require 'sprockets-helpers'
 require 'coderay_bash'
 
+module Markdowner
 
-module Helpers
+  extend self
 
-  include Sprockets::Helpers
-
-  def link_to_unless_current(text, location)
-    if request.path_info == location
-      "<span>#{text}</span>"
-    else
-      "<a href=\"#{location}\">#{text}</a>"
-    end
-  end
-
-  def page_title
-    (@title) ? "#{@title} | #{base_title}" : base_title
-  end
-
-  class CodeRayify < Redcarpet::Render::HTML
-    def block_code(code, language)
-      CodeRay.scan(code, language).div(
-        # line_numbers: :inline,
-        css: :class,
-        line_number_anchors: false
-      )
-    end
-  end
-
-  def markdown(text)
+  def render(text)
     coderayified = CodeRayify.new(
       # filter_html: true,
       hard_wrap: true
@@ -57,13 +32,21 @@ module Helpers
     # coderayified introduces line breaks.
     # These are needed to make syntax highlighting work.
     # Appart from that they are not wanted. So kill them all!
-    markdown_to_html.render(text).gsub '<br>', ''
+    markdown_to_html.render(text).gsub /<br>|\n/, ''
 
   end
 
-private
-  def base_title
-    settings.title
+  private
+
+  class CodeRayify < Redcarpet::Render::HTML
+    def block_code(code, language)
+      CodeRay.scan(code, language).div(
+        # line_numbers: :inline,
+        css: :class,
+        line_number_anchors: false
+      )
+    end
   end
+
 end
 
