@@ -1,5 +1,7 @@
 require 'json'
 
+require 'asset_pipeline'
+require 'helpers'
 require 'article'
 
 class App < Sinatra::Base
@@ -24,7 +26,22 @@ class App < Sinatra::Base
         last_modified article.updated_at
       end
 
-      article.to_json
+      {
+        title: article.title,
+        tldr: article.tldr,
+        creared_at: article.js_created_at,
+        updated_at: article.js_updated_at,
+        content: Markdowner.render(ERB.new(article.content).result(binding)),
+        theme_class: article.theme_class,
+        next: {
+          path: article.next_article_path,
+          title: article.next_article_title
+        },
+        prev:{
+          path: article.prev_article_path,
+          title: article.prev_article_title
+        }
+      }.to_json
     end
   end
 
@@ -40,7 +57,12 @@ class App < Sinatra::Base
     end
 
     previews = articles.map do |article|
-      article.preview_json
+      {
+        title: article.title,
+        created_at: article.created_at,
+        preview: article.preview,
+        path: article.path
+      }
     end
 
     previews.to_json

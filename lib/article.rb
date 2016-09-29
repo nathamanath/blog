@@ -1,7 +1,6 @@
 require 'time'
 require 'yaml'
 require 'digest/sha1'
-require 'json'
 
 require 'markdowner'
 
@@ -19,8 +18,6 @@ class Article
   @@articles = []
 
   class << self
-    def image_path(*)
-    end
 
     def init(glob)
       clear!
@@ -75,7 +72,7 @@ class Article
       article.meta = YAML.load(meta)
       article.created_at = Time.parse(article.meta['date'].to_s)
       article.title = article.meta['title']
-      article.content = Markdowner.render(ERB.new(content).result(binding))
+      article.content = content
       article.slug = File.basename(f, '.md')
       article.sha1 = Digest::SHA1.hexdigest file
       article.updated_at = File.mtime(f)
@@ -129,53 +126,6 @@ class Article
     "theme-#{THEMES[out_of_four]}"
   end
 
-  def to_json
-    {
-      title: title,
-      tldr: tldr,
-      creared_at: js_created_at,
-      updated_at: js_updated_at,
-      content: content,
-      theme_class: theme_class,
-      next: {
-        path: next_article_path,
-        title: next_article_title
-      },
-      prev:{
-        path: prev_article_path,
-        title: prev_article_title
-      }
-    }.to_json
-  end
-
-  def preview_json
-    {
-      title: article.title,
-      created_at: article.created_at,
-      preview: article.preview,
-      path: article.path
-    }.to_json
-  end
-
-  private
-
-  # Strip html from frirst 500 chars only as whole article takes ages
-  def content_preview
-    content[0..500].gsub(/(<[^>]*>)|\n|\t/s) {" "}[0..200]
-  end
-
-  # article 'id' is article position in articles. Used to work out which theme
-  # to assign to article
-  def id
-    Article.all.index self
-  end
-
-  # returns 0..3
-  def out_of_four
-    themes = THEMES.count
-    id - ((id / themes) * themes)
-  end
-
   def next_article_path
     next_article.path if next_article
   end
@@ -190,6 +140,25 @@ class Article
 
   def prev_article_title
     prev_article.title if prev_article
+  end
+
+  private
+
+  # Strip html from frirst 500 chars only as whole article takes ages
+  def content_preview
+    content[0..200]
+  end
+
+  # article 'id' is article position in articles. Used to work out which theme
+  # to assign to article
+  def id
+    Article.all.index self
+  end
+
+  # returns 0..3
+  def out_of_four
+    themes = THEMES.count
+    id - ((id / themes) * themes)
   end
 
 end
