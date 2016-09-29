@@ -53,6 +53,14 @@ class App < Sinatra::Base
     end
   end
 
+  configure :development do
+    sprockets.cache = Sprockets::Cache::FileStore.new('./tmp')
+    get '/assets/*' do
+      env['PATH_INFO'].sub!(%r{^/assets}, '')
+      settings.sprockets.call(env)
+    end
+  end
+
   before do
     content_type 'application/json'
   end
