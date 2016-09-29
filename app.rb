@@ -1,14 +1,57 @@
 require 'json'
 
-require 'asset_pipeline'
+
 require 'helpers'
 require 'article'
 
+
+require 'sprockets'
+require 'sprockets-helpers'
+require 'sprockets/es6'
+
+require 'helpers'
+
 class App < Sinatra::Base
+
+  include Helpers
 
   set :app_file, __FILE__
   set :articles_dir, "#{root}/articles"
   set :cache, production?
+
+  set :sprockets, Sprockets::Environment.new(root)
+  set :assets_prefix, '/assets'
+  set :digest_assets, false
+  set :assets_path, -> { File.join(public_folder, "assets") }
+  set :assets_precompile, %w(app.js app.css *.png *.jpg *.svg)
+
+  configure do
+    # Setup Sprockets
+    sprockets.append_path File.join(root, 'assets', 'stylesheets')
+    sprockets.append_path File.join(root, 'assets', 'javascripts')
+    sprockets.append_path File.join(root, 'assets', 'images')
+
+    sprockets.js_compressor  = :uglify
+    sprockets.css_compressor = :scss
+
+    # Configure Sprockets::Helpers (if necessary)
+    Sprockets::Helpers.configure do |config|
+      config.environment = sprockets
+      config.prefix = assets_prefix
+      config.digest = digest_assets
+      config.public_path = public_folder
+
+      # Force to debug mode in development mode
+      # Debug mode automatically sets
+      # expand = true, digest = false, manifest = false
+      config.debug       = true if development?
+
+      if production?
+        config.digest = true
+        config.manifest = Sprockets::Manifest.new(sprockets, File.join(assets_path, "manifesto.json"))
+      end
+    end
+  end
 
   before do
     content_type 'application/json'
@@ -66,6 +109,11 @@ class App < Sinatra::Base
     end
 
     previews.to_json
+  end
+
+  get '/' do
+    content_type :html
+    slim :index
   end
 
 end
