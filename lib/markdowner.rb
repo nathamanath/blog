@@ -32,7 +32,7 @@ module Markdowner
     # coderayified introduces line breaks.
     # These are needed to make syntax highlighting work.
     # Appart from that they are not wanted. So kill them all!
-    markdown_to_html.render(text).gsub /<br>|\n/, ''
+    markdown_to_html.render(text).gsub /<br>/, ''
 
   end
 

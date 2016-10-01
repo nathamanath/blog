@@ -1,13 +1,10 @@
 require 'json'
 
-
 require 'helpers'
 require 'article'
 
-
 require 'sprockets'
 require 'sprockets-helpers'
-require 'sprockets/es6'
 
 require 'helpers'
 
@@ -62,6 +59,10 @@ class App < Sinatra::Base
   end
 
   before do
+    headers 'Access-Control-Allow-Origin' => 'http://localhost:3333'
+    headers 'Access-Control-Allow-Headers' => 'Authorization,Accepts,Content-Type,X-CSRF-Token,X-Requested-With'
+    headers 'Access-Control-Allow-Methods' => 'GET,OPTIONS'
+
     content_type 'application/json'
   end
 
@@ -77,21 +78,19 @@ class App < Sinatra::Base
         last_modified article.updated_at
       end
 
+      next_article = (article.next_article) ? {path: article.next_article_path, title: article.next_article_title } : nil
+      prev_article = (article.prev_article) ? {path: article.prev_article_path, title: article.prev_article_title } : nil
+
+
       {
         title: article.title,
         tldr: article.tldr,
-        creared_at: article.js_created_at,
+        created_at: article.js_created_at,
         updated_at: article.js_updated_at,
         content: Markdowner.render(ERB.new(article.content).result(binding)),
         theme_class: article.theme_class,
-        next: {
-          path: article.next_article_path,
-          title: article.next_article_title
-        },
-        prev:{
-          path: article.prev_article_path,
-          title: article.prev_article_title
-        }
+        next: next_article,
+        prev: prev_article
       }.to_json
     end
   end
@@ -110,18 +109,14 @@ class App < Sinatra::Base
     previews = articles.map do |article|
       {
         title: article.title,
-        created_at: article.created_at,
+        theme_class: article.theme_class,
+        created_at: article.js_created_at,
         preview: article.preview,
         path: article.path
       }
     end
 
     previews.to_json
-  end
-
-  get '/' do
-    content_type :html
-    slim :index
   end
 
 end
