@@ -47,8 +47,8 @@ the last column using `awk` and friends:
 To me, the only unknown brand that came out of this was `hi 1200d`. Googling this
 found nothing useful, so, until I hear out otherwise, 'hi' are going to make cars :)
 
-Next I put together `brands.sed` which maps variations of each brand name to a
-canonical brand name, and then in `brands_ids.sed` I give each brand an id and add
+Next I put together [brands.sed](https://github.com/nathamanath/auto_mpg_linear_regression/blob/master/brands.sed) which maps variations of each brand name to a
+canonical brand name, and then in [brands_ids.sed](https://github.com/nathamanath/auto_mpg_linear_regression/blob/master/brands_ids.sed) I give each brand an id and add
 it as a column on my dataset.
 
 ```bash
@@ -69,8 +69,8 @@ Running [pairwise_comparison.plot](https://github.com/nathamanath/auto_mpg_linea
 through gnuplot makes this 2d comparison of all features:
 
 <figure>
-  <a href="/assets/auto_mpg_linear_regression/pairwise_comparison.png">
-    <img src="/assets/auto_mpg_linear_regression/pairwise_comparison.png" title="Pairwise comparison">
+  <a href="<%= image_url('auto_mpg_linear_regression/pairwise_comparison.png') %>">
+    <img src="<%= image_url('auto_mpg_linear_regression/pairwise_comparison') %>">
   </a>
 
   <figcaption>
@@ -142,8 +142,8 @@ gave the following results:
 Mean squared error on testset: 4.82.
 
 <figure>
-  <a href="/assets/auto_mpg_linear_regression/linear_predictions.png">
-    <img src="/assets/auto_mpg_linear_regression/linear_predictions.png" title="Linear model">
+  <a href="<%= image_url('auto_mpg_linear_regression/linear_predictions') %>">
+    <img src="<%= image_url('auto_mpg_linear_regression/linear_predictions') %>" title="Linear model">
   </a>
 
   <figcaption>
@@ -164,7 +164,7 @@ parameter by running gradient descent for 10,000 iterations for each combination
 of a range of values for each. The combination with the lowest error on my cross
 validation set is the one which I will keep and train over many more iterations.
 
-Polynomials are generated in `linear_regression.py` using the method
+Polynomials are generated in [linear_regression.py](https://github.com/nathamanath/auto_mpg_linear_regression/blob/master/linear_regression/linear_regression.py) using the method
 `generate polynomials`.
 
 Because of the shape of the plots showing the relation between displacement,
@@ -174,11 +174,11 @@ the training set.
 
 I was a little surprised to find that the optimal degree of polynomial was 1, with
 no regularisation. I save the resulting values of theta, lambda, and p in a file
-ready to make real predictions. This is all happens in `train_mpg.py`
+ready to make real predictions. This is all happens in [train_mpg.py](https://github.com/nathamanath/auto_mpg_linear_regression/blob/master/linear_regression/train_mpg.py)
 
 <figure>
-  <a href="/assets/auto_mpg_linear_regression/poly_lambda_cost.png">
-    <img src="/assets/auto_mpg_linear_regression/poly_lambda_cost.png" title="Regularisation and degree of polynomial">
+  <a href="<%= image_url('auto_mpg_linear_regression/poly_lambda_cost') %>">
+    <img src="<%= image_url('auto_mpg_linear_regression/poly_lambda_cost') %>" title="Regularisation and degree of polynomial">
   </a>
 
   <figcaption>
@@ -192,8 +192,8 @@ while most predictions are improved, some get slightly worse. But the mean squar
 error on my test set is now reduced to 3.70. Success!
 
 <figure>
-  <a href="/assets/auto_mpg_linear_regression/quadratic_predictions.png">
-    <img src="/assets/auto_mpg_linear_regression/quadratic_predictions.png" title="Polynomial model">
+  <a href="<%= image_url('auto_mpg_linear_regression/quadratic_predictions') %>">
+    <img src="<%= image_url('auto_mpg_linear_regression/quadratic_predictions') %>" title="Polynomial model">
   </a>
 
   <figcaption>
@@ -201,7 +201,7 @@ error on my test set is now reduced to 3.70. Success!
   </figcaption>
 </figure>
 
-If you would like to see car names with these numbers, run `predict_mpg.py`. It
+If you would like to see car names with these numbers, run [predict_mpg.py](https://github.com/nathamanath/auto_mpg_linear_regression/blob/master/linear_regression/predict_mpg.py). It
 outputs name, predicted mpg, actual mpg, and absolute error per car as csv.
 
 ## How could this be improved?
@@ -237,7 +237,7 @@ someone else to gain a better understanding of this too.
 Also almost all of my predictions were < 5mpg out. Given the small dataset with
 few features this is very pleasing to me.
 
-When trying out my solution on many mixes of the dataset (re-run `./prep_data.sh`) and
+When trying out my solution on many mixes of the dataset (re-run [prep_data.sh](https://github.com/nathamanath/auto_mpg_linear_regression/blob/master/prep_data.sh) and
 found that my work extracting brands pays off on some combinations of the dataset,
 but not others. Also depending on this my test cost can vary significantly.
 This makes sense I suppose as some brands have very few cars, and with only 60
