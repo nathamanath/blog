@@ -81,10 +81,8 @@ class App < Sinatra::Base
       next_article = (article.next_article) ? {path: article.next_article_path, title: article.next_article_title } : nil
       prev_article = (article.prev_article) ? {path: article.prev_article_path, title: article.prev_article_title } : nil
 
-
       {
         title: article.title,
-        tldr: article.tldr,
         created_at: article.js_created_at,
         updated_at: article.js_updated_at,
         content: Markdowner.render(ERB.new(article.content).result(binding)),
