@@ -533,7 +533,8 @@ figure {
   .header .logo {
     display: block;
     height: 100%;
-    pointer-events: none; }
+    pointer-events: none;
+    margin: auto; }
 
 .main {
   position: relative; }

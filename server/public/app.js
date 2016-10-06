@@ -606,11 +606,13 @@ var value = function value(progress, props) {
   return props.from - progress / 100 * gap(props);
 };
 
+var scrollY = function scrollY() {
+  return window.scrollY || document.documentElement.scrollTop;
+};
+
 _knockout2.default.bindingHandlers.header = {
 
   init: function init(el, valueAccessor, allBindings, viewModel, bindingContext) {
-
-    var scrollY = window.scrollY;
 
     var container = (0, _utils.dgid)('container');
     var logo = (0, _utils.dgid)('logo');
@@ -623,11 +625,10 @@ _knockout2.default.bindingHandlers.header = {
       logo.style.height = value(progress, LOGO_RANGE) + 'px';
     };
 
-    update(getProgress(scrollY));
+    update(getProgress(scrollY()));
 
     var onScroll = (0, _utils.throttle)(function (e) {
-      scrollY = window.scrollY;
-      update(getProgress(scrollY));
+      update(getProgress(scrollY()));
     }, 1000 / 60, this);
 
     window.addEventListener('scroll', onScroll);
@@ -859,69 +860,6 @@ _knockout2.default.components.register('article-preview', {
   },
 
   template: '\n    <article class="article-preview" data-bind="css: themeClass">\n\n      <header>\n        <a data-bind="attr: { href: url }">\n          <h2 data-bind="text: title"></h2>\n        </a>\n      </header>\n\n      <div data-bind="text: preview"></div>\n\n      <footer>\n        <p>\n          Created <time data-bind="timeAgo: createdAt"></time>\n        </p>\n      </footer>\n\n    </article>\n  '
-});
-});
-
-;require.register("components/comments/comment.js", function(exports, require, module) {
-'use strict';
-
-var _knockout = require('knockout');
-
-var _knockout2 = _interopRequireDefault(_knockout);
-
-var _remarkable = require('remarkable');
-
-var _remarkable2 = _interopRequireDefault(_remarkable);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-_knockout2.default.components.register('comment', {
-  viewModel: function viewModel(params) {
-
-    this.author = params.author;
-
-    this.text = _knockout2.default.computed(function () {
-      var md = new _remarkable2.default();
-      return md.render(params.text);
-    });
-  },
-
-  template: '\n    <h2 data-bind="text: author"></h2>\n    <div data-bind="html: text"></div>\n  '
-});
-});
-
-;require.register("components/comments/comment_form.js", function(exports, require, module) {
-'use strict';
-
-var _knockout = require('knockout');
-
-var _knockout2 = _interopRequireDefault(_knockout);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-_knockout2.default.components.register('comment-form', {
-  viewModel: function viewModel(params) {
-    var _this = this;
-
-    this.author = _knockout2.default.observable();
-    this.text = _knockout2.default.observable();
-
-    this.handleSubmit = function () {
-
-      if (!_this.author() || !_this.text()) {
-        return;
-      }
-
-      var comment = { author: _this.author(), text: _this.text() };
-
-      params.handleAddComment(comment);
-
-      _this.author('');
-      _this.text('');
-    };
-  },
-
-  template: '\n    <form class="comment-form" data-bind="submit: handleSubmit">\n      <input placeholder="name" data-bind=\'value: author\'>\n      <textarea placeholder="say things" data-bind=\'value: text\'></textarea>\n\n      <button>Submit</button>\n    </form>'
 });
 });
 

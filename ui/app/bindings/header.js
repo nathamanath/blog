@@ -18,11 +18,13 @@ const value = (progress, props) => {
   return props.from - (progress / 100) * gap(props)
 }
 
+const scrollY = () => {
+  return window.scrollY || document.documentElement.scrollTop
+}
+
 ko.bindingHandlers.header = {
 
   init: function(el, valueAccessor, allBindings, viewModel, bindingContext) {
-
-    let scrollY = window.scrollY
 
     let container = dgid('container')
     let logo = dgid('logo')
@@ -35,11 +37,10 @@ ko.bindingHandlers.header = {
       logo.style.height = `${value(progress, LOGO_RANGE)}px`
     }
 
-    update(getProgress(scrollY))
+    update(getProgress(scrollY()))
 
     let onScroll = throttle(function(e) {
-      scrollY = window.scrollY
-      update(getProgress(scrollY))
+      update(getProgress(scrollY()))
     }, (1000/60), this)
 
     window.addEventListener('scroll', onScroll)
