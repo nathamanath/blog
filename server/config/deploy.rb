@@ -62,7 +62,7 @@ task :deploy do
         command %[docker kill blog_production]
         command %[docker rm blog_production]
 
-        command %[docker run --restart always --name blog_production -d -v /home/nathan/blog/app/server:/app --volumes-from gems-2.3 -t ubuntu/blog]
+        command %[docker run --restart always --name blog_production -e RACK_ENV=production -d -v /home/nathan/blog/app/current/server:/app --volumes-from gems-2.3 -t ubuntu/blog]
 
         command %[sed -i -re "s/(\s+server\s)(.*)[^=;]/\1$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' $NEW_CONTAINER_ID)/" /home/nathan/nginx/sites-available/blog.nathansplace.co.uk]
         command %[docker exec nginx service nginx restart &]
