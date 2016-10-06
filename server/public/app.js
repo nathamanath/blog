@@ -531,8 +531,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var App = {
 
-  API_URL: '/',
-
   pageComponent: _knockout2.default.observable('home'),
   pageParams: _knockout2.default.observable({}),
   pageClass: _knockout2.default.observable(),
@@ -541,20 +539,25 @@ var App = {
   pageLoading: _knockout2.default.observable(false),
 
   getPage: function getPage(component, params) {
+    var async = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
     params = params || {};
 
-    // Call this after async content loaded
-    params.onComponentPageLoaded = function () {
-      App.pageLoading(false);
-    };
+    if (async) {
+      // Call this after async content loaded
+      params.onComponentPageLoaded = function () {
+        App.pageLoading(false);
+      };
 
-    App.pageLoading(true);
+      App.pageLoading(true);
+    }
+
     App.pageComponent(component);
     App.pageParams(params);
   },
 
   init: function init() {
-    _router2.default.init();
+    _router2.default.init(App);
     _knockout2.default.applyBindings(App, document.getElementById("htmlTop"));
   }
 
@@ -603,28 +606,35 @@ var value = function value(progress, props) {
   return props.from - progress / 100 * gap(props);
 };
 
+var scrollY = function scrollY() {
+  return window.scrollY || document.documentElement.scrollTop;
+};
+
 _knockout2.default.bindingHandlers.header = {
 
   init: function init(el, valueAccessor, allBindings, viewModel, bindingContext) {
-
-    var scrollY = window.scrollY;
 
     var container = (0, _utils.dgid)('container');
     var logo = (0, _utils.dgid)('logo');
 
     var update = function update(progress) {
+
       var elHeight = value(progress, HEADER_RANGE) + 'px';
+
+      console.log('-----');
+      console.log(progress);
+      console.log(HEADER_RANGE);
+      console.log(elHeight);
 
       el.style.height = elHeight;
       container.style.paddingTop = elHeight;
       logo.style.height = value(progress, LOGO_RANGE) + 'px';
     };
 
-    update(getProgress(scrollY));
+    update(getProgress(scrollY()));
 
     var onScroll = (0, _utils.throttle)(function (e) {
-      scrollY = window.scrollY;
-      update(getProgress(scrollY));
+      update(getProgress(scrollY()));
     }, 1000 / 60, this);
 
     window.addEventListener('scroll', onScroll);
@@ -1280,13 +1290,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = {
 
-  init: function init() {
+  init: function init(App) {
+
+    var State = void 0;
+
     _crossroads2.default.parse(document.location.pathname + document.location.search);
 
     // log all requests that were bypassed / not matched
-    _crossroads2.default.bypassed.add(console.log, console);
-
-    var State = void 0;
+    _crossroads2.default.bypassed.add(function (request) {
+      alert('Page not found');
+    });
 
     if (History.enabled) {
       State = History.getState();
@@ -1311,7 +1324,7 @@ exports.default = {
 
           // Local links only
           // TODO: be more clever about link selection... data attribute or ko binding
-          if (urlPath.startsWith('/')) {
+          if (urlPath.match(/^\//)) {
             e.preventDefault();
 
             History.pushState({ urlPath: urlPath }, '', urlPath);
