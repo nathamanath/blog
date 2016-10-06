@@ -5,7 +5,7 @@ import '../components/article'
 
 Crossroads.addRoute('{year}/{slug}', (year, slug) => {
 
-  let url = `${App.API_URL}/${year}/${slug}.json`
+  let url = `/${year}/${slug}.json`
 
   App.getPage('article', {
     url: url,

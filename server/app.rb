@@ -71,7 +71,7 @@ class App < Sinatra::Base
       send_file File.expand_path('index.html', settings.public_folder)
     end
 
-    # API route to json version
+    # Route to json version
     get "#{article.path}.json" do
 
       # let me see unpublished in development!!

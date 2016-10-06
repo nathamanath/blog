@@ -8,8 +8,6 @@ import 'bindings'
 
 let App = {
 
-  API_URL: 'http://b1522745.ngrok.io',
-
   pageComponent: ko.observable('home'),
   pageParams: ko.observable({}),
   pageClass: ko.observable(),
@@ -17,21 +15,24 @@ let App = {
 
   pageLoading: ko.observable(false),
 
-  getPage: (component, params) => {
+  getPage: (component, params, async = true) => {
     params = params || {}
 
-    // Call this after async content loaded
-    params.onComponentPageLoaded = () => {
-      App.pageLoading(false)
+    if(async) {
+      // Call this after async content loaded
+      params.onComponentPageLoaded = () => {
+        App.pageLoading(false)
+      }
+
+      App.pageLoading(true)
     }
 
-    App.pageLoading(true)
     App.pageComponent(component)
     App.pageParams(params)
   },
 
   init: () => {
-    Router.init()
+    Router.init(App)
     ko.applyBindings(App, document.getElementById("htmlTop"))
   }
 

@@ -6,5 +6,5 @@ import '../components/home'
 Crossroads.addRoute('', () => {
   App.pageClass('')
   App.pageTitle('')
-  App.getPage('home', { url: `${App.API_URL}/index.json` })
+  App.getPage('home', { url: `/index.json` })
 })
