@@ -1,7 +1,6 @@
-.sass-cache
+**/.sass-cache
 *.log
-.env
-/public/assets
-/config/docker/id_rsa*
-/vendor
+server/public/assets
 .bundle
+**/tmp/*
+**/node_modules

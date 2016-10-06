@@ -1,0 +1,29 @@
+.main
+  position: relative
+
+  &:after
+    opacity: 0
+
+  &.is-loading
+    *
+      opacity: 0
+
+    &:after
+      content: 'Loading...'
+      opacity: 0
+      color: #ffffff
+      position: relative
+      display: inline-block
+      transform-origin: 50% 0
+      animation-name: fade-in
+      animation-duration: .25s
+      animation-delay: .75s;
+      animation-timing-function: ease-out
+      animation-fill-mode: forwards
+
+  &:not(.is-loading)
+    &.animate-in
+      transform-origin: 50% 0
+      animation-name: fade-in
+      animation-duration: .25s
+      animation-timing-function: ease-out
