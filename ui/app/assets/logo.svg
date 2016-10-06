@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<svg version="1.1" viewBox="0 0 204 228" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMinYMin slice" width="200" height="224">
+
+  <path id="roof"
+        d=" M0,110
+            L103,1
+            L204,110
+            L186,128
+            L103,34
+            L19,127
+            L0,110"
+        fill="#90b854"
+        stroke="#90b854"
+        stroke-width="1"/>
+
+  <path id="floor"
+        d="M25,180
+           V216
+           H177
+           V180"
+        stroke="#4f8cb0"
+        stroke-width="23"
+        fill="none"/>
+
+  <path id="n"
+        d="M60,187
+           V103
+           H79
+           V114
+           c39,-29 65,-3 65,29
+           V187
+           H123
+           V139
+           c-4,-25 -36,-25 -42,0
+           V187
+           H60"
+        fill="#fff"
+        stroke="#fff"
+        stroke-width="1"/>
+
+  <path id="comma"
+        d=" M189,27
+            V1
+            H167
+            V26
+            H178
+            q0,10 -11,14
+            L170 48
+            q18,-5 19,-24"
+        fill="#c46922"
+        stroke="#c46922"
+        stroke-width="1"/>
+
+</svg>
