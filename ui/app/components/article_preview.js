@@ -9,17 +9,13 @@ ko.components.register('article-preview', {
     this.path = params.path
     this.themeClass = params.themeClass
 
-    this.url = ko.computed(() => {
-      return `/#${this.path}`
-    })
-
   },
 
   template: `
     <article class="article-preview" data-bind="css: themeClass">
 
       <header>
-        <a data-bind="attr: { href: url }">
+        <a data-bind="attr: { href: path }">
           <h2 data-bind="text: title"></h2>
         </a>
       </header>
