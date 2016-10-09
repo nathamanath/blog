@@ -1,0 +1,20 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    colored (1.2)
+    rake (11.3.0)
+    rake-notes (0.2.0)
+      colored
+      rake
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  rake-notes
+
+RUBY VERSION
+   ruby 2.3.1p112
+
+BUNDLED WITH
+   1.13.1
