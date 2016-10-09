@@ -1,5 +1,6 @@
 require 'rake/notes/rake_task'
 
+ROOT_PATH = File.expand_path '../', __FILE__
 UI_PATH = File.expand_path '../ui', __FILE__
 SERVER_PATH = File.expand_path '../server', __FILE__
 
@@ -31,5 +32,6 @@ task deploy: [:build] do
   `cd #{SERVER_PATH}`
   `git checkout master`
   `git push production master`
-  `mina deploy`
+
+  `cd #{ROOT_PATH}; mina deploy`
 end

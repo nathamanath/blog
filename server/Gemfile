@@ -26,6 +26,5 @@ group :development, :test do
   gem 'bourbon'
   gem 'neat'
   gem 'rack-test'
-  gem 'mina'
 end
 
