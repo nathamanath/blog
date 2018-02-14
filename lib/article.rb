@@ -23,6 +23,7 @@ class Article
       clear!
 
       Dir[glob].each do |file|
+        p file
         all << Article.new_from_file(file)
       end
 
@@ -63,7 +64,7 @@ class Article
     end
 
     def new_from_file(f)
-      file = File.read f
+      file = File.read(f)
 
       meta, content = file.split("\n\n", 2)
 

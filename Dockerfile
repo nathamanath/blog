@@ -19,31 +19,50 @@ RUN git clone https://github.com/sstephenson/ruby-build.git
 WORKDIR ruby-build
 RUN ./install.sh
 
-ARG RUBY_VERSION=2.4.3
+ARG RUBY_VERSION
+ARG RACK_ENV=production
+
 ENV RUBY_VERSION=$RUBY_VERSION
+ENV RACK_ENV=$RACK_ENV
 
 ENV CONFIGURE_OPTS --disable-install-rdoc
-RUN ruby-build 2.4.3 /usr/local
+RUN ruby-build ${RUBY_VERSION} /usr/local
 
 # Tidy up
 RUN apt-get purge -yq curl git-core
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Should be linked to gems volume
-ENV GEM_HOME /usr/local/bundle
-ENV PATH $GEM_HOME/bin:$PATH
-VOLUME /usr/local/bundle
-
 RUN mkdir -p /tmp/sockets
 
+ENV GEM_HOME /var/blog/bundle
+ENV PATH $GEM_HOME/bin:$PATH
+
 RUN useradd -ms /bin/bash bloguser
-RUN mkdir /opt/blog
+RUN mkdir -p /var/blog/bundle
+RUN mkdir -p /opt/blog
+WORKDIR /opt/blog
+
+
+COPY Gemfile /opt/blog
+COPY Gemfile.lock /opt/blog
+
+RUN chown -R bloguser /opt/blog
+RUN chown -R bloguser /var/blog
+
+USER bloguser
+RUN gem install bundler
+RUN bundle install --binstubs --without development test
+
+
+USER root
+
 COPY . /opt/blog
 RUN chown -R bloguser /opt/blog
 
 USER bloguser
-WORKDIR /home/bloguser
+
+RUN bundle exec rake assets:precompile
 
 EXPOSE 9092
 
-ENTRYPOINT /bin/startup.sh
+CMD bundle exec puma -C config/puma/docker.rb
