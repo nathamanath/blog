@@ -10,7 +10,7 @@ My goal is to set up username / password authentication, and token based
 authorisation using JWT for rest API endpoints, with some routes restricted to
 users with set permissions.
 
-When doing this for the first time with Phoenix, I didnt find it entirely
+When doing this for the first time with Phoenix, I didn't find it entirely
 obvious which combination of packages are needed, or how to get started with
 them. So this is an attempt at a basic getting started guide, which you can
 then build on to make a production worthy setup which fits your own
@@ -23,8 +23,8 @@ https://github.com/nathamanath/phoenix-auth-example
 
 ## Baseline...
 
-For anyone who would like to play along at home, set up a new phoenix app; im on
-version `1.3`.
+For anyone who would like to play along at home, set up a new phoenix app; I'm
+on version `1.3`.
 
 ## Getting started
 
@@ -46,7 +46,7 @@ for authenticating users.
 
 [ueberauth_identity](https://github.com/ueberauth/ueberauth_identity) is 'A
 simple username/password strategy for Überauth'. Üeberauth dosent assume a
-particular authorisation stratergy, instead stratergy libs are made available
+particular authorisation strategy, instead, strategy libs are made available
 here: https://github.com/ueberauth, or you can make your own.
 
 We want username / password auth, so `ueberauth_identity` is the one for us.
@@ -62,8 +62,8 @@ user passwords.
 Comeonin depends on a password hashing lib. You can choose Argon2, Bcrypt, or
 Pbkdf2. We will use [bcrypt_elixir](https://github.com/riverrun/bcrypt_elixir)
 
-This package is the bcrypt password hashing algorithm for Elixir. Do take note
-that **this lib requires >1 cpu core to function. If you have only one core, on
+This package is the bcrypt password hashing algorithm for Elixir. **Do take note
+that this lib requires >1 CPU core to function. If you have only one core, on
 say a small VPS, your release will crash without giving a useful error
 message!!**
 
@@ -75,7 +75,7 @@ Give it a `mix deps.get` and we can get to the authorising...
 
 ## User resource
 
-So we will need some users to authorize. Im going to generate an uber simple
+So we will need some users to authorise. Im going to generate an uber simple
 user resource.
 
 ```sh
@@ -101,7 +101,7 @@ Add it to your router in the api scope like so:
 and `mix ecto.migrate`.
 
 We need to make a few modifications to `lib/auth/accounts/user.ex` for this to
-be useful to us...
+be useful to us (see comments)...
 
 ```ex
   defmodule Auth.Accounts.User do
@@ -150,7 +150,8 @@ now so that we can try out our code as we progress...
 https://github.com/nathamanath/phoenix-auth-example/blob/master/priv/repo/seeds.ex
 
 And after seeding the database, `Auth.Accounts.list_users` will show us our
-seeded users and that our changes to the user module have worked as intended.
+seeded users and that our changes to `Auth.Accounts.User` have worked as
+intended.
 
 ```ex
   [%Auth.Accounts.User{
@@ -173,9 +174,8 @@ To the accounts context!
 Here we will use `Comeonin.Bcrypt.checkpw/2` to compare a password with a
 password hash in our database, and `Comeonin.Bcrypt.dummy_checkpw/2` when an
 incorrect username is given. This is to help prevent a possible
-[timing attack](https://en.wikipedia.org/wiki/Timing_attack) where an attacker
-could work out if email addresses are present in our database or not based on
-server response times :0
+[timing attack](https://en.wikipedia.org/wiki/Timing_attack) in which an
+attacker could infer whether email addresses are present in the database or not.
 
 ```ex
   def get_user_by_username_and_password(nil, password), do: {:error, :invalid}
@@ -189,16 +189,17 @@ server response times :0
       _ ->
         # Help to mitigate timing attacks
         Comeonin.Bcrypt.dummy_checkpw
-        {:error, :unauthorized}
+        {:error, :unauthorised}
     end
   end
 ```
 
-If you chose a defferent hashing lib to use with comeonin, then switch out the
-`Comeonin.Bcrypt` module for whichever other one you selected. you can call `checkpw/2`
-and `dummy_checkpw/0` on each of the hashing modules mentioned above.
+If you chose a different hashing lib to use with comeonin, then switch out the
+`Comeonin.Bcrypt` module for whichever other one you selected. You can call
+`checkpw/2` and `dummy_checkpw/0` on each of the hashing modules mentioned
+above.
 
-Now we can see that `Accounts.get_user_by_username_and_password/2` works as
+Now we can check that `Accounts.get_user_by_username_and_password/2` works as
 expected; All going well, in `iex` you should get stuff like this:
 
 ```ex
@@ -207,10 +208,10 @@ expected; All going well, in `iex` you should get stuff like this:
   # => %Auth.Accounts.User{...}
 
   Auth.Accounts.get_user_by_username_and_password "frank", "qweqweqwe"
-  # => {:error, :unauthorized}
+  # => {:error, :unauthorised}
 
   Auth.Accounts.get_user_by_username_and_password "reader", "opensaysm"
-  # => {:error, :unauthorized}
+  # => {:error, :unauthorised}
 ```
 
 ## Authentication controller
@@ -218,14 +219,14 @@ expected; All going well, in `iex` you should get stuff like this:
 Now that this works, I want to see the same thing over HTTP. To achieve this
 we need to:
 
-* Configure ueberauth (and ueberauth_identity)
-* Configure guardian
-* Write a guardian token module
-* Implement the actual authentication controller using the above dependencies
-* Update our router
+* Configure ueberauth (and ueberauth_identity).
+* Configure guardian.
+* Write a guardian token module.
+* Implement the actual authentication controller using the above dependencies.
+* Update our router.
 
-For this example we will configure ueberauth and guardian like so in
-`config.exs`:
+For this example, in `config.exs`, we will configure ueberauth and guardian like
+so:
 
 ```ex
   config :ueberauth, Ueberauth,
@@ -250,14 +251,14 @@ For this example we will configure ueberauth and guardian like so in
     }
 ```
 
-We set up ueberauth, with the ueberauth identity stratergy as an authorization
+We set up ueberauth, with the ueberauth identity strategy as an authorisation
 provider. For this you have to set:
 
-* the request method which our controller will accept authorisation attempts
-  on,
-* the path which we will map to the identity callback controller action via our
-  router,
-* `nickname_field` is used to map our user resource to a jason web token,
+* The request method which our controller will accept authorisation attempts
+  on.
+* The path which we will map to the identity callback controller action via our
+  router.
+* `nickname_field` is used to map our user resource to a jason web token.
 * `param_nesting` and `uid_field` tells ueberauth that we will be posting up
   a user object containing the `username` and `password` attributes. And that
   we will use the `username` field to identify our users.
@@ -353,16 +354,16 @@ With that, we should be able to authenticate over HTTP
 ```
 
 You should now see a 200 status and a lovely JWT when using correct credentials,
-and a 401 and an annoying message when you try without.
+and a 401 accompanied by an annoying message when you try without.
 
 ## Authentication pipeline
 
 This is going well. Now that we can issue session tokens to authorised users, we
 can restrict access to some api endpoints based on having aquired a valid JWT.
 
-This will be caried out using a series of plugs provided by Guardian.
+This will be carried out using a series of plugs provided by Guardian.
 
-We write our own plug grouping them together, so that we can control how errors
+We write our own plug, grouping them together so that we can control how errors
 are handled:
 
 ```ex
@@ -393,7 +394,7 @@ anyone who might be password guessing, for this we write another plug:
   end
 ```
 
-and the configure AuthAccessPipeline to use it:
+And the configure `Auth.AuthAccessPipeline` to use it:
 
 ```ex
   # Configure the authentication plug pipeline
@@ -402,7 +403,7 @@ and the configure AuthAccessPipeline to use it:
     error_handler: AuthWeb.Plug.AuthErrorHandler
 ```
 
-The last step in this section is to add a pipeline to the router.
+The last step in this section is to add a pipeline to the router,
 
 ```ex
   pipeline :authenticated do
@@ -410,13 +411,13 @@ The last step in this section is to add a pipeline to the router.
   end
 ```
 
-and to use it to restrict access to our users resource:
+and to use it to restrict access to our user resource:
 
 ```
-  scope "/api", OtherWeb do
+  scope "/api", AuthWeb do
     pipe_through :api
 
-    ...
+    # SNIP...
 
     pipe_through :authenticated
 
@@ -424,8 +425,8 @@ and to use it to restrict access to our users resource:
   end
 ```
 
-With all of that in place, we can try hitting up users index with and without a
-valid session token:
+With all of that in place, we can try hitting up `/api/users` both with, and
+without a valid session token:
 
 ```sh
   curl localhost:4000/api/users -H 'content-type: application/json'
@@ -439,7 +440,7 @@ valid session token:
     -d '{"user": {"username": "reader", "password": "qweqweqwe"}}'
   # => {"token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiO..."}
 
-  # use the auth token in the authorization header like so:
+  # use the auth token in the authorisation header like so:
   curl localhost:4000/api/users \
     -H 'content-type: application/json' \
     -H 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiO...'
@@ -447,16 +448,16 @@ valid session token:
   # => {"data":[{"username":"reader","id":1,"hashed_password":"$2b$12....]}
 ```
 
-By the way, now that our authentication pipeline is in place,
-`Guardian.Plug.current_resource(conn)` will get us the current logged in user.
+*By the way, now that our authentication pipeline is in place,
+`Guardian.Plug.current_resource(conn)` will get us the current logged in user.*
 
-### Permissions
+## User permissions
 
 Lastly lets have a quick look at managing user permissions. I want different
-authenticated users to have access to different api routes.
+authenticated users to have access to differing api endpoints.
 
-Our user module already has a permissions attribute holding a list of permission
-names, and so lets put those to work.
+`Auth.Accoutns.User` already has a permissions attribute holding a list of
+permission names, and so lets put those to work.
 
 Guardian provides the functionality to encode and check user permissions for us
 in the `Guardian.Permissions.Bitwise` behaviour and a corresponding
@@ -486,7 +487,7 @@ tokens:
   end
 ```
 
-And pass in a users permissions when calling `Auth.Guardian.encode_and_sign/3`
+And pass in a user's permissions when calling `Auth.Guardian.encode_and_sign/3`
 from `Auth.AuthenticationController`
 
 ```ex
@@ -520,29 +521,27 @@ implementation before using it to secure your application.
 
 For example:
 
-* Enforce strong password choices,
-* Implement a password reset feature,
-* Tests so that you can be sure that your code works as intended,
-* Rate limit authentication attempts,
-* Role management,
-* More stringent password validation,
-* Other authentication stratergies... oauth2 via a third party provider for
-  example,
+* Enforce strong password choices
+* Implement a password reset feature
+* Write tests, so that you can be sure that your code behaves as intended
+* Rate limit authentication attempts
+* Role management
+* Implement other authentication strategies, such as oauth2 via a third party
+  provider
 
 And of course, TLS is essential when handling user credentials.
 
-There is much more detail in the docs and readmes of each of the packages used,
-I have linked to each below. It's well worth having a look to see the options
-available to you here. And, if one or more of these packages is not to your
-liking, there are alternatives to each available on
+There is much more detail in the docs and readmes of each of the packages used
+(links below). It's well worth having a look to see the options available to you
+here. Also, if one or more of these packages is not to your liking, there are
+alternatives to each available on
 [hex](https://hex.pm/packages?_utf8=%E2%9C%93&search=authentication&sort=recent_downloads).
 
 ## References
 
-https://github.com/ueberauth/guardian
-https://hexdocs.pm/guardian/Guardian.Permissions.Bitwise.html
-https://github.com/ueberauth/ueberauth
-https://github.com/ueberauth/ueberauth_identity
-https://github.com/riverrun/comeonin
-https://github.com/riverrun/bcrypt_elixir
-https://jwt.io/
+* https://github.com/ueberauth/guardian
+* https://hexdocs.pm/guardian/Guardian.Permissions.Bitwise.html
+* https://github.com/ueberauth/ueberauth
+* https://github.com/ueberauth/ueberauth_identity
+* https://github.com/riverrun/comeonin
+* https://github.com/riverrun/bcrypt_elixir
