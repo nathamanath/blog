@@ -1,32 +1,68 @@
-FROM ubuntu
-
-RUN apt-get update -yqq && apt-get upgrade -yqq
+FROM debian:stretch
 
 # Ruby
-RUN apt-get -yqq update
-RUN apt-get -yqq install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev
-RUN apt-get clean
+RUN apt-get -yq update && apt-get -yq install \
+  git-core \
+  curl \
+  zlib1g-dev \
+  build-essential \
+  libssl-dev \
+  libreadline-dev \
+  libyaml-dev \
+  libxml2-dev \
+  libxslt1-dev \
+  libcurl4-openssl-dev \
+  software-properties-common \
+  libffi-dev
 
-RUN git clone https://github.com/sstephenson/ruby-build.git && cd ruby-build && ./install.sh
+RUN git clone https://github.com/sstephenson/ruby-build.git
+WORKDIR ruby-build
+RUN ./install.sh
+
+ARG RUBY_VERSION
+ARG RACK_ENV=production
+
+ENV RUBY_VERSION=$RUBY_VERSION
+ENV RACK_ENV=$RACK_ENV
 
 ENV CONFIGURE_OPTS --disable-install-rdoc
-RUN ruby-build 2.3.1 /usr/local
-RUN rm -r ruby-build
+RUN ruby-build ${RUBY_VERSION} /usr/local
 
-# should be linked to gems conatainer so that gems can persist
-# between deployments.
-ENV GEM_HOME /ruby_gems/2.3
-ENV PATH /ruby_gems/2.3/bin:$PATH
-
-# Nginx
-RUN apt-get install -yqq nginx --fix-missing
-RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-ADD ./config/docker/sites-available/default /etc/nginx/sites-available/default
+# Tidy up
+RUN apt-get purge -yq curl git-core
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN mkdir -p /tmp/sockets
 
-WORKDIR /app
+ENV GEM_HOME /var/blog/bundle
+ENV PATH $GEM_HOME/bin:$PATH
 
-EXPOSE 80
+RUN useradd -ms /bin/bash bloguser
+RUN mkdir -p /var/blog/bundle
+RUN mkdir -p /opt/blog
+WORKDIR /opt/blog
 
-ENTRYPOINT bin/startup.sh
+
+COPY Gemfile /opt/blog
+COPY Gemfile.lock /opt/blog
+
+RUN chown -R bloguser /opt/blog
+RUN chown -R bloguser /var/blog
+
+USER bloguser
+RUN gem install bundler
+RUN bundle install --binstubs --without development test
+
+
+USER root
+
+COPY . /opt/blog
+RUN chown -R bloguser /opt/blog
+
+USER bloguser
+
+RUN bundle exec rake assets:precompile
+
+EXPOSE 9092
+
+CMD bundle exec puma -C config/puma/docker.rb

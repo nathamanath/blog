@@ -45,7 +45,7 @@ System for Plug-based Web Applications'. It is the main framework we will use
 for authenticating users.
 
 [ueberauth_identity](https://github.com/ueberauth/ueberauth_identity) is 'A
-simple username/password strategy for Überauth'. Üeberauth dosent assume a
+simple username/password strategy for Uberauth'. Ueberauth dosent assume a
 particular authorisation strategy, instead, strategy libs are made available
 here: https://github.com/ueberauth, or you can make your own.
 
