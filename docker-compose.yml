@@ -20,5 +20,8 @@ services:
     networks:
       - blog
 
+configs:
+  -
+
 networks:
   blog: {}
