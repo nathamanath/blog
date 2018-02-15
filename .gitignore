@@ -7,3 +7,4 @@
 .bundle
 tmp/*
 node_modules
+/server
