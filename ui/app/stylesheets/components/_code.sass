@@ -1,0 +1,57 @@
+%code
+  background: rgba(255, 255, 255, .2)
+
+// code block
+.CodeRay
+  @extend %code
+  margin: 2em 0
+  padding: 0 1em
+  width: 100%
+  overflow: auto
+
+  @media screen and ('min-width: 800px')
+    width: 120%
+    margin-left: -10%
+
+  .comment
+    opacity: 0.6
+
+  .keyword
+    color: lighten($color-highlight-1, 10%)
+
+  .function
+    color: lighten($color-highlight-2, 10%)
+
+  .local-variable
+    color: lighten($color-highlight-3, 10%)
+
+  .instance-variable
+    color: lighten($color-highlight-3, 10%)
+
+  .integer
+    color: lighten($color-highlight-3, 10%)
+
+  .preprocessor
+    color: lighten($color-highlight-2, 10%)
+
+  .tag
+    color: lighten($color-highlight-1, 10%)
+
+  .attribute-name
+    color: lighten($color-highlight-3, 10%)
+
+  .delimiter
+  .content
+
+  .directive
+    color: lighten($color-highlight-1, 10%)
+
+
+  .string
+    opacity: 0.6
+
+// inline code
+code
+  @extend %code
+  padding: .25em .4em
+
