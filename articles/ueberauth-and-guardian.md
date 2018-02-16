@@ -1,4 +1,4 @@
-title: Ueberauth and guardian setup for Phoenix Rest API
+title: Ueberauth and guardian setup for a Phoenix rest API
 date: 2018-02-09 21:00
 tldr: Setting up Ueberauth and Guardian in a Phoenix app for username & password authentication, user permissions, and JWT based authorisation.
 
@@ -73,7 +73,7 @@ https://github.com/riverrun/comeonin/wiki/Deployment
 
 Give it a `mix deps.get` and we can get to the authorising...
 
-## User resource
+## The user resource
 
 So we will need some users to authorise. Im going to generate an uber simple
 user resource.

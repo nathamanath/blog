@@ -9,22 +9,21 @@ module Markdowner
   def render(text)
     coderayified = CodeRayify.new(
       # filter_html: true,
-      hard_wrap: true
+      hard_wrap: true,
+      with_toc_data: true
     )
 
     options = {
-      tables: true,
-      fenced_code_blocks: true,
-      no_intra_emphasis: true,
       autolink: true,
-      strikethrough: true,
-      lax_html_blocks: true,
+      fenced_code_blocks: true,
+      footnotes: true,
+      highlight: true,
+      no_intra_emphasis: true,
       superscript: true,
       space_after_headers: true,
-      underline: true,
-      highlight: true,
-      quote: true,
-      footnotes: true
+      strikethrough: true,
+      tables: true,
+      underline: true
     }
 
     markdown_to_html = Redcarpet::Markdown.new(coderayified, options)
@@ -49,4 +48,3 @@ module Markdowner
   end
 
 end
-
