@@ -1,6 +1,6 @@
 title: Ueberauth and guardian setup for Phoenix Rest API
 date: 2018-02-09 21:00
-tldr: Setting up ueberauth and guardian in a phoenix app for password authentication, user permissions, and JWT based authorisation
+tldr: Setting up Ueberauth and Guardian in a Phoenix app for username & password authentication, user permissions, and JWT based authorisation.
 
 So Ivan asked me how to set up token based sessions and password authentication
 for an Elixir Phoenix Rest API. He then said 'Have you considered writing a blog
@@ -29,10 +29,10 @@ on version `1.3`.
 ## Getting started
 
 First, get the required packages... add the following to your `mix.exs` and i'll
-explain why we need each lib. Also `:ueberauth`, and :`ueberauth_identity` need
-adding to `extra_applications`
+explain why we need each lib. Also `:ueberauth`, and `:ueberauth_identity` need
+adding to `extra_applications`.
 
-```ex
+```elixir
   {:ueberauth, "~> 0.5.0"},
   {:ueberauth_identity, "~> 0.2.3"},
   {:guardian, "~> 1.0"},
@@ -78,7 +78,7 @@ Give it a `mix deps.get` and we can get to the authorising...
 So we will need some users to authorise. Im going to generate an uber simple
 user resource.
 
-```sh
+```bash
   mix phx.gen.json \
     Accounts \
     User \
@@ -90,7 +90,7 @@ user resource.
 
 Add it to your router in the api scope like so:
 
-```
+```elixir
   scope "/api", AuthWeb do
     pipe_through :api
 
@@ -103,7 +103,7 @@ and `mix ecto.migrate`.
 We need to make a few modifications to `lib/auth/accounts/user.ex` for this to
 be useful to us (see comments)...
 
-```ex
+```elixir
   defmodule Auth.Accounts.User do
     use Ecto.Schema
     import Ecto.Changeset
@@ -153,7 +153,7 @@ And after seeding the database, `Auth.Accounts.list_users` will show us our
 seeded users and that our changes to `Auth.Accounts.User` have worked as
 intended.
 
-```ex
+```elixir
   [%Auth.Accounts.User{
     __meta__: #Ecto.Schema.Metadata<:loaded, "users">,
     hashed_password: "$2b$12$ZPxcbPz9c.JyUKdxefgIB.L0SxcPTmu1qzB/Ki8yS66lGL...",
@@ -177,7 +177,7 @@ incorrect username is given. This is to help prevent a possible
 [timing attack](https://en.wikipedia.org/wiki/Timing_attack) in which an
 attacker could infer whether email addresses are present in the database or not.
 
-```ex
+```elixir
   def get_user_by_username_and_password(nil, password), do: {:error, :invalid}
   def get_user_by_username_and_password(username, nil), do: {:error, :invalid}
 
@@ -202,7 +202,7 @@ above.
 Now we can check that `Accounts.get_user_by_username_and_password/2` works as
 expected; All going well, in `iex` you should get stuff like this:
 
-```ex
+```elixir
   Auth.Accounts.get_user_by_username_and_password "reader", "qweqweqwe"
   {:ok,
   # => %Auth.Accounts.User{...}
@@ -228,7 +228,7 @@ we need to:
 For this example, in `config.exs`, we will configure ueberauth and guardian like
 so:
 
-```ex
+```elixir
   config :ueberauth, Ueberauth,
     base_path: "/api/auth",
     providers: [
@@ -265,7 +265,7 @@ provider. For this you have to set:
 
 In order to issue tokens we need to write a module using the guardian behaviour:
 
-```ex
+```elixir
   defmodule Auth.Guardian do
     use Guardian, otp_app: :auth
 
@@ -292,7 +292,7 @@ our user resource as a JWT.
 
 And with that, we have all we need to put together an authentication controller:
 
-```ex
+```elixir
   defmodule AuthWeb.AuthenticationController do
     use AuthWeb, :controller
 
@@ -328,7 +328,7 @@ And with that, we have all we need to put together an authentication controller:
 
 Next, map a route to the `identity_callback` action like so:
 
-```ex
+```elixir
   scope "/api", AuthWeb do
     pipe_through :api
 
@@ -342,7 +342,7 @@ Next, map a route to the `identity_callback` action like so:
 
 With that, we should be able to authenticate over HTTP
 
-```sh
+```bash
   curl \
     -XPOST \
     -v \
@@ -366,7 +366,7 @@ This will be carried out using a series of plugs provided by Guardian.
 We write our own plug, grouping them together so that we can control how errors
 are handled:
 
-```ex
+```elixir
   defmodule AuthWeb.Plug.AuthAccessPipeline do
     use Guardian.Plug.Pipeline, otp_app: :auth
 
@@ -380,7 +380,7 @@ are handled:
 We want to ensure that our authentication pipeline gives nice generic errors to
 anyone who might be password guessing, for this we write another plug:
 
-```ex
+```elixir
   defmodule AuthWeb.Plug.AuthErrorHandler do
     import Plug.Conn
     import Phoenix.Controller, only: [json: 2]
@@ -396,7 +396,7 @@ anyone who might be password guessing, for this we write another plug:
 
 And the configure `Auth.AuthAccessPipeline` to use it:
 
-```ex
+```elixir
   # Configure the authentication plug pipeline
   config :auth, AuthWeb.Plug.AuthAccessPipeline,
     module: Auth.Guardian,
@@ -405,7 +405,7 @@ And the configure `Auth.AuthAccessPipeline` to use it:
 
 The last step in this section is to add a pipeline to the router,
 
-```ex
+```elixir
   pipeline :authenticated do
     plug AuthWeb.Plug.AuthAccessPipeline
   end
@@ -413,7 +413,7 @@ The last step in this section is to add a pipeline to the router,
 
 and to use it to restrict access to our user resource:
 
-```
+```elixir
   scope "/api", AuthWeb do
     pipe_through :api
 
@@ -428,7 +428,7 @@ and to use it to restrict access to our user resource:
 With all of that in place, we can try hitting up `/api/users` both with, and
 without a valid session token:
 
-```sh
+```bash
   curl localhost:4000/api/users -H 'content-type: application/json'
   # => {"message":"unauthenticated"}
 
@@ -466,7 +466,7 @@ in the `Guardian.Permissions.Bitwise` behaviour and a corresponding
 First we need to update Auth.Guardian to encode a users permissions into their
 tokens:
 
-```ex
+```elixir
   defmodule Auth.Guardian do
     @moduledoc """
     Integration with Guardian
@@ -490,14 +490,14 @@ tokens:
 And pass in a user's permissions when calling `Auth.Guardian.encode_and_sign/3`
 from `Auth.AuthenticationController`
 
-```ex
+```elixir
   Auth.Guardian.encode_and_sign(user, %{}, permissions: %{default: user.permissions})
 ```
 
 Now, in `Auth.UserController` we can check these permissions per controller
 action with the `Guardian.Permissions.Bitwise` plug:
 
-```ex
+```elixir
   plug Guardian.Permissions.Bitwise, ensure: %{default: [:read_users]}
   plug Guardian.Permissions.Bitwise, [ensure: %{default: [:write_users]}] when action in [:create, :update, :delete]
 ```
