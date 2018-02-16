@@ -59,15 +59,18 @@ class App < Sinatra::Base
   end
 
   before do
-    headers 'Access-Control-Allow-Origin' => 'http://localhost:3333'
-    headers 'Access-Control-Allow-Headers' => 'Authorization,Accepts,Content-Type,X-CSRF-Token,X-Requested-With'
-    headers 'Access-Control-Allow-Methods' => 'GET,OPTIONS'
-
     content_type 'application/json'
   end
 
   # Page per article
   Article.init("#{settings.articles_dir}/*.md").each do |article|
+    # Route to each article as html
+    get article.path do
+      content_type :html
+      send_file File.expand_path('index.html', settings.public_folder)
+    end
+
+    # Route to json version
     get "#{article.path}.json" do
 
       # let me see unpublished in development!!
@@ -117,5 +120,14 @@ class App < Sinatra::Base
     previews.to_json
   end
 
-end
+  get '/' do
+     content_type :html
 
+     send_file File.expand_path('index.html', settings.public_folder)
+   end
+
+   # ONLY ONE!!!
+   get '/index.html' do
+     redirect to('/')
+   end
+end

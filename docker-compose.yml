@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  blog:
+    environment:
+      - MEMCACHED_HOST: memcached
+    image: nathamanath/blog:latest
+    networks:
+      - blog
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - 8080:80
+      networks:
+        - blog
+
+  memcached:
+    image: memcached:1.5.5-alpine
+    networks:
+      - blog
+
+configs:
+  -
+
+networks:
+  blog: {}

@@ -42,7 +42,8 @@ RUN mkdir -p /var/blog/bundle
 RUN mkdir -p /opt/blog
 WORKDIR /opt/blog
 
-
+# Move over gemfile and install first
+# so that we can cache installed gems after a code change
 COPY Gemfile /opt/blog
 COPY Gemfile.lock /opt/blog
 
@@ -53,7 +54,7 @@ USER bloguser
 RUN gem install bundler
 RUN bundle install --binstubs --without development test
 
-
+# Now bring in the rest of the code
 USER root
 
 COPY . /opt/blog
