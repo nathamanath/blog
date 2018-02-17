@@ -22,3 +22,5 @@ You can see it running here: [blog.nathansplace.co.uk](http://blog.nathansplace.
 * related articles
 * tags
 * article names unique per year
+* better use of memcached
+* toc links within articles

@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:stretch-slim
 
 # Ruby
 RUN apt-get -yq update && apt-get -yq install \
