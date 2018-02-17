@@ -62,9 +62,8 @@ class App < Sinatra::Base
     content_type 'application/json'
   end
 
-  # Pages per article
+  # Page per article
   Article.init("#{settings.articles_dir}/*.md").each do |article|
-
     # Route to each article as html
     get article.path do
       content_type :html
@@ -122,15 +121,13 @@ class App < Sinatra::Base
   end
 
   get '/' do
-    content_type :html
+     content_type :html
 
-    send_file File.expand_path('index.html', settings.public_folder)
-  end
+     send_file File.expand_path('index.html', settings.public_folder)
+   end
 
-  # ONLY ONE!!!
-  get '/index.html' do
-    redirect to('/')
-  end
-
+   # ONLY ONE!!!
+   get '/index.html' do
+     redirect to('/')
+   end
 end
-

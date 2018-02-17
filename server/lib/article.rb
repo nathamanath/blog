@@ -24,6 +24,7 @@ class Article
       clear!
 
       Dir[glob].each do |file|
+        # TODO: shove articles in memcached
         all << Article.new_from_file(file)
       end
 
@@ -63,8 +64,9 @@ class Article
       all.reverse!
     end
 
+    # Instantiate an Article from a markdown file
     def new_from_file(f)
-      file = File.read f
+      file = File.read(f)
 
       meta, content = file.split("\n\n", 2)
 

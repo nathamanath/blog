@@ -22,6 +22,6 @@ module.exports = {
   },
 
   paths: {
-    public: '../server/public'
+    public: '../public'
   }
 };

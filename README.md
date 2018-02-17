@@ -1,17 +1,26 @@
-# Blog
+# Blog backend
 
-Blog app originally based on demo in 'Sinatra up and running' book.
+Blog app originally based on demo project in 'Sinatra up and running' book.
+It is now a REST api serving content my blog client app.
 
-LIST WHAT IT DOES!!
+I have also added:
+
+* test coverage
+* next / prev article links
+* code syntax highlighting
+* caching with memcache
+* sprockets intergration for article assets
+* Docker setup
+* published state on articles
+* articles published by created_at date
 
 You can see it running here: [blog.nathansplace.co.uk](http://blog.nathansplace.co.uk)
 
 ## TODO:
 
-* updated at does not survive deploy
-* paginate articles with infinite scrolling
+* paginate articles
 * related articles
 * tags
-* json + rss
 * article names unique per year
-* extract sprockets setup to module
+* better use of memcached
+* toc links within articles
