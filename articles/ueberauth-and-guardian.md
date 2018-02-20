@@ -491,7 +491,7 @@ And pass in a user's permissions when calling `Auth.Guardian.encode_and_sign/3`
 from `Auth.AuthenticationController`
 
 ```elixir
-  Auth.Guardian.encode_and_sign(user, %{}, permissions: %{default: user.permissions})
+  Auth.Guardian.encode_and_sign(user, %{}, permissions: user.permissions)
 ```
 
 Now, in `Auth.UserController` we can check these permissions per controller
