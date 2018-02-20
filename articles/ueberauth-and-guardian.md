@@ -528,6 +528,7 @@ For example:
 * Role management
 * Implement other authentication strategies, such as oauth2 via a third party
   provider
+* TTL on your tokens, and a means of refreshing them
 
 And of course, TLS is essential when handling user credentials.
 
