@@ -147,7 +147,7 @@ be useful to us (see comments)...
 And at this point, I am going to seed a few users with a range of permissions
 now so that we can try out our code as we progress...
 
-https://github.com/nathamanath/phoenix-auth-example/blob/master/priv/repo/seeds.ex
+https://github.com/nathamanath/phoenix-auth-example/blob/master/priv/repo/seeds.exs
 
 And after seeding the database, `Auth.Accounts.list_users` will show us our
 seeded users and that our changes to `Auth.Accounts.User` have worked as
