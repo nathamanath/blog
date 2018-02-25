@@ -31,6 +31,9 @@ export default {
 
     History.Adapter.bind(window, 'statechange', () => {
       crossroads.parse(document.location.pathname + document.location.search)
+
+      ga('set', 'page', document.location.pathname + document.location.search)
+      ga('send', 'pageview')
     })
 
     document.body.addEventListener('click', (e) => {
