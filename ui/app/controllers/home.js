@@ -3,7 +3,7 @@ import App from 'app'
 
 import '../components/home'
 
-Crossroads.addRoute('', () => {
+Crossroads.addRoute(':?thing:', () => {
   App.pageClass('')
   App.pageTitle('')
   App.getPage('home', { url: `/index.json` })
