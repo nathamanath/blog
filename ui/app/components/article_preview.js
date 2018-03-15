@@ -20,7 +20,7 @@ ko.components.register('article-preview', {
         </a>
       </header>
 
-      <div data-bind="text: preview"></div>
+      <p data-bind="text: preview"></p>
 
       <footer>
         <p>
