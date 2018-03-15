@@ -3,7 +3,6 @@ import ko from 'knockout'
 const SHOW_CLASS = 'animate-in'
 
 ko.bindingHandlers.pageComponent = {
-
   init: function(el, valueAccessor, allBindings, viewModel, bindingContext) {
     let value = valueAccessor()
     let componentName = value.name
