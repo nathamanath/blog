@@ -210,7 +210,7 @@ expected; All going well, in `iex` you should get stuff like this:
   Auth.Accounts.get_user_by_username_and_password "frank", "qweqweqwe"
   # => {:error, :unauthorised}
 
-  Auth.Accounts.get_user_by_username_and_password "reader", "opensaysm"
+  Auth.Accounts.get_user_by_username_and_password "reader", "qweqweqwe"
   # => {:error, :unauthorised}
 ```
 
