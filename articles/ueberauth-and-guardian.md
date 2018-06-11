@@ -234,7 +234,6 @@ so:
     providers: [
       identity: {Ueberauth.Strategy.Identity, [
         callback_methods: ["POST"],
-        callback_path: "/api/auth/identity/callback",
         nickname_field: :username,
         param_nesting: "user",
         uid_field: :username
